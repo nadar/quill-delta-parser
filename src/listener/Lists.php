@@ -5,8 +5,7 @@ namespace nadar\quill\listener;
 use nadar\quill\Listener;
 use nadar\quill\Delta;
 
-
-class Heading extends Listener
+class Lists extends Listener
 {
     public function priority(): int
     {
@@ -20,12 +19,9 @@ class Heading extends Listener
     
     public function render(Delta $delta)
     {
-        $header = $delta->getAttribute('header');
-        if ($header) {
-            $delta->getParser()->writeBuffer('<h'.$header.'>'.$delta->getPreviousDelta()->getInsert().'</h'.$header.'>');
-            $delta->getPreviousDelta()->setDone();
-            $delta->setDone();
+        $list = $delta->getAttribute('list'); // "bullet"
+        if ($list) {
+            $item = $delta->getPreviousDelta();
         }
-        
     }
 }
