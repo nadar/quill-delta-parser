@@ -4,7 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Listener;
 use nadar\quill\Delta;
-
+use nadar\quill\Parser;
 
 class Heading extends Listener
 {
@@ -18,7 +18,7 @@ class Heading extends Listener
         return self::TYPE_BLOCK;
     }
     
-    public function render(Delta $delta)
+    public function process(Delta $delta)
     {
         $header = $delta->getAttribute('header');
         if ($header) {
@@ -26,6 +26,11 @@ class Heading extends Listener
             $delta->getPreviousDelta()->setDone();
             $delta->setDone();
         }
+        
+    }
+
+    public function render(Parser $parser)
+    {
         
     }
 }

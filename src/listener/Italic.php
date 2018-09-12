@@ -4,7 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Listener;
 use nadar\quill\Delta;
-
+use nadar\quill\Parser;
 
 class Italic extends Listener
 {
@@ -13,10 +13,15 @@ class Italic extends Listener
         return self::TYPE_INLINE;
     }
 
-    public function render(Delta $delta)
+    public function process(Delta $delta)
     {
         if ($delta->getAttribute('italic')) {
             $delta->setInsert('<em>'.$delta->getInsert().'</em>');
         }
+    }
+
+    public function render(Parser $parser)
+    {
+        
     }
 }

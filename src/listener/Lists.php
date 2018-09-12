@@ -4,6 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Listener;
 use nadar\quill\Delta;
+use nadar\quill\Parser;
 
 class Lists extends Listener
 {
@@ -17,11 +18,24 @@ class Lists extends Listener
         return self::TYPE_BLOCK;
     }
     
-    public function render(Delta $delta)
+    public function process(Delta $delta)
     {
         $list = $delta->getAttribute('list'); // "bullet"
         if ($list) {
-            $item = $delta->getPreviousDelta();
+            $this->addToBag($delta);
+            $this->addToBag($delta->getPreviousDelta());
         }
+    }
+
+    public function render(Parser $parser)
+    {
+        $content = null;
+        foreach ($this->getBag() as $delta) {
+            if (!$delta->getAttribute('list')) {
+                $content.= '<li>'.$delta->getInsert() .'</li>';
+            }
+        }
+        
+        $parser->writeBuffer('<ul>'.$content.'</ul>');
     }
 }

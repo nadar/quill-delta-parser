@@ -4,6 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Delta;
 use nadar\quill\Listener;
+use nadar\quill\Parser;
 
 
 class Text extends Listener
@@ -12,12 +13,12 @@ class Text extends Listener
     {
         return self::PRIORITY_GARBAGE_COLLECTOR;
     }
-    
+
     public function type(): int
     {
         return self::TYPE_BLOCK;
     }
-    public function render(Delta $delta)
+    public function process(Delta $delta)
     {
         if ($delta->isEndOfLine() && !$delta->isDone()) {
 
@@ -49,5 +50,10 @@ class Text extends Listener
             
             $delta->getParser()->writeBuffer($content);
         }
+    }
+
+    public function render(Parser $parser)
+    {
+        
     }
 }

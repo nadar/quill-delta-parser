@@ -63,16 +63,29 @@ class Parser
             $delta = $this->setDelta($key, new Delta($delta, $key, $this));
             foreach ($this->listeners[Listener::TYPE_INLINE] as $prios) {
                 foreach ($prios as $listener) {
-                    $listener->render($delta);
+                    $listener->process($delta);
                 }
             }
             foreach ($this->listeners[Listener::TYPE_BLOCK] as $prios) {
                 foreach ($prios as $listener) {
-                    $listener->render($delta);
+                    $listener->process($delta);
                 }
             }
         }
         
+        // the rendering happens:
+
+        foreach ($this->listeners[Listener::TYPE_INLINE] as $prios) {
+            foreach ($prios as $listener) {
+                $listener->render($this);
+            }
+        }
+        foreach ($this->listeners[Listener::TYPE_BLOCK] as $prios) {
+            foreach ($prios as $listener) {
+                $listener->render($this);
+            }
+        }
+
         return $this->removeNewlines(implode(PHP_EOL, $this->buffer));
     }
 
