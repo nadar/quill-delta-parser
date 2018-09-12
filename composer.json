@@ -1,0 +1,26 @@
+{
+    "name": "nadar/quill-delta-to-html",
+    "description": "A PHP library to parse quill detla json to html.",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^7.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Basil Suter",
+            "email": "git@nadar.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "nadar\\quill\\" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "nadar\\quill\\tests\\" : "tests/"
+        }
+    },
+    "require": {}
+}
