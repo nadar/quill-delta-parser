@@ -17,9 +17,15 @@ class Heading extends Listener
     {
         $header = $delta->getAttribute('header');
 
+        
         if ($header) {
             $prev = $delta->getPreviousDelta();
+            
+            $delta->debugPrint('heading');
+            $prev->debugPrint('heading prev');
+            
             $prev->setInsert('<h'.$header.'>'.$prev->getInsert().'</h'.$header.'>');
+
             $prev->setDone();
             $delta->setDone();
         }

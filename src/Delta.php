@@ -102,6 +102,7 @@ class Delta
         echo 'isDone: ' . var_export($this->isDone(), true) . PHP_EOL;
         echo 'isEmptyNewLine: ' . var_export($this->isEmptyNewLine(), true) . PHP_EOL;
         echo 'hasEndNewLine: ' . var_export($this->hasEndNewLine(), true) . PHP_EOL;
+        echo 'attributes: ' . var_export($this->getAttributes(), true) . PHP_EOL;
         echo '----------' . PHP_EOL . PHP_EOL . PHP_EOL;
     }
 }
