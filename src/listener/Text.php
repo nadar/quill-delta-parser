@@ -21,30 +21,58 @@ class Text extends Listener
 
     public function process(Delta $delta)
     {
-        if ($delta->isEndOfLine() && !$delta->isDone()) {
-
-            $while = true;
-            $prev = $delta;
-            $this->addToBag($delta);
-
-            while ($while) {
-
-                $prev = $prev->getPreviousDelta();
-
-                if (!$prev || $prev->isEndOfLine() || $prev->isDone()) {
-                    $while = false;
-                } else {
-                    $this->addToBag($prev);
-                }
-            }
-        }
+        $this->addToBag($delta, false);
+        
     }
 
     public function render(\nadar\quill\Parser $parser)
     {
+        $isOpen = false;
         foreach ($this->getBag() as $delta) {
-            $value = $delta->getInsert();
-            var_dump($value, $delta->isDone());
+
+            // DEBUG
+            // $delta->debugPrint('text');
+       
+
+            $prev = $delta->getPreviousDelta();
+            // stage 1
+            // there is no previous tag, and its not marked as done (heading, or others), so open!
+            if (!$isOpen && !$prev && !$delta->isDone()) {
+                $delta->setInsert('<p>'.$this->replaceNewlineInTextNotEnd($delta));
+                $isOpen = true;
+
+            // stage 2
+            // There is a previous element, and the previous element has an empty endling line, lets open the p tag:
+            } elseif (!$isOpen && $prev && $prev->isEmptyNewLine()) {
+                $delta->setInsert('<p>'.$this->replaceNewlineInTextNotEnd($delta));
+                $isOpen = true;
+            }
+
+            // stage 3
+            // there is already an open p tag, and the current delta has an empty newline is an empty new line tag
+            if ($isOpen && ($delta->isEmptyNewLine() || $delta->hasEndNewLine())) {
+                $delta->setInsert($this->replaceNewlineInTextNotEnd($delta) . '</p>');
+                $isOpen = false;
+            }
         }
+    }
+    
+    private function replaceNewlineInTextNotEnd(Delta $delta)
+    {
+        $text = $delta->getInsert();
+        if ($delta->hasEndNewLine()) {
+            $text = substr($text, 0, -1);
+        }
+        $text = str_replace([PHP_EOL, '\n', '\r'], '</p><p>', $text);
+
+        // if there are <p></p> they should have a br inside
+        $text = str_replace("<p></p>", "<p><br></p>", $text);
+
+        // if there is a end new line, we have to re add this information again, otheriwse the stage 3 check wont work!
+        if ($delta->hasEndNewLine()) {
+            $text .= PHP_EOL;
+        }
+
+        return $text;
     }
 }

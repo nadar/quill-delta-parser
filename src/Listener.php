@@ -23,15 +23,20 @@ abstract class Listener
 
     private $_bag = [];
 
-    public function addToBag(Delta $delta, $group = null)
+    public function addToBag(Delta $delta, $setAsDone = true)
     {
+        $this->_bag[] = $delta;
+        /*
         if ($group) {
             $this->_bag[$group][] = $delta;
         } else {
             $this->_bag[] = $delta;
         }
+        */
+        if ($setAsDone) {
+            $delta->setDone();
+        }
         
-        $delta->isDone();
     }
 
     public function getBag()

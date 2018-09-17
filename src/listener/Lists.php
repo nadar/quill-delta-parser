@@ -26,7 +26,11 @@ class Lists extends Listener
     {
         $content = null;
         $first = null;
+
         foreach ($this->getBag() as $delta) {
+
+            //$delta->debugPrint('lists');
+            
             if (!$first) {
                 $first = $delta;
             } else {
@@ -40,6 +44,7 @@ class Lists extends Listener
         
         if ($first) {
             $first->setInsert('<ul>'.$content.'</ul>');
+            $first->setDone();
         }
     }
 }

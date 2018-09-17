@@ -77,12 +77,31 @@ class Delta
         return $this->getParser()->getDelta($this->key - 1);
     }
 
-    public function isEndOfLine()
+    public function hasEndNewLine()
     {
         $chars = [
             PHP_EOL, '\n', '\r',
         ];
         
         return in_array(substr($this->getInsert(), -1), $chars);
+    }
+
+    public function isEmptyNewLine()
+    {
+        $chars = [
+            PHP_EOL, '\n', '\r',
+        ];
+        return in_array($this->getInsert(), $chars);
+    }
+
+    public function debugPrint($context)
+    {
+        echo PHP_EOL . '----------> ' . $context . PHP_EOL . '#' . $this->key . ':' . PHP_EOL;
+        echo 'insert: ' . var_export($this->getInsert(), true) . PHP_EOL;
+        echo 'insert: (nl2br) ' . var_export(nl2br($this->getInsert()), true) . PHP_EOL;
+        echo 'isDone: ' . var_export($this->isDone(), true) . PHP_EOL;
+        echo 'isEmptyNewLine: ' . var_export($this->isEmptyNewLine(), true) . PHP_EOL;
+        echo 'hasEndNewLine: ' . var_export($this->hasEndNewLine(), true) . PHP_EOL;
+        echo '----------' . PHP_EOL . PHP_EOL . PHP_EOL;
     }
 }

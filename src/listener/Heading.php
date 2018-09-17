@@ -16,20 +16,13 @@ class Heading extends Listener
     public function process(Delta $delta)
     {
         $header = $delta->getAttribute('header');
+
         if ($header) {
-            $this->addToBag($delta->getPreviousDelta());
-            $this->addToBag($delta);
+            $prev = $delta->getPreviousDelta();
+            $prev->setInsert('<h'.$header.'>'.$prev->getInsert().'</h'.$header.'>');
+            $prev->setDone();
+            $delta->setDone();
         }
     }
 
-    public function render(Parser $parser)
-    {
-        if (empty($this->getBag())) {
-            return;
-        }
-        list ($prev, $original) = $this->getBag();
-        $header = $original->getAttribute('header');
-        $original->setInsert('<h'.$header.'>'.$prev->getInsert().'</h'.$header.'>');
-        $prev->remove();
-    }
 }

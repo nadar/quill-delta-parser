@@ -12,7 +12,8 @@ use nadar\quill\listener\Bold;
 class ParserTest extends TestCase
 {
     public $asserts = [
-      '<ul><li>Foo</li><li>Bar</li></ul>' => '[
+      
+      '<ul><li>Foo</li><li>Bar</li></ul><p></p>' => '[
       {
         "insert": "Foo"
       },
@@ -34,6 +35,8 @@ class ParserTest extends TestCase
       {
         "insert": "\n"
       }]',
+      
+      
       '<p>Hallo</p><p>Wie</p><p>Gehts?</p>' => '{"ops": [{"insert": "Hallo\nWie\nGehts?\n"}]}',
       '<p>Hallo</p><p>Wie</p><p><br></p><p>Shift</p><p>Enter</p>' => '[{"insert": "Hallo\nWie\n\nShift\nEnter\n"}]',
       '<h1>Title</h1><p>Text with <strong>bold</strong> element.</p>' => '{
@@ -61,6 +64,7 @@ class ParserTest extends TestCase
           }
         ]
       }',
+      
     ];
 
     public function testJsonToArray()
