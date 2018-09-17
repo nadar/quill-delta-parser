@@ -16,14 +16,12 @@ class Parser
     protected $deltas = [];
 
     protected $listeners = [
-        Listener::TYPE_BLOCK => [
-            Listener::PRIORITY_EARLY_BIRD => [],
-            Listener::PRIORITY_CASUAL => [],
-            Listener::PRIORITY_GARBAGE_COLLECTOR => [],
-        ],
         Listener::TYPE_INLINE => [
             Listener::PRIORITY_EARLY_BIRD => [],
-            Listener::PRIORITY_CASUAL => [],
+            Listener::PRIORITY_GARBAGE_COLLECTOR => [],
+        ],
+        Listener::TYPE_BLOCK => [
+            Listener::PRIORITY_EARLY_BIRD => [],
             Listener::PRIORITY_GARBAGE_COLLECTOR => [],
         ],
     ];
@@ -73,20 +71,18 @@ class Parser
             }
         }
         
-        // the rendering happens:
-
-        foreach ($this->listeners[Listener::TYPE_INLINE] as $prios) {
-            foreach ($prios as $listener) {
-                $listener->render($this);
-            }
-        }
         foreach ($this->listeners[Listener::TYPE_BLOCK] as $prios) {
             foreach ($prios as $listener) {
                 $listener->render($this);
             }
         }
 
-        return $this->removeNewlines(implode(PHP_EOL, $this->buffer));
+        $buff = null;
+        foreach ($this->deltas as $delta) {
+            $buff.= $delta->getInsert();
+        }
+        
+        return $this->removeNewlines($buff);
     }
 
     public function removeNewlines($content)
@@ -96,21 +92,19 @@ class Parser
         ], '', $content);
     }
 
-    public function getDelta($key)
-    {
-        return isset($this->deltas[$key]) ? $this->deltas[$key] : false;
-    }
-
     public function setDelta($key, Delta $delta)
     {
         $this->deltas[$key] = $delta;
         return $delta;
     }
 
-    protected $buffer = [];
-
-    public function writeBuffer($string)
+    public function getDelta($key)
     {
-        $this->buffer[] = $string;
+        return isset($this->deltas[$key]) ? $this->deltas[$key] : false;
+    }
+
+    public function removeDelta($key)
+    {
+        unset($this->deltas[$key]);
     }
 }

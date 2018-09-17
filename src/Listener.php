@@ -10,8 +10,6 @@ abstract class Listener
     
     const PRIORITY_EARLY_BIRD = 1;
 
-    const PRIORITY_CASUAL = 2;
-
     /**
      * This type of priorioty is generally used when the Listener checks whether a Delta `isDone()` already. Therefore it is
      * used to process "not done" deltas.
@@ -20,17 +18,20 @@ abstract class Listener
 
     public function priority(): int
     {
-        return self::PRIORITY_CASUAL;
+        return self::PRIORITY_EARLY_BIRD;
     }
 
     private $_bag = [];
 
-    public function addToBag(Delta $delta, $markAsDone = true)
+    public function addToBag(Delta $delta, $group = null)
     {
-        $this->_bag[] = $delta;
-        if ($markAsDone) {
-            $delta->isDone();
+        if ($group) {
+            $this->_bag[$group][] = $delta;
+        } else {
+            $this->_bag[] = $delta;
         }
+        
+        $delta->isDone();
     }
 
     public function getBag()
@@ -38,8 +39,15 @@ abstract class Listener
         return $this->_bag;
     }
 
+    /**
+     * The render method is only triggered for: TYPE_BLOCK
+     */
+    public function render(Parser $parser)
+    {
+
+    }
+
     abstract public function type(): int;
     abstract public function process(Delta $delta);
-    abstract public function render(Parser $parser);
     
 }

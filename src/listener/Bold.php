@@ -19,9 +19,4 @@ class Bold extends Listener
             $delta->setInsert('<strong>'.$delta->getInsert().'</strong>');
         }
     }
-
-    public function render(Parser $parser)
-    {
-        
-    }
 }

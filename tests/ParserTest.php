@@ -12,7 +12,7 @@ use nadar\quill\listener\Bold;
 class ParserTest extends TestCase
 {
     public $asserts = [
-      '<ul><li>Foo</li><li>Bar</li><ul>' => '[
+      '<ul><li>Foo</li><li>Bar</li></ul>' => '[
       {
         "insert": "Foo"
       },

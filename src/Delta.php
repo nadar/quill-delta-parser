@@ -19,6 +19,11 @@ class Delta
         $this->key = $key;
     }
 
+    public function remove()
+    {
+        $this->parser->removeDelta($this->key);
+    }
+
     public function setDone()
     {
         $this->done = true;

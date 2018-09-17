@@ -19,9 +19,4 @@ class Italic extends Listener
             $delta->setInsert('<em>'.$delta->getInsert().'</em>');
         }
     }
-
-    public function render(Parser $parser)
-    {
-        
-    }
 }

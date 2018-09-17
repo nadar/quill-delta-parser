@@ -8,11 +8,6 @@ use nadar\quill\Parser;
 
 class Lists extends Listener
 {
-    public function priority(): int
-    {
-        return self::PRIORITY_EARLY_BIRD;
-    }
-    
     public function type(): int
     {
         return self::TYPE_BLOCK;
@@ -30,12 +25,21 @@ class Lists extends Listener
     public function render(Parser $parser)
     {
         $content = null;
+        $first = null;
         foreach ($this->getBag() as $delta) {
+            if (!$first) {
+                $first = $delta;
+            } else {
+                $delta->remove();
+            }
+
             if (!$delta->getAttribute('list')) {
                 $content.= '<li>'.$delta->getInsert() .'</li>';
             }
         }
         
-        $parser->writeBuffer('<ul>'.$content.'</ul>');
+        if ($first) {
+            $first->setInsert('<ul>'.$content.'</ul>');
+        }
     }
 }
