@@ -5,6 +5,8 @@ namespace nadar\quill\listener;
 use nadar\quill\Delta;
 use nadar\quill\Listener;
 use nadar\quill\Parser;
+use nadar\quill\Line;
+use nadar\quill\Lexer;
 
 
 class Text extends Listener
@@ -19,12 +21,25 @@ class Text extends Listener
         return self::TYPE_BLOCK;
     }
 
-    public function process(Delta $delta)
+    public function process(Line $line)
     {
-        $this->addToBag($delta, false);
-        
+        if (!$line->getPreviousLine()) {
+            $this->pick($line, ['isFirst' => true]);
+        } else {
+            $this->pick($line, ['isFirst' => false]);
+        }
     }
 
+    public function render(Lexer $lexer)
+    {
+        foreach ($this->picks() as $pick) {
+            
+            if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
+                $pick->line->output = '<p>'.$pick->line->input.'</p>';
+            }
+        }
+    }
+    /*
     public function render(\nadar\quill\Parser $parser)
     {
         $isOpen = false;
@@ -75,4 +90,5 @@ class Text extends Listener
 
         return $text;
     }
+    */
 }

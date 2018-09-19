@@ -2,14 +2,46 @@
 
 namespace nadar\quill;
 
+use nadar\quill\listener\Heading;
+use nadar\quill\listener\Text;
+use nadar\quill\listener\Lists;
+use nadar\quill\listener\Bold;
+
+
 class Lexer
 {
     const NEWLINE_EXPRESSION = '<!--CDATA:NEWLINE-->';
+
     protected $json;
+
+    protected $listeners = [
+        Listener::TYPE_INLINE => [
+            Listener::PRIORITY_EARLY_BIRD => [],
+            Listener::PRIORITY_GARBAGE_COLLECTOR => [],
+        ],
+        Listener::TYPE_BLOCK => [
+            Listener::PRIORITY_EARLY_BIRD => [],
+            Listener::PRIORITY_GARBAGE_COLLECTOR => [],
+        ],
+    ];
 
     public function __construct(string $json)
     {
         $this->json = $json;
+    }
+
+    public function initBuiltInListeners()
+    {
+        $this->registerListener(New Bold);
+        //&$this->registerListener(new Italic);
+        $this->registerListener(new Heading);
+        $this->registerListener(new Text);
+        $this->registerListener(new Lists);
+    }
+
+    public function registerListener(Listener $listener)
+    {
+        $this->listeners[$listener->type()][$listener->priority()][] = $listener;
     }
 
     public function getJsonArray() : array
@@ -22,16 +54,69 @@ class Lexer
         return isset($this->getJsonArray()['ops']) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
     }
 
-    protected $strf = [];
-
-    public function arrayify()
+    public function getLine($id)
     {
-        foreach ($this->getOps() as $key => $delta) {
-            $insert = str_replace(PHP_EOL, self::NEWLINE_EXPRESSION, $delta['insert']);
-            $this->strf[] = ['string' => $insert, 'lines' => explode(self::NEWLINE_EXPRESSION, $insert), 'attribute' => isset($delta['attributes']) ? $delta['attributes'] : []];
-            
+        return isset($this->_lines[$id]) ? $this->_lines[$id] : false;
+    }
+
+    public function getLines()
+    {
+        return $this->_lines;
+    }
+
+    private $_lines = [];
+
+    public function render()
+    {
+        $this->opsToLines($this->getOps());
+
+        foreach ($this->_lines as $row => $line) {
+            foreach ($this->listeners[Listener::TYPE_INLINE] as $prios) {
+                foreach ($prios as $listener) {
+                    $listener->process($line);
+                }
+            }
+            foreach ($this->listeners[Listener::TYPE_BLOCK] as $prios) {
+                foreach ($prios as $listener) {
+                    $listener->process($line);
+                }
+            }
         }
 
-        return $this->strf;
+        foreach ($this->listeners[Listener::TYPE_INLINE] as $prios) {
+            foreach ($prios as $listener) {
+                $listener->render($this);
+            }
+        }
+        foreach ($this->listeners[Listener::TYPE_BLOCK] as $prios) {
+            foreach ($prios as $listener) {
+                $listener->render($this);
+            }
+        }
+
+        $buff = null;
+        foreach ($this->_lines as $row => $line) {
+            $buff.= $line->output;
+        }
+
+        return $buff;
+    }
+
+    protected function opsToLines(array $ops)
+    {
+        $i = 0;
+        foreach ($ops as $key => $delta) {
+            $insert = str_replace(PHP_EOL, self::NEWLINE_EXPRESSION, $delta['insert']);
+
+            if ($insert == self::NEWLINE_EXPRESSION) {
+                $this->_lines[$i] = new Line($i, $insert, isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                $i++;
+            } else {
+                foreach (explode(self::NEWLINE_EXPRESSION, $insert) as $value) {
+                    $this->_lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                    $i++;
+                }
+            }
+        }
     }
 }

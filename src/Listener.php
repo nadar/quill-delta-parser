@@ -3,11 +3,10 @@
 namespace nadar\quill;
 
 abstract class Listener
-{  
+{
     const TYPE_INLINE = 1;
 
     const TYPE_BLOCK = 2;
-    
     const PRIORITY_EARLY_BIRD = 1;
 
     /**
@@ -21,38 +20,25 @@ abstract class Listener
         return self::PRIORITY_EARLY_BIRD;
     }
 
-    private $_bag = [];
+    protected $_picks = [];
 
-    public function addToBag(Delta $delta, $setAsDone = true)
+    public function pick(Line $line, array $options = [])
     {
-        $this->_bag[] = $delta;
-        /*
-        if ($group) {
-            $this->_bag[$group][] = $delta;
-        } else {
-            $this->_bag[] = $delta;
-        }
-        */
-        if ($setAsDone) {
-            $delta->setDone();
-        }
-        
+        $line->setPicked();
+        $this->_picks[] = new Pick($line, $options);
     }
 
-    public function getBag()
+    public function picks()
     {
-        return $this->_bag;
+        return $this->_picks;
     }
 
-    /**
-     * The render method is only triggered for: TYPE_BLOCK
-     */
-    public function render(Parser $parser)
+    public function render(Lexer $lexer)
     {
 
     }
 
     abstract public function type(): int;
-    abstract public function process(Delta $delta);
+    abstract public function process(Line $line);
     
 }

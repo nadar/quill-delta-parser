@@ -5,6 +5,7 @@ namespace nadar\quill\listener;
 use nadar\quill\Listener;
 use nadar\quill\Delta;
 use nadar\quill\Parser;
+use nadar\quill\Line;
 
 class Heading extends Listener
 {   
@@ -13,21 +14,14 @@ class Heading extends Listener
         return self::TYPE_BLOCK;
     }
     
-    public function process(Delta $delta)
+    public function process(Line $line)
     {
-        $header = $delta->getAttribute('header');
-
-        
-        if ($header) {
-            $prev = $delta->getPreviousDelta();
-            
-            $delta->debugPrint('heading');
-            $prev->debugPrint('heading prev');
-            
-            $prev->setInsert('<h'.$header.'>'.$prev->getInsert().'</h'.$header.'>');
-
+        $heading = $line->getAttribute('header');
+        if ($heading) {
+            $prev = $line->getPreviousLine();
+            $prev->output = '<h'.$heading.'>'.$prev->input.'</h'.$heading.'>';
+            $line->setDone();
             $prev->setDone();
-            $delta->setDone();
         }
     }
 

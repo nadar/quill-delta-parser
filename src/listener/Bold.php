@@ -5,6 +5,7 @@ namespace nadar\quill\listener;
 use nadar\quill\Listener;
 use nadar\quill\Delta;
 use nadar\quill\Parser;
+use nadar\quill\Line;
 
 class Bold extends Listener
 {
@@ -13,10 +14,11 @@ class Bold extends Listener
         return self::TYPE_INLINE;
     }
 
-    public function process(Delta $delta)
+    public function process(Line $line)
     {
-        if ($delta->getAttribute('bold')) {
-            $delta->setInsert('<strong>'.$delta->getInsert().'</strong>');
+        if ($line->getAttribute('bold')) {
+            $line->input = '<strong>'.$line->input.'</strong>';
+
         }
     }
 }
