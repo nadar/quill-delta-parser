@@ -55,6 +55,8 @@ class Parser
         return isset($this->getJsonArray()['ops']) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
     }
 
+    public $chars = [];
+
     public function render() : string
     {
         foreach ($this->getOps() as $key => $delta) {
