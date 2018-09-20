@@ -6,6 +6,7 @@ use nadar\quill\listener\Heading;
 use nadar\quill\listener\Text;
 use nadar\quill\listener\Lists;
 use nadar\quill\listener\Bold;
+use nadar\quill\listener\Blockquote;
 
 
 class Lexer
@@ -37,6 +38,7 @@ class Lexer
         $this->registerListener(new Heading);
         $this->registerListener(new Text);
         $this->registerListener(new Lists);
+        $this->registerListener(new Blockquote);
     }
 
     public function registerListener(Listener $listener)
@@ -109,7 +111,7 @@ class Lexer
             $insert = str_replace(PHP_EOL, self::NEWLINE_EXPRESSION, $delta['insert']);
 
             if ($insert == self::NEWLINE_EXPRESSION) {
-                $this->_lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                $this->_lines[$i] = new Line($i, '<br>', isset($delta['attributes']) ? $delta['attributes'] : [], $this);
                 $i++;
             } else {
                 // remove new line from the end of the string

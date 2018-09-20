@@ -13,7 +13,7 @@ class ParserTest extends TestCase
 {
     public $asserts = [
       
-      '<ul><li>Foo</li><li>Bar</li></ul><p></p>' => '[
+      '<ul><li>Foo</li><li>Bar</li></ul><p><br></p>' => '[
       {
         "insert": "Foo"
       },
