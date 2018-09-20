@@ -3,7 +3,7 @@
 namespace nadar\quill\tests;
 
 use PHPUnit\Framework\TestCase;
-use nadar\quill\Parser;
+use nadar\quill\Lexer;
 use nadar\quill\listener\Text;
 use nadar\quill\listener\Heading;
 use nadar\quill\listener\Bold;
@@ -106,7 +106,7 @@ JSON;
         $same = <<<'EOT'
 <h1>Heading!</h1>
 <p></p><p>
-Some text! <strong>Bold</strong>! </p>
+Some text! Bold! </p>
 <h2>Heading2!</h2>
 <p>We need bullets:</p>
 <ul>
@@ -120,7 +120,7 @@ Some text! <strong>Bold</strong>! </p>
 </ul>
 EOT;
         
-        $parser = new Parser($json);
+        $parser = new Lexer($json);
         $parser->initBuiltInListeners();
 
         $this->assertSame(trim(str_replace(PHP_EOL, '', $same)), trim($parser->render()));

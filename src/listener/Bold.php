@@ -17,8 +17,9 @@ class Bold extends Listener
     public function process(Line $line)
     {
         if ($line->getAttribute('bold')) {
-            $line->input = '<strong>'.$line->input.'</strong>';
-
+            $line->output = '<strong>'.$line->input.'</strong>';
+            $line->setDone();
+            $line->isInline = true;
         }
     }
 }

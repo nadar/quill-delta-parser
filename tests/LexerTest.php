@@ -95,18 +95,18 @@ class LexerTest extends TestCase
       },
       "insert": "\n"
     }
-  ]
-}
+]}
 JSON;
+
         $lexer = new Lexer($json);
 
-        foreach ($lexer->arrayify() as $item) {
-            var_dump($item);
-        }
 
         $html = '<h1>Heading</h1>
         <p><br></p><p>Some text!</p>
         <p><br></p>
         <h2>Heading2</h2>';
+
+        $this->assertSame($html, $lexer->render());
+
     }
 }

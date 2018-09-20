@@ -20,9 +20,14 @@ class Lists extends Listener
         $listType = $line->getAttribute('list');
         if ($listType) {
             $prev = $line->getPreviousLine(); // the value for the <li>
-            $prevPrev = $prev->getPreviousLine()->getAttribute('list'); // does the element before the element has also a list?
-            
-            $this->pick($prev, ['isFirst' => (bool) !$prevPrev]);
+            $prevPrev = $prev->getPreviousLine();
+            if ($prevPrev) {
+                $prevPrevType = $prevPrev->getAttribute('list'); // does the element before the element has also a list?
+            } else {
+                $prevPrevType = false;
+            }
+
+            $this->pick($prev, ['isFirst' => (bool) !$prevPrevType]);
             $prev->setDone();
             $line->setDone();
         }

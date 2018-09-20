@@ -34,8 +34,26 @@ class Text extends Listener
     {
         foreach ($this->picks() as $pick) {
             
+            
             if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
-                $pick->line->output = '<p>'.$pick->line->input.'</p>';
+
+                $input = null;
+                if ($pick->line->previous() && $pick->line->previous()->isInline) {
+                    // don't open the p
+                } else {
+                    $input .= '<p>';
+                }
+
+                $input .= $pick->line->input;
+
+
+                if ($pick->line->next() && $pick->line->next()->isInline) {
+                    // don't close the p
+                } else {
+                    $input .= '</p>';
+                }
+
+                $pick->line->output = $input;
             }
         }
     }

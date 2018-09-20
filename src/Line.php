@@ -17,6 +17,7 @@ class Line
     public $output;
 
     public $status = 0;
+    public $isInline = false;
 
     public function __construct($row, $value, array $attributes, Lexer $lexer)
     {
@@ -49,6 +50,16 @@ class Line
     public function getNextLine()
     {
         return $this->lexer->getLine($this->row + 1);
+    }
+
+    public function next()
+    {
+        return $this->getNextLine();
+    }
+
+    public function previous()
+    {
+        return $this->getPreviousLine();
     }
 
     public function setPicked()
