@@ -37,23 +37,31 @@ class Text extends Listener
             
             if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
 
-                $input = null;
+                $output = [];
                 if ($pick->line->previous() && $pick->line->previous()->isInline) {
                     // don't open the p
                 } else {
-                    $input .= '<p>';
+                    $output[] = '<p>';
                 }
 
-                $input .= $pick->line->input;
+                // if the line is empty and the NEXT line is NOT $isInline, then its a newline (empty <p> with <br>)
+                if (empty($pick->line->input)) {
+                    if ($pick->line->next() && $pick->line->next()->isInline) {
 
+                    } else {
+                        $output[] = '<br>';
+                    }
+                } else {
+                    $output[] = $pick->line->input;
+                }
 
                 if ($pick->line->next() && $pick->line->next()->isInline) {
                     // don't close the p
                 } else {
-                    $input .= '</p>';
+                    $output[] = '</p>';
                 }
 
-                $pick->line->output = $input;
+                $pick->line->output = implode("", $output);
             }
         }
     }

@@ -81,4 +81,9 @@ class Line
     {
         return $this->status == self::STATUS_DONE;
     }
+
+    public function isEmpty()
+    {
+        return empty($this->input);
+    }
 }

@@ -18,106 +18,25 @@ class ComplexDeltaTest extends TestCase
     {
         $json = <<<'JSON'
 {"ops":[
-    {
-      "insert": "Heading!"
-    },
-    {
-      "attributes": {
-        "header": 1
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "\n"
-    },
-    {
-      "insert": "Some text! Bold! "
-    },
-    {
-      "insert": "\n\n"
-    },
-    {
-      "insert": "Heading2!"
-    },
-    {
-      "attributes": {
-        "header": 2
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "\n"
-    },
-    {
-      "insert": "We need bullets:"
-    },
-    {
-      "insert": "\n\n"
-    },
-    {
-      "insert": "BU"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "LET"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "\n"
-    },
-    {
-      "insert": "And more!"
-    },
-    {
-      "insert": "\n\n"
-    },
-    {
-      "insert": "LET"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "BU"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    }
-  ]
-}
+  {"insert":"\nAlberto Giacometti (1901–1966) u... Zustände erahnen.\n\n"},
+  {"attributes":{"bold":true},"insert":"Was"},
+  {"insert":": Ausstellung «Bacon – Giacometti»\n"},
+  {"attributes":{"bold":true},"insert":"Wann"},
+  {"insert":": Bis 2. September 2018\n"},
+  {"attributes":{"bold":true},"insert":"Wo"},
+  {"insert":": Fondation Beyeler, Riehen\n"},
+  {"attributes":{"bold":true},"insert":"Öffnungszeiten"},
+  {"insert":": Donnerstag bis Dienstag, 10 bis 18 Uhr | Mittwoch, 10 bis 20 Uhr \n"},
+  {"attributes":{"bold":true},"insert":"Eintritt"},
+  {"insert":": CHF 28\n"},
+  {"insert":"\n\nDieser Beitrag ist in Kooperation mit der Fondation Beyeler entstanden.\n"}    
+]}
 JSON;
 
         $same = <<<'EOT'
-<h1>Heading!</h1>
-<p></p><p>
-Some text! Bold! </p>
-<h2>Heading2!</h2>
-<p>We need bullets:</p>
-<ul>
-<li>BU</li>
-<li>LET</li>
-</ul>
-<p>And more!</p>
-<ul>
-<li>LET</li>
-<li>BU</li>
-</ul>
+<p><br></p>
+<p>Alberto Giacometti (1901–1966) u... Zustände erahnen.</p>
+<p><strong>Was</strong>: Ausstellung «Bacon – Giacometti»</p>
 EOT;
         
         $parser = new Lexer($json);
