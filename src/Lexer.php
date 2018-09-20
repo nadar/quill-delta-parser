@@ -104,27 +104,37 @@ class Lexer
         return $buff;
     }
 
+    public function getNotDoneLines()
+    {
+
+    }
+
+    public function getNotPickedLines()
+    {
+        
+    }
+    
     protected function opsToLines(array $ops)
     {
         $i = 0;
         foreach ($ops as $key => $delta) {
             $insert = str_replace(PHP_EOL, self::NEWLINE_EXPRESSION, $delta['insert']);
 
-            //if ($insert == self::NEWLINE_EXPRESSION) {
-            //    $this->_lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this);
-            //    $i++;
-            //} else {
+            if ($insert == self::NEWLINE_EXPRESSION) {
+                $this->_lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                $i++;
+            } else {
                 // remove new line from the end of the string
                 // as this explode split well be done anyhow or its already part of a new line
                 if (substr($insert, -strlen(self::NEWLINE_EXPRESSION)) == self::NEWLINE_EXPRESSION) {
-                    //$insert = substr($insert, 0, -strlen(self::NEWLINE_EXPRESSION));
+                    $insert = substr($insert, 0, -strlen(self::NEWLINE_EXPRESSION));
                 }
                 
                 foreach (explode(self::NEWLINE_EXPRESSION, $insert) as $value) {
                     $this->_lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this);
                     $i++;
                 }
-            //}
+            }
         }
     }
 }

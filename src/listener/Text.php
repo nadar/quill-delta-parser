@@ -35,8 +35,39 @@ class Text extends Listener
         foreach ($this->picks() as $pick) {
             
             
+            $isOpen = false;
             if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
+                $output = [];
+                $line= $pick->line;
+                $next = $pick->line->next();
+                $prev = $pick->line->previous();
 
+                if (!$isOpen) {
+                    // if there is a previous element and its inline, we should not open the tag as its already open:
+                    if ($prev && $prev->isInline) {
+                        $isOpen = true;
+                    } else {
+                        $output[] = '<p>';
+                        $isOpen = true;
+                    }
+                    
+                }
+
+                $output[] = empty($line->input) ? '<br>' : $line->input;
+
+                if ($isOpen) {
+                    // if there is a next element, and the element is inline, maybe we should not close this element yet
+                    if ($next && $next->isInline) {
+                        
+                    } else {
+                        $output[] = '</p>';
+                        $isOpen = false;
+                    }
+
+                }
+
+
+                /*
                 $output = [];
                 if ($pick->line->previous() && $pick->line->previous()->isInline) {
                     // don't open the p
@@ -60,8 +91,9 @@ class Text extends Listener
                 } else {
                     $output[] = '</p>';
                 }
-
+                */
                 $pick->line->output = implode("", $output);
+            
             }
         }
     }
