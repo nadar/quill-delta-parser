@@ -5,35 +5,41 @@ A PHP library to parse quill delta into html. All attributes and elements are ba
 ## Usage:
 
 ```php
-$parser = new Parser('{
-"ops": [
+use nadar\quill\Lexer;
+
+$lexer = new Lexer($json);
+$lexer->initBuiltInListeners();
+
+// echoing the html for the given json ops.
+echo $lexer->render();
+```
+
+Where `$json` is the ops json array from quill, for example:
+
+```json
+{
+  "ops": [
     {
-    "insert": "Title"
+      "insert": "Hello"
     },
     {
-    "attributes": {
+      "attributes": {
         "header": 1
-    },
-    "insert": "\n"
-    },
-    {
-    "insert": "Text with "
+      },
+      "insert": "\n"
     },
     {
-    "attributes": {
+      "insert": "\nThis is the php quill "
+    },
+    {
+      "attributes": {
         "bold": true
-    },
-    "insert": "bold"
+      },
+      "insert": "parser"
     },
     {
-    "insert": " element.\n"
+      "insert": "!\n"
     }
-]
-}');
-
-$parser->registerListener(new Heading());
-$parser->registerListener(new Text());
-$parser->registerListener(new Bold());
-
-echo $parser->render();
+  ]
+}
 ```
