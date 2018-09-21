@@ -1,5 +1,5 @@
 {
-    "name": "nadar/quill-delta-to-html",
+    "name": "nadar/quill-delta-parser",
     "description": "A PHP library to parse quill detla json to html.",
     "type": "library",
     "require-dev": {
