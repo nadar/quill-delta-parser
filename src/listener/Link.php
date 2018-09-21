@@ -7,7 +7,7 @@ use nadar\quill\Delta;
 use nadar\quill\Parser;
 use nadar\quill\Line;
 
-class Bold extends Listener
+class Link extends Listener
 {
     public function type(): int
     {
@@ -16,9 +16,10 @@ class Bold extends Listener
 
     public function process(Line $line)
     {
-        if ($line->getAttribute('bold')) {
+        $link = $line->getAttribute('link');
+        if ($line->getAttribute('link')) {
             $next = $line->next();
-            $next->input = '<strong>'.$line->input.'</strong>' . $next->input;
+            $next->input = '<a href="'.$link.'">'.$line->input.'</a>' . $next->input;
             $line->setDone();
             $line->isInline = true;
         }

@@ -5,7 +5,6 @@ namespace nadar\quill\listener;
 use nadar\quill\Listener;
 use nadar\quill\Line;
 
-
 class Blockquote extends Listener
 {
     // blockquote
@@ -18,11 +17,10 @@ class Blockquote extends Listener
     {
         $blockquote = $line->getAttribute('blockquote');
         if ($blockquote) {
-            $prev = $line->getPreviousLine();
+            $prev = $line->previous();
             $prev->output = '<blockquote>'.$prev->input.'</blockquote>';
             $line->setDone();
             $prev->setDone();
         }
     }
-
 }

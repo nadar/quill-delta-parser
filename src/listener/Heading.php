@@ -8,7 +8,7 @@ use nadar\quill\Parser;
 use nadar\quill\Line;
 
 class Heading extends Listener
-{   
+{
     public function type(): int
     {
         return self::TYPE_BLOCK;
@@ -18,11 +18,10 @@ class Heading extends Listener
     {
         $heading = $line->getAttribute('header');
         if ($heading) {
-            $prev = $line->getPreviousLine();
+            $prev = $line->previous();
             $prev->output = '<h'.$heading.'>'.$prev->input.'</h'.$heading.'>';
             $line->setDone();
             $prev->setDone();
         }
     }
-
 }

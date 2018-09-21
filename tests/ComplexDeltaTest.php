@@ -8,41 +8,33 @@ use nadar\quill\listener\Text;
 use nadar\quill\listener\Heading;
 use nadar\quill\listener\Bold;
 
-
 /**
  * @see https://www.transmute-coffee.com/php-quill-renderer.php#demo
  */
-class ComplexDeltaTest extends TestCase
+class ComplexDeltaTest extends DeltaTestCase
 {
-    public function testOutput()
-    {
-        $json = <<<'JSON'
+    public $json = <<<'JSON'
 {"ops":[
-  {"insert":"\nAlberto Giacometti (1901–1966) u... Zustände erahnen.\n\n"},
+  {"insert":"\nIntro Text.\n\n"},
   {"attributes":{"bold":true},"insert":"Was"},
-  {"insert":": Ausstellung «Bacon – Giacometti»\n"},
+  {"insert":": Ausstellung\n"},
   {"attributes":{"bold":true},"insert":"Wann"},
-  {"insert":": Bis 2. September 2018\n"},
+  {"insert":": 27.9.2018\n"},
   {"attributes":{"bold":true},"insert":"Wo"},
-  {"insert":": Fondation Beyeler, Riehen\n"},
-  {"attributes":{"bold":true},"insert":"Öffnungszeiten"},
-  {"insert":": Donnerstag bis Dienstag, 10 bis 18 Uhr | Mittwoch, 10 bis 20 Uhr \n"},
-  {"attributes":{"bold":true},"insert":"Eintritt"},
-  {"insert":": CHF 28\n"},
-  {"insert":"\n\nDieser Beitrag ist in Kooperation mit der Fondation Beyeler entstanden.\n"}    
+  {"insert":": Aarau\n"},
+  {"insert":"\nFooter.\n"}    
 ]}
 JSON;
 
-        $same = <<<'EOT'
+    public $html = <<<'EOT'
 <p><br></p>
-<p>Alberto Giacometti (1901–1966) u... Zustände erahnen.</p>
-<p><strong>Was</strong>: Ausstellung «Bacon – Giacometti»</p>
+<p>Intro Text.</p>
+<p><br></p>
+<p><strong>Was</strong>: Ausstellung</p>
+<p><strong>Wann</strong>: 27.9.2018</p>
+<p><strong>Wo</strong>: Aarau</p>
+<p><br></p>
+<p>Footer.</p>
 EOT;
-        
-        $parser = new Lexer($json);
-        $parser->initBuiltInListeners();
-
-        $this->assertSame(trim(str_replace(PHP_EOL, '', $same)), trim($parser->render()));
-    }
 
 }

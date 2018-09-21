@@ -37,29 +37,19 @@ class Line
         return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : false;
     }
 
-    public function getPreviousLine()
-    {
-        return $this->lexer->getLine($this->row - 1);
-    }
-
     public function remove()
     {
         return $this->lexer->removeLine($this->row);
     }
 
-    public function getNextLine()
+    public function next()
     {
         return $this->lexer->getLine($this->row + 1);
     }
 
-    public function next()
-    {
-        return $this->getNextLine();
-    }
-
     public function previous()
     {
-        return $this->getPreviousLine();
+         return $this->lexer->getLine($this->row - 1);
     }
 
     public function setPicked()

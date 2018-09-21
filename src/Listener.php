@@ -35,10 +35,8 @@ abstract class Listener
 
     public function render(Lexer $lexer)
     {
-
     }
 
     abstract public function type(): int;
     abstract public function process(Line $line);
-    
 }

@@ -19,8 +19,8 @@ class Lists extends Listener
     {
         $listType = $line->getAttribute('list');
         if ($listType) {
-            $prev = $line->getPreviousLine(); // the value for the <li>
-            $prevPrev = $prev->getPreviousLine();
+            $prev = $line->previous(); // the value for the <li>
+            $prevPrev = $prev->previous();
             if ($prevPrev) {
                 $prevPrevType = $prevPrev->getAttribute('list'); // does the element before the element has also a list?
             } else {
@@ -65,7 +65,7 @@ class Lists extends Listener
         foreach ($this->getBag() as $delta) {
 
             //$delta->debugPrint('lists');
-            
+
             if (!$first) {
                 $first = $delta;
             } else {
@@ -76,7 +76,7 @@ class Lists extends Listener
                 $content.= '<li>'.$delta->getInsert() .'</li>';
             }
         }
-        
+
         if ($first) {
             $first->setInsert('<ul>'.$content.'</ul>');
             $first->setDone();

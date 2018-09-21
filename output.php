@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 use nadar\quill\Parser;
 use nadar\quill\Lexer;
+
 require 'vendor/autoload.php';
 
 $json = isset($_POST['quill-editor-input']) ? $_POST['quill-editor-input'] : '{}';
