@@ -8,6 +8,10 @@ use nadar\quill\listener\Text;
 use nadar\quill\listener\Heading;
 use nadar\quill\listener\Bold;
 
+/**
+ * 1. create delta: https://quilljs.com/docs/delta/
+ * 2. minify json: https://www.cleancss.com/json-minify/
+ */
 class ParserTest extends TestCase
 {
     public $asserts = [
@@ -18,14 +22,14 @@ class ParserTest extends TestCase
       '<p>Hallo</p><p>Wie</p><p>Gehts?</p>' => '{"ops": [{"insert": "Hallo\nWie\nGehts?\n"}]}',
       '<p>Hallo</p><p>Wie</p><p><br></p><p>Shift</p><p>Enter</p>' => '[{"insert": "Hallo\nWie\n\nShift\nEnter\n"}]',
       '<h1>Title</h1><p>Text with <strong>bold</strong> element.</p>' => '{"ops":[{"insert":"Title"},{"attributes":{"header":1},"insert":"\n"},{"insert":"Text with "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" element.\n"}]}',
-      
+      '<p><em>Italic</em></p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":"\n"}]',
+      '<blockquote><em>text</em></blockquote>' => '[{"attributes":{"italic":true},"insert":"text"},{"attributes":{"blockquote":true},"insert":"\n"}]',
     ];
 
     public function testJsonToArray()
     {
         foreach ($this->asserts as $e => $j) {
             $parser = new Lexer($j);
-            $parser->initBuiltInListeners();
 
             $this->assertTrue(is_array($parser->getJsonArray()));
 

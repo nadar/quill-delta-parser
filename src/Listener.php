@@ -2,11 +2,19 @@
 
 namespace nadar\quill;
 
+/**
+ * Listener Object.
+ * 
+ * Every type of element is a listenere. Listeneres are "listening" to every line of delta code and can
+ * pick and process this line.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ */
 abstract class Listener
 {
     const TYPE_INLINE = 1;
-
     const TYPE_BLOCK = 2;
+    
     const PRIORITY_EARLY_BIRD = 1;
 
     /**
@@ -22,6 +30,13 @@ abstract class Listener
 
     protected $_picks = [];
 
+    /**
+     * Undocumented function
+     *
+     * @param Line $line
+     * @param array $options
+     * @return void
+     */
     public function pick(Line $line, array $options = [])
     {
         $line->setPicked();

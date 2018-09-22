@@ -2,6 +2,14 @@
 
 namespace nadar\quill;
 
+/**
+ * Debug Object.
+ * 
+ * The Debug class can return informations in a readable way from a lexer object.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class Debug
 {
     public $lexer;

@@ -23,7 +23,6 @@ composer require nadar/quill-delta-parser
 use nadar\quill\Lexer;
 
 $lexer = new Lexer($json);
-$lexer->initBuiltInListeners();
 
 // echoing the html for the given json ops.
 echo $lexer->render();

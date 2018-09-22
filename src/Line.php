@@ -2,6 +2,14 @@
 
 namespace nadar\quill;
 
+/**
+ * Line Object.
+ * 
+ * A line object represents a line from the delta input. Lines are splited in the lexer object.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class Line
 {
     const STATUS_CLEAN = 1;
@@ -18,6 +26,14 @@ class Line
     public $status = 1;
     public $isInline = false;
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $row
+     * @param [type] $value
+     * @param array $attributes
+     * @param Lexer $lexer
+     */
     public function __construct($row, $value, array $attributes, Lexer $lexer)
     {
         $this->row = $row;
@@ -44,6 +60,16 @@ class Line
     public function previous()
     {
         return $this->lexer->getLine($this->row - 1);
+    }
+
+    public function setAsInline()
+    {
+        $this->isInline = true;
+    }
+
+    public function getIsInline()
+    {
+        return $this->isInline;
     }
 
     public function setPicked()

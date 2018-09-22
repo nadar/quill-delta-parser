@@ -2,18 +2,11 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Listener;
-use nadar\quill\Delta;
-use nadar\quill\Parser;
 use nadar\quill\Line;
+use nadar\quill\BlockListener;
 
-class Heading extends Listener
+class Heading extends BlockListener
 {
-    public function type(): int
-    {
-        return self::TYPE_BLOCK;
-    }
-    
     public function process(Line $line)
     {
         $heading = $line->getAttribute('header');

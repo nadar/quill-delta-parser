@@ -2,21 +2,15 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Listener;
 use nadar\quill\Line;
+use nadar\quill\BlockListener;
 
-class Blockquote extends Listener
+class Blockquote extends BlockListener
 {
-    // blockquote
-    public function type(): int
-    {
-        return self::TYPE_BLOCK;
-    }
-    
     public function process(Line $line)
     {
-        $blockquote = $line->getAttribute('blockquote');
-        if ($blockquote) {
+        $heading = $line->getAttribute('blockquote');
+        if ($heading) {
             $prev = $line->previous();
             $prev->output = '<blockquote>'.$prev->input.'</blockquote>';
             $line->setDone();

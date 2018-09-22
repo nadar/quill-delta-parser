@@ -2,19 +2,12 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Listener;
-use nadar\quill\Delta;
-use nadar\quill\Parser;
 use nadar\quill\Line;
 use nadar\quill\Lexer;
+use nadar\quill\BlockListener;
 
-class Lists extends Listener
+class Lists extends BlockListener
 {
-    public function type(): int
-    {
-        return self::TYPE_BLOCK;
-    }
-    
     public function process(Line $line)
     {
         $listType = $line->getAttribute('list');

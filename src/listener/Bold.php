@@ -2,25 +2,15 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Listener;
-use nadar\quill\Delta;
-use nadar\quill\Parser;
 use nadar\quill\Line;
+use nadar\quill\InlineListener;
 
-class Bold extends Listener
+class Bold extends InlineListener
 {
-    public function type(): int
-    {
-        return self::TYPE_INLINE;
-    }
-
     public function process(Line $line)
     {
         if ($line->getAttribute('bold')) {
-            $next = $line->next();
-            $next->input = '<strong>'.$line->input.'</strong>' . $next->input;
-            $line->setDone();
-            $line->isInline = true;
+            $this->updateInput($line, '<strong>' . $line->input . '</strong>');
         }
     }
 }
