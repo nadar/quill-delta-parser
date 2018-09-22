@@ -56,7 +56,7 @@ class Text extends Listener
                 if ($isOpen && ($prev && $prev->isInline) && $line->isEmpty()) {
                     $output[] = '</p>' . $this->appendDebug($lexer, $line, 'A');
                     $isOpen = false;
-                } 
+                }
                 
                 // if its close - we just open tag paragraph as we have a line here!
                 if (!$isOpen) {
@@ -83,7 +83,7 @@ class Text extends Listener
                     $output[] = '</p>' . $this->appendDebug($lexer, $line, 'X');
                     $isOpen = false;
             
-                // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with 
+                // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
                 } elseif ($line->isEmpty() && $next) {
                     $output[] = '</p><p>' . $this->appendDebug($lexer, $line, 'Y');

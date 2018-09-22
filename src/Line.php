@@ -43,7 +43,7 @@ class Line
 
     public function previous()
     {
-         return $this->lexer->getLine($this->row - 1);
+        return $this->lexer->getLine($this->row - 1);
     }
 
     public function setPicked()

@@ -23,5 +23,4 @@ JSON;
 <p><br></p>
 <p>Footer.</p>
 EOT;
-
 }

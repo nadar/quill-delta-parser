@@ -8,7 +8,7 @@ class Debug
 
     public function __construct(Lexer $lexer)
     {
-        $this->lexer = $lexer;   
+        $this->lexer = $lexer;
     }
 
     protected function getNotDoneLines()
