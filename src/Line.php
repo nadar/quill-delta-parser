@@ -5,9 +5,8 @@ namespace nadar\quill;
 class Line
 {
     const STATUS_CLEAN = 1;
-    const STATUS_DIRTY = 2;
-    const STATUS_PICKED = 3;
-    const STATUS_DONE = 4;
+    const STATUS_PICKED = 2;
+    const STATUS_DONE = 3;
     public $row;
     
     public $attributes = [];
@@ -16,7 +15,7 @@ class Line
     public $input;
     public $output;
 
-    public $status = 0;
+    public $status = 1;
     public $isInline = false;
 
     public function __construct($row, $value, array $attributes, Lexer $lexer)
@@ -35,11 +34,6 @@ class Line
     public function getAttribute($name)
     {
         return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : false;
-    }
-
-    public function remove()
-    {
-        return $this->lexer->removeLine($this->row);
     }
 
     public function next()
