@@ -53,7 +53,9 @@ abstract class InlineListener extends Listener
         $line->setAsInline();
         $this->pick($line);
     }
+    */
 
+    /*
     public function render(\nadar\quill\Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {

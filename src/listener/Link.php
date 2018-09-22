@@ -10,11 +10,13 @@ class Link extends InlineListener
 {
     public function process(Line $line)
     {
-        if ($line->getAttribute('link')) {
+        $link = $line->getAttribute('link');
+        if ($link) {
+            $this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
             //$this->pick($line);
             //$line->setAsInline();
-            $link = $line->getAttribute('link');
-            $this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
+            //$link = $line->getAttribute('link');
+            //$this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
             //$this->updateInput($line, '')
         }
     }

@@ -22,16 +22,11 @@ class Mention extends InlineListener
         if ($line->isJsonInsert()) {
             $array = $line->getArrayInsert();
             if (isset($array['mention'])) {
-                $this->pick($line);
-                $line->setAsInline();
+                // $this->updateInput($line, $array['mention']['value']);
+                //$line->input = $array['mention']['value'];
+                $line->setDone();
+                //$this->pick($line, ['value' => $array['mention']['value']]);
             }
-        }
-    }
-
-    public function render(Lexer $lexer)
-    {
-        foreach ($this->picks() as $pick) {
-            $this->updateInput($pick->line, $pick->line->getArrayInsert()['mention']['value']);
         }
     }
 }

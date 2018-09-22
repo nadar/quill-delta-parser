@@ -11,8 +11,8 @@ class Italic extends InlineListener
     public function process(Line $line)
     {
         if ($line->getAttribute('italic')) {
-            //$this->inlinePick($line, '<em>'.$line->input.'</em>');
             $this->updateInput($line, '<em>'.$line->input.'</em>');
+            //$this->updateInput($line, '<em>'.$line->input.'</em>');
         }
     }
 }

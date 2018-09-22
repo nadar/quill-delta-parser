@@ -28,16 +28,16 @@ class Text extends BlockListener
         foreach ($this->picks() as $pick) {
             if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
 
-                // quick access and mark as done
-                $line = $pick->line;
+                $pick->line->setDone();
+
                 $next = $pick->line->next();
                 $prev = $pick->line->previous();
-                $line->setDone();
+                
                 $output = [];
 
                 // wenn previous ist inline und das tag bereits göffnet. Am schluss schliesen.
                 // aber nur wenn diese linie leer ist.
-                if ($isOpen && ($prev && $prev->getIsInline()) && $line->isEmpty()) {
+                if ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->isEmpty()) {
                     $isOpen = $this->output($output, '</p>', false);
                 }
                 
@@ -47,7 +47,7 @@ class Text extends BlockListener
                 }
 
                 // write the actuall content of the element into the output
-                $output[] = $line->isEmpty() ? '<br>' : $line->input;
+                $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->input;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
                 if ($isOpen && ($next && !$next->getIsInline())) {
@@ -64,7 +64,7 @@ class Text extends BlockListener
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
-                } elseif ($line->isEmpty() && $next) {
+                } elseif ($pick->line->isEmpty() && $next) {
                     $isOpen = $this->output($output, '</p><p>', true);
                 }
                 
