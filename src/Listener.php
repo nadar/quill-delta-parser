@@ -12,23 +12,53 @@ namespace nadar\quill;
  */
 abstract class Listener
 {
+    /**
+     * @var integer Type inline listener
+     */
     const TYPE_INLINE = 1;
+
+    /**
+     * @var integer Type block listener
+     */
     const TYPE_BLOCK = 2;
     
+    /**
+     * @var integer First priority listener within the given type
+     */
     const PRIORITY_EARLY_BIRD = 1;
 
     /**
-     * This type of priorioty is generally used when the Listener checks whether a Delta `isDone()` already. Therefore it is
-     * used to process "not done" deltas.
+     * @var integer Second priority listener within the given type. This is currently only used
+     * for TEXT listeneres - as they need to be the very last entry.
      */
-    const PRIORITY_GARBAGE_COLLECTOR = 3;
+    const PRIORITY_GARBAGE_COLLECTOR = 2;
 
+    /**
+     * Undocumented function
+     *
+     * @return integer
+     */
+    abstract public function type(): int;
+
+    /**
+     * Undocumented function
+     *
+     * @param Line $line
+     * @return void
+     */
+    abstract public function process(Line $line);
+
+    /**
+     * Undocumented function
+     *
+     * @return integer
+     */
     public function priority(): int
     {
         return self::PRIORITY_EARLY_BIRD;
     }
 
-    protected $_picks = [];
+    private $_picks = [];
 
     /**
      * Undocumented function
@@ -43,15 +73,24 @@ abstract class Listener
         $this->_picks[] = new Pick($line, $options);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function picks()
     {
         return $this->_picks;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Lexer $lexer
+     * @return void
+     */
     public function render(Lexer $lexer)
     {
+        // override in your listenere if needed.
     }
-
-    abstract public function type(): int;
-    abstract public function process(Line $line);
 }

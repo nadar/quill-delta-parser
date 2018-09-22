@@ -90,7 +90,7 @@ class Lexer
     {
         $this->json = $json;
 
-        if ($this->loadBuiltinListeneres()) {
+        if ($loadBuiltinListeneres) {
             $this->loadBuiltinListeneres();
         }
     }
