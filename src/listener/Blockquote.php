@@ -9,8 +9,8 @@ class Blockquote extends BlockListener
 {
     public function process(Line $line)
     {
-        $heading = $line->getAttribute('blockquote');
-        if ($heading) {
+        $blockquote = $line->getAttribute('blockquote');
+        if ($blockquote) {
             $prev = $line->previous();
             $prev->output = '<blockquote>'.$prev->input.'</blockquote>';
             $line->setDone();
