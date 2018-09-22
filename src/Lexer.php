@@ -12,32 +12,32 @@ use nadar\quill\listener\Italic;
 
 /**
  * Lexer Delta Parser.
- * 
+ *
  * The lexer class represents the main thread in how delta input is processed and rendered.
- * 
+ *
  * Basically Listeneres can watch every line of delta and interact with the line, which means
  * reading input and writting to output and mark this line as done, so other listeneres won't
  * take care of this line as well.
- * 
+ *
  * ## Basic concept
- * 
+ *
  * Listeneres are grouped in 2 types:
- * 
+ *
  * + inline: For elements which are only inline applied, like writing bold or italic
  * + block: Used when the line represents a full html element like heading or lists
- * 
+ *
  * Inside this group types there are 2 prioirities:
- * 
+ *
  * + early bird: This is default value, the early bird catches the worm...
  * + garbage collector: This is mainly used for the text listenere which generates the paragraphs and can only be done at the very end of the process.
- * 
+ *
  * Every listenere has two methods a process() and render():
- * 
+ *
  * + process: is triggered by every line, so the listenere can choose whether he wants to pick this line, interact or not.
  * + render: after all lines are processed, every listenered triggers the render() method once, so the picked line from process can be "further" processed and rendered.
- * 
+ *
  * ## Lifecycle
- * 
+ *
  * 1. lines will be generated
  * 2. lines foreached and inline early bird listeners run process() method.
  * 3. lines foreached and inline garbage collector listeneres run process() method.
@@ -45,7 +45,7 @@ use nadar\quill\listener\Italic;
  * 5. lines foreached and block garbage collector listenere run process() method.
  * 6. inline listeneres foreach and run render() method.
  * 7. block listeneres foreach and run render() method.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
@@ -86,7 +86,7 @@ class Lexer
      * @param string $json The delta ops json as string or as already parsed array.
      * @param boolean $loadBuiltinListeneres Whether the built in listeneres should be loaded or not.
      */
-    public function __construct(string $json, $loadBuiltinListeneres = true)
+    public function __construct($json, $loadBuiltinListeneres = true)
     {
         $this->json = $json;
 

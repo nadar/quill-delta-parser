@@ -4,9 +4,9 @@ namespace nadar\quill;
 
 /**
  * Debug Object.
- * 
+ *
  * The Debug class can return informations in a readable way from a lexer object.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
@@ -47,14 +47,14 @@ class Debug
         $d = "QUILL DELTA LEXER DEBUG".PHP_EOL;
         $d.= "============= SUMMARY ===================" . PHP_EOL;
         $d.= "Lines:" . count($this->lexer->getLines()) . PHP_EOL;
-        $d.= "Lines not done: " . count($this->lexer->getNotDoneLines()) . PHP_EOL;
-        $d.= "Lines not picked: " . count($this->lexer->getNotPickedLines()) . PHP_EOL;
+        $d.= "Lines not done: " . count($this->getNotDoneLines()) . PHP_EOL;
+        $d.= "Lines not picked: " . count($this->getNotPickedLines()) . PHP_EOL;
         $d.= "============= NOT PICKED LINES ==================<table border=1>";
-        foreach ($this->lexer->getNotPickedLines() as $line) {
+        foreach ($this->getNotPickedLines() as $line) {
             $d.= '<tr><td>#' . $line->row . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
         }
         $d.= "</table><p>============= NOT DONE LINES ==================</p><table border=1>";
-        foreach ($this->lexer->getNotDoneLines() as $line) {
+        foreach ($this->getNotDoneLines() as $line) {
             $d.= '<tr><td>#' . $line->row . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
         }
         $d.= "</table><p>============= LINE BY LINE ==================</p><table border=1>";
@@ -68,6 +68,7 @@ class Debug
             $d.= '</tr>';
         }
         $d.= '</table>';
-        echo nl2br($d);
+        
+        return nl2br($d);
     }
 }

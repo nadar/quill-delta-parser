@@ -4,10 +4,10 @@ namespace nadar\quill;
 
 /**
  * Listener Object.
- * 
+ *
  * Every type of element is a listenere. Listeneres are "listening" to every line of delta code and can
  * pick and process this line.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  */
 abstract class Listener

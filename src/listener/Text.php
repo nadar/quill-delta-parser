@@ -39,7 +39,7 @@ class Text extends BlockListener
 
                 // wenn previous ist inline und das tag bereits göffnet. Am schluss schliesen.
                 // aber nur wenn diese linie leer ist.
-                if ($isOpen && ($prev && $prev->isInline) && $line->isEmpty()) {
+                if ($isOpen && ($prev && $prev->getIsInline()) && $line->isEmpty()) {
                     $isOpen = $this->output($output, '</p>', false);
                 }
                 
@@ -52,7 +52,7 @@ class Text extends BlockListener
                 $output[] = $line->isEmpty() ? '<br>' : $line->input;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
-                if ($isOpen && ($next && !$next->isInline)) {
+                if ($isOpen && ($next && !$next->getIsInline())) {
                     $isOpen = $this->output($output, '</p>', false);
 
                 // if its open and we dont have a next element, its the end of the document! lets close this damn paragraph.
@@ -61,7 +61,7 @@ class Text extends BlockListener
 
                 // its open, but the previous element was already an inline element, so maybe we should close and the next element
                 // will take care of the "situation".
-                } elseif ($isOpen && ($prev && $prev->isInline)) {
+                } elseif ($isOpen && ($prev && $prev->getIsInline())) {
                     $isOpen = $this->output($output, '</p>', false);
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
@@ -71,7 +71,7 @@ class Text extends BlockListener
                 }
                 
                 // we have a next element and the next elmenet is inline and its not open, open ...!
-                if ($next && $next->isInline && !$isOpen) {
+                if ($next && $next->getIsInline() && !$isOpen) {
                     $isOpen = $this->output($output, '<p>', true);
                 }
 

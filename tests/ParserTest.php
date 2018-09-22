@@ -7,6 +7,7 @@ use nadar\quill\Lexer;
 use nadar\quill\listener\Text;
 use nadar\quill\listener\Heading;
 use nadar\quill\listener\Bold;
+use nadar\quill\Debug;
 
 /**
  * 1. create delta: https://quilljs.com/docs/delta/
@@ -15,8 +16,8 @@ use nadar\quill\listener\Bold;
 class ParserTest extends TestCase
 {
     public $asserts = [
-      '<p><a href="https://luya.io">luya.io</a> test</p><p><br></p><p>Footer</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":" test\n\nFooter\n"}]',
-      '<p><a href="https://luya.io">luya.io</a></p><p><br></p><p>Ende.</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":"\n\nEnde.\n"}]',
+      '<p><a href="https://luya.io" target="_blank">luya.io</a> test</p><p><br></p><p>Footer</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":" test\n\nFooter\n"}]',
+      '<p><a href="https://luya.io" target="_blank">luya.io</a></p><p><br></p><p>Ende.</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":"\n\nEnde.\n"}]',
       '<p>Start</p><p><br></p><p>Ende</p>' => '[{"insert":"Start\n"}, {"insert":"\n"}, {"insert":"Ende\n"}]',
       '<ul><li>Foo</li><li>Bar</li></ul><p><br></p>' => '[{"insert": "Foo"},{"attributes": { "list": "bullet" },"insert": "\n"},{"insert": "Bar"},{"attributes": { "list": "bullet"},"insert": "\n"},{"insert": "\n"}]',
       '<p>Hallo</p><p>Wie</p><p>Gehts?</p>' => '{"ops": [{"insert": "Hallo\nWie\nGehts?\n"}]}',
@@ -37,5 +38,14 @@ class ParserTest extends TestCase
 
             unset($parser);
         }
+    }
+
+    public function testDebugPrint()
+    {
+        $lexer = new Lexer([["insert" => "foo\n"]]);
+        $this->assertSame('<p>foo</p>', $lexer->render());
+        
+        $debug = new Debug($lexer);
+        $this->assertNotNull($debug->debugPrint());
     }
 }

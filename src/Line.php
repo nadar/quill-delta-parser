@@ -4,9 +4,9 @@ namespace nadar\quill;
 
 /**
  * Line Object.
- * 
+ *
  * A line object represents a line from the delta input. Lines are splited in the lexer object.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

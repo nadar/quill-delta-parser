@@ -4,7 +4,7 @@ namespace nadar\quill;
 
 /**
  * Pick Object holds the line which is picked with optional data.
- * 
+ *
  * @since 1.0.0
  * @author  Basil Suter <basil@nadar.io>
  */

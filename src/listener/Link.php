@@ -11,7 +11,7 @@ class Link extends InlineListener
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, '<a href="'.$link.'">'.$line->input.'</a>');
+            $this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
         }
     }
 }

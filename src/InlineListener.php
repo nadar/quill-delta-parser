@@ -4,9 +4,9 @@ namespace nadar\quill;
 
 /**
  * Inline Listenere.
- * 
+ *
  * Inline listeneres changes the $line->input value!
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
