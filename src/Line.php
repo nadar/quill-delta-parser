@@ -52,9 +52,42 @@ class Line
         return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : false;
     }
 
-    public function next()
+    /**
+     * Get the next element.
+     * 
+     * If a closure is provided you can define a condition of whether next element should be taken or not.
+     * 
+     * For example you can iterate to the next element which is not empty:
+     * 
+     * ```php
+     * $nextNotEmpty = $line->next(function(Line $line) {
+     *     return !$line->isEmpty();
+     * });
+     * ```
+     * 
+     * if true is returned this line will be assigned.
+     */
+    public function next($fn = null)
     {
-        return $this->lexer->getLine($this->row + 1);
+        if ($fn === null) {
+            return $this->lexer->getLine($this->row + 1);
+        }
+
+        $next = true;
+        $i = 1;
+        while ($next) {
+            $elmn = $this->lexer->getLine($this->row + $i);
+            // no next element found
+            if (!$elmn) {
+                return false;
+            }
+            // fn match return current element.
+            if (call_user_func($fn, $elmn)) {
+                return $elmn;
+            }
+            // update counter for rows
+            $i++;
+        }
     }
 
     public function previous()
@@ -94,7 +127,7 @@ class Line
 
     public function isEmpty()
     {
-        return empty($this->input);
+        return $this->input == '';
     }
 
     /**

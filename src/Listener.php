@@ -76,9 +76,9 @@ abstract class Listener
     /**
      * Undocumented function
      *
-     * @return void
+     * @return Line An array with Line objects, for IDE purposes we return the Line object as phpdoc
      */
-    public function picks()
+    public function picks() : array
     {
         return $this->_picks;
     }

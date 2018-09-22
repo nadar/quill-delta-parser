@@ -20,8 +20,8 @@ class MentionTest extends DeltaTestCase
 JSON;
     public $html = <<<'EOT'
 <p>Hello John!</p>
-<p><br></p><
-<p>Hello Jane!</p>
+<p><br></p>
+<p>Hello <strong>Jane</strong>!</p>
 EOT;
 
     public function getLexer()

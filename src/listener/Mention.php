@@ -4,6 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\InlineListener;
 use nadar\quill\Line;
+use nadar\quill\Lexer;
 
 /**
  * Mention Quill Plugin Listener.
@@ -19,10 +20,18 @@ class Mention extends InlineListener
     public function process(Line $line)
     {
         if ($line->isJsonInsert()) {
-            $line->setAsInline();
-            $line->setDone();
-            $line->output = 'aa';
-            $line->input = 'bb';
+            $array = $line->getArrayInsert();
+            if (isset($array['mention'])) {
+                $this->pick($line);
+                $line->setAsInline();
+            }
+        }
+    }
+
+    public function render(Lexer $lexer)
+    {
+        foreach ($this->picks() as $pick) {
+            $this->updateInput($pick->line, $pick->line->getArrayInsert()['mention']['value']);
         }
     }
 }
