@@ -96,4 +96,28 @@ class Line
     {
         return empty($this->input);
     }
+
+    /**
+     * Some plugins have a json as insert value, in order to detected such values
+     * you can use this method.
+     * 
+     * This will check if the given insert string is a json. In order to deocde the
+     * json into a php array afterwards, you can use getArrayInsert();
+     * 
+     * @return boolean Whether current insert string is a json or not.
+     */
+    public function isJsonInsert()
+    {
+        return Lexer::isJson($this->input);
+    }
+
+    /**
+     * Returns the insert json as array.
+     *
+     * @return array
+     */
+    public function getArrayInsert()
+    {
+        return Lexer::decodeJson($this->input);
+    }
 }

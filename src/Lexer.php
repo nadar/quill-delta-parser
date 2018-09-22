@@ -126,7 +126,7 @@ class Lexer
      */
     public function getJsonArray() : array
     {
-        return is_array($this->json) ? $this->json : json_decode($this->json, true);
+        return is_array($this->json) ? $this->json : self::decodeJson($this->json);
     }
 
     /**
@@ -205,6 +205,12 @@ class Lexer
      */
     protected function removeLastNewline($insert)
     {
+        // plugsin can have array values as text.
+        if (is_array($insert)) {
+            // convert the array into a json string
+            return json_encode($insert);
+        }
+
         $expLength = strlen(self::NEWLINE_EXPRESSION);
         // remove new line from the end of the string
         // as this explode split well be done anyhow or its already part of a new line
@@ -269,5 +275,48 @@ class Lexer
         }
 
         return $buff;
+    }
+
+    /**
+     * Checks if a string is a json or not.
+     *
+     * Example values which return true:
+     *
+     * ```php
+     * Json::isJson('{"123":"456"}');
+     * Json::isJson('{"123":456}');
+     * Json::isJson('[{"123":"456"}]');
+     * Json::isJson('[{"123":"456"}]');
+     * ```
+     *
+     * @param mixed $value The value to test if its a json or not.
+     * @return boolean Whether the string is a json or not.
+     */
+    public static function isJson($value)
+    {
+        if (!is_scalar($value)) {
+            return false;
+        }
+        
+        $firstChar = substr($value, 0, 1);
+        
+        if ($firstChar !== '{' && $firstChar !== '[') {
+            return false;
+        }
+        
+        $json_check = json_decode($value);
+        
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
+    /**
+     * Decode a given json string into a php array.
+     *
+     * @param string $json Input json
+     * @return array
+     */
+    public static function decodeJson($json)
+    {
+        return json_decode($json, true);
     }
 }

@@ -30,11 +30,9 @@ class Text extends BlockListener
 
                 // quick access and mark as done
                 $line = $pick->line;
-                $line->setDone();
-
-                // short form
                 $next = $pick->line->next();
                 $prev = $pick->line->previous();
+                $line->setDone();
                 $output = [];
 
                 // wenn previous ist inline und das tag bereits göffnet. Am schluss schliesen.
