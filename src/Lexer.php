@@ -173,11 +173,23 @@ class Lexer
         foreach ($ops as $key => $delta) {
             $insert = $this->replaceNewlineWithExpression($delta['insert']);
             if ($insert == self::NEWLINE_EXPRESSION) {
-                $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true);
                 $i++;
             } else {
-                foreach (explode(self::NEWLINE_EXPRESSION, $this->removeLastNewline($insert)) as $value) {
-                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this);
+                $line = $this->removeLastNewline($insert);
+                $hasEndNewline = false;
+                if ($line !== $insert) {
+                    // seems like we have removed something
+                    $hasEndNewline = true;
+                }
+                $parts = explode(self::NEWLINE_EXPRESSION, $line);
+                foreach ($parts as $index => $value) {
+                    if (($index + 1) == count($parts) && $hasEndNewline) {
+                        $hadEndNewline = true;
+                    } else {
+                        $hadEndNewline = false;
+                    }
+                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline);
                     $i++;
                 }
             }

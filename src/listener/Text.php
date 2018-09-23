@@ -45,7 +45,7 @@ class Text extends BlockListener
                 }
 
                 // write the actuall content of the element into the output
-                $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->prepend . $pick->line->input;
+                $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->renderPrepend() . $pick->line->input;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
                 if ($isOpen && ($next && !$next->getIsInline())) {
@@ -56,17 +56,19 @@ class Text extends BlockListener
                     $isOpen = $this->output($output, '</p>', false);
 
                 // its open, but the previous element was already an inline element, so maybe we should close and the next element
-                // will take care of the "situation".
-                } elseif ($isOpen && ($prev && $prev->getIsInline())) {
-                    // but if there is a next element which is inline, maybe we should not close this yet
-                    // but this will lead into other problems.
-                    // ....
+                // will take care of the "situation". But only if this current line also had an end new line element, otherwise
+                // repeated inline elements will close
+                } elseif ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->hadEndNewline) {
                     $isOpen = $this->output($output, '</p>', false);
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
                 } elseif ($pick->line->isEmpty() && $next) {
                     $isOpen = $this->output($output, '</p><p>', true);
+                
+                // if its open, and it had an end newline, lets close
+                } elseif ($isOpen && $pick->line->hadEndNewline) {
+                    $isOpen = $this->output($output, '</p>', false);   
                 }
                 
                 // we have a next element and the next elmenet is inline and its not open, open ...!

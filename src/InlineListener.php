@@ -41,7 +41,7 @@ abstract class InlineListener extends Listener
             return !$line->getIsInline();
         });
 
-        $next->prepend = $line->input;
+        $next->addPrepend($line->input);
     }
 
     /*

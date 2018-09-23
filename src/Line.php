@@ -20,12 +20,29 @@ class Line
     public $attributes = [];
     public $lexer;
     
-    public $prepend;
+    public $prepend = [];
     public $input;
     public $output;
 
     public $status = 1;
     public $isInline = false;
+
+    /**
+     * @var boolean As certain elements has an end of newline but those are removed within the lexer opt to line methods we remember
+     * this information in $hadEndNewline
+     */
+    public $hadEndNewline = false;
+
+    public function addPrepend($value)
+    {
+        $this->prepend[] = $value;
+    }
+
+    public function renderPrepend()
+    {
+        return end($this->prepend);
+        //return implode("", $this->prepend);
+    }
 
     /**
      * Undocumented function
@@ -35,12 +52,13 @@ class Line
      * @param array $attributes
      * @param Lexer $lexer
      */
-    public function __construct($row, $value, array $attributes, Lexer $lexer)
+    public function __construct($row, $value, array $attributes, Lexer $lexer, $hadEndNewline)
     {
         $this->row = $row;
         $this->input = $value;
         $this->attributes = $attributes;
         $this->lexer = $lexer;
+        $this->hadEndNewline = $hadEndNewline;
     }
 
     public function hasAttribute()
@@ -128,7 +146,7 @@ class Line
 
     public function isEmpty()
     {
-        return $this->input == '' && $this->prepend == '';
+        return $this->input == '' && empty($this->prepend);
     }
 
     /**
