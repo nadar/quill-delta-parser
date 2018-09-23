@@ -20,6 +20,7 @@ class Line
     public $attributes = [];
     public $lexer;
     
+    public $prepend;
     public $input;
     public $output;
 
@@ -127,7 +128,7 @@ class Line
 
     public function isEmpty()
     {
-        return $this->input == '';
+        return $this->input == '' && $this->prepend == '';
     }
 
     /**

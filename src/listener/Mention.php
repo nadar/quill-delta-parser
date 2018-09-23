@@ -24,6 +24,8 @@ class Mention extends InlineListener
             if (isset($array['mention'])) {
                 // $this->updateInput($line, $array['mention']['value']);
                 //$line->input = $array['mention']['value'];
+                $line->output = $array['mention']['value'];
+                $line->setAsInline();
                 $line->setDone();
                 //$this->pick($line, ['value' => $array['mention']['value']]);
             }

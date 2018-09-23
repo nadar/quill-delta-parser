@@ -15,10 +15,8 @@ class Text extends BlockListener
 
     public function process(Line $line)
     {
-        if (!$line->previous()) {
-            $this->pick($line, ['isFirst' => true]);
-        } else {
-            $this->pick($line, ['isFirst' => false]);
+        if (!$line->isDone()) {
+            $this->pick($line);
         }
     }
 
@@ -47,7 +45,7 @@ class Text extends BlockListener
                 }
 
                 // write the actuall content of the element into the output
-                $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->input;
+                $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->prepend . $pick->line->input;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
                 if ($isOpen && ($next && !$next->getIsInline())) {
@@ -60,6 +58,9 @@ class Text extends BlockListener
                 // its open, but the previous element was already an inline element, so maybe we should close and the next element
                 // will take care of the "situation".
                 } elseif ($isOpen && ($prev && $prev->getIsInline())) {
+                    // but if there is a next element which is inline, maybe we should not close this yet
+                    // but this will lead into other problems.
+                    // ....
                     $isOpen = $this->output($output, '</p>', false);
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
