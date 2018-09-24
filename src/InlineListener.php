@@ -35,13 +35,29 @@ abstract class InlineListener extends Listener
         $line->setDone();
         $line->setAsInline();
         $this->pick($line);
+
         // as inline elements might not appear, they are commonly part of a next line, so prepend
         // the current element input to the next element input
+        /*
         $next = $line->next(function(Line $line) {
             return !$line->getIsInline();
         });
 
         $next->addPrepend($line->input);
+        */
+    }
+
+    public function render(\nadar\quill\Lexer $lexer)
+    {
+        foreach ($this->picks() as $pick) {
+
+            $next = $pick->line->next(function(Line $line) {
+                return !$line->getIsInline();
+            });
+
+            $next->addPrepend($pick->line->input);
+
+        }
     }
 
     /*

@@ -40,8 +40,7 @@ class Line
 
     public function renderPrepend()
     {
-        return end($this->prepend);
-        //return implode("", $this->prepend);
+        return implode("", array_unique($this->prepend));
     }
 
     /**

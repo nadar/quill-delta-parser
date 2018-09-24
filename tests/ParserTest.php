@@ -16,7 +16,7 @@ use nadar\quill\Debug;
 class ParserTest extends TestCase
 {
     public $asserts = [
-        
+    
       '<p><a href="https://luya.io" target="_blank">luya.io</a> test</p><p><br></p><p>Footer</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":" test\n\nFooter\n"}]',
       '<p><a href="https://luya.io" target="_blank">luya.io</a></p><p><br></p><p>Ende.</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":"\n\nEnde.\n"}]',
       '<p>Start</p><p><br></p><p>Ende</p>' => '[{"insert":"Start\n"}, {"insert":"\n"}, {"insert":"Ende\n"}]',
@@ -28,8 +28,12 @@ class ParserTest extends TestCase
       '<blockquote><em>text</em></blockquote>' => '[{"attributes":{"italic":true},"insert":"text"},{"attributes":{"blockquote":true},"insert":"\n"}]',
       
       '<p><em>Italic</em> <strong>Bold</strong> <em><strong>BoldItalic</strong></em> Append</p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":" "},{"attributes":{"bold":true},"insert":"Bold"},{"insert":" "},{"attributes":{"italic":true,"bold":true},"insert":"BoldItalic"},{"insert":" Append\n"}]',
-        
-      '<p>Before</p><p><strong>Bold <em>Italic</em></strong> without.</p><p>After</p>' => '[{"insert":"Before\n"},{"attributes":{"bold":true},"insert":"Bold "},{"attributes":{"italic":true,"bold":true},"insert":"Italic"},{"insert":" without.\nAfter\n"}]',
+    
+      '<p>Before</p><p><strong>Bold </strong><em><strong>Italic</strong></em> without.</p><p>After</p>' => '[
+          {"insert":"Before\n"},
+          {"attributes":{"bold":true},"insert":"Bold "},
+          {"attributes":{"italic":true,"bold":true},"insert":"Italic"},
+          {"insert":" without.\nAfter\n"}]',
     ];
 
     public function testJsonToArray()
