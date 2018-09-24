@@ -6,13 +6,25 @@ use nadar\quill\Line;
 use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
 
+/**
+ * Convert all the not done elements into paragraphs.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class Text extends BlockListener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function priority(): int
     {
         return self::PRIORITY_GARBAGE_COLLECTOR;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function process(Line $line)
     {
         if (!$line->isDone()) {
@@ -20,6 +32,9 @@ class Text extends BlockListener
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function render(Lexer $lexer)
     {
         $isOpen = false;
@@ -81,6 +96,14 @@ class Text extends BlockListener
         }
     }
 
+    /**
+     * Helper method simplify output writer.
+     *
+     * @param array $output
+     * @param string $tag
+     * @param boolean $openState
+     * @return boolean
+     */
     protected function output(&$output, $tag, $openState)
     {
         $output[] = $tag;

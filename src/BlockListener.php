@@ -12,6 +12,9 @@ namespace nadar\quill;
  */
 abstract class BlockListener extends Listener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function type(): int
     {
         return self::TYPE_BLOCK;

@@ -12,6 +12,9 @@ namespace nadar\quill;
  */
 abstract class InlineListener extends Listener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function type(): int
     {
         return self::TYPE_INLINE;
@@ -22,7 +25,7 @@ abstract class InlineListener extends Listener
      * 
      * 1. change input value
      * 2. set as done and inline
-     * 3. preprend the value to the next element.
+     * 3. Add to pick list, in order to process in render method
      *
      * @param Line $line
      * @param [type] $value
@@ -35,19 +38,12 @@ abstract class InlineListener extends Listener
         $line->setDone();
         $line->setAsInline();
         $this->pick($line);
-
-        // as inline elements might not appear, they are commonly part of a next line, so prepend
-        // the current element input to the next element input
-        /*
-        $next = $line->next(function(Line $line) {
-            return !$line->getIsInline();
-        });
-
-        $next->addPrepend($line->input);
-        */
     }
 
-    public function render(\nadar\quill\Lexer $lexer)
+    /**
+     * {@inheritDoc}
+     */
+    public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
 
@@ -59,45 +55,4 @@ abstract class InlineListener extends Listener
 
         }
     }
-
-    /*
-    public function render(Lexer $lexer)
-    {
-        foreach ($this->picks() as $pick) {
-            // as inline elements might not appear, they are commonly part of a next line, so prepend
-            // the current element input to the next element input
-            //$next = $pick->line->next(function(Line $line) {
-            //    return !$line->getIsInline();
-            //});
-
-            $pick->line->output = $pick->line->input;
-            //$next->input = $pick->line->input . $next->input;
-        }
-    }
-    */
-    /*
-    public function inlinePick(Line $line, $value)
-    {
-        
-        $line->input = $value;
-        $line->setDone();
-        $line->setAsInline();
-        $this->pick($line);
-    }
-    */
-
-    /*
-    public function render(\nadar\quill\Lexer $lexer)
-    {
-        foreach ($this->picks() as $pick) {
-            // as inline elements might not appear, they are commonly part of a next line, so prepend
-            // the current element input to the next element input
-            $next = $pick->line->next(function(Line $line) {
-                return !$line->getIsInline();
-            });
-
-            $next->input = $pick->line->input . $next->input;
-        }
-    }
-    */
 }

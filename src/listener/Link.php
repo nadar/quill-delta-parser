@@ -6,28 +6,22 @@ use nadar\quill\Line;
 use nadar\quill\InlineListener;
 use nadar\quill\Lexer;
 
+/**
+ * Convert links into a inline elements.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class Link extends InlineListener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function process(Line $line)
     {
         $link = $line->getAttribute('link');
         if ($link) {
             $this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
-            //$this->pick($line);
-            //$line->setAsInline();
-            //$link = $line->getAttribute('link');
-            //$this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->input.'</a>');
-            //$this->updateInput($line, '')
         }
     }
-
-    /*
-    public function render(Lexer $lexer)
-    {
-        foreach ($this->picks() as $pick) {
-            $link = $pick->line->getAttribute('link');
-            $this->updateInput($pick->line, '<a href="'.$link.'" target="_blank">'.$pick->line->input.'</a>');
-        }   
-    }
-    */
 }

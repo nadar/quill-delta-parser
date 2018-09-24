@@ -14,20 +14,23 @@ use nadar\quill\Lexer;
  * ```json
  * {"insert":{"mention":{"id":"1","value":"Basil","denotationChar":"@"}}},{"insert":" \n"}
  * ```
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
  */
 class Mention extends InlineListener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function process(Line $line)
     {
         if ($line->isJsonInsert()) {
             $array = $line->getArrayInsert();
             if (isset($array['mention'])) {
-                // $this->updateInput($line, $array['mention']['value']);
-                //$line->input = $array['mention']['value'];
                 $line->output = $array['mention']['value'];
                 $line->setAsInline();
                 $line->setDone();
-                //$this->pick($line, ['value' => $array['mention']['value']]);
             }
         }
     }

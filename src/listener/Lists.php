@@ -6,8 +6,17 @@ use nadar\quill\Line;
 use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
 
+/**
+ * Convert List elements (ul, ol) into Block element.
+ * 
+ * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
+ */
 class Lists extends BlockListener
 {
+    /**
+     * {@inheritDoc}
+     */
     public function process(Line $line)
     {
         $listType = $line->getAttribute('list');
@@ -20,12 +29,15 @@ class Lists extends BlockListener
                 $prevPrevType = false;
             }
 
-            $this->pick($prev, ['isFirst' => (bool) !$prevPrevType]);
+            $this->pick($prev, ['isFirst' => (bool) !$prevPrevType, 'type' => $listType]);
             $prev->setDone();
             $line->setDone();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function render(Lexer $lexer)
     {
         $isFirst = false;
@@ -48,32 +60,4 @@ class Lists extends BlockListener
             $lexer->getLine($index)->output = $content . '</ul>';
         }
     }
-
-    /*
-    public function render(Parser $parser)
-    {
-        $content = null;
-        $first = null;
-
-        foreach ($this->getBag() as $delta) {
-
-            //$delta->debugPrint('lists');
-
-            if (!$first) {
-                $first = $delta;
-            } else {
-                $delta->remove();
-            }
-
-            if (!$delta->getAttribute('list')) {
-                $content.= '<li>'.$delta->getInsert() .'</li>';
-            }
-        }
-
-        if ($first) {
-            $first->setInsert('<ul>'.$content.'</ul>');
-            $first->setDone();
-        }
-    }
-    */
 }
