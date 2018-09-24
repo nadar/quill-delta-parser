@@ -33,19 +33,19 @@ class Lists extends BlockListener
         $lastId = 0;
         foreach ($this->picks() as $pick) {
             if ($pick->isFirst) {
-                $lastId = $pick->line->row;
+                $lastId = $pick->line->getIndex();
             }
 
             $list[$lastId][] = $pick->line;
         }
 
-        foreach ($list as $row => $items) {
+        foreach ($list as $index => $items) {
             $content = '<ul>';
             foreach ($items as $item) {
                 $content.= '<li>'.$item->input.'</li>';
             }
 
-            $lexer->getLine($row)->output = $content . '</ul>';
+            $lexer->getLine($index)->output = $content . '</ul>';
         }
     }
 

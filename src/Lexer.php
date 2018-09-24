@@ -142,12 +142,12 @@ class Lexer
     /**
      * Get the line object for a given id/row/index.
      *
-     * @param $id The index of the line.
+     * @param integer $index The index of the line.
      * @return Line
      */
-    public function getLine($id)
+    public function getLine($index)
     {
-        return isset($this->_lines[$id]) ? $this->_lines[$id] : false;
+        return isset($this->_lines[$index]) ? $this->_lines[$index] : false;
     }
 
     /**
@@ -273,7 +273,7 @@ class Lexer
     {
         $this->_lines = $this->opsToLines($this->getOps());
 
-        foreach ($this->_lines as $row => $line) {
+        foreach ($this->_lines as $line) {
             $this->processListeners($line, Listener::TYPE_INLINE);
             $this->processListeners($line, Listener::TYPE_BLOCK);
         }
@@ -282,7 +282,7 @@ class Lexer
         $this->renderListeneres(Listener::TYPE_BLOCK);
 
         $buff = null;
-        foreach ($this->_lines as $row => $line) {
+        foreach ($this->_lines as $line) {
             $buff.= $line->output;
         }
 

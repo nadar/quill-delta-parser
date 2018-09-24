@@ -24,7 +24,7 @@ class Text extends BlockListener
     {
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            if (!$pick->line->isDone() && !$pick->line->hasAttribute()) {
+            if (!$pick->line->isDone() && !$pick->line->hasAttributes()) {
 
                 $pick->line->setDone();
 

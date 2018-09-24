@@ -12,62 +12,142 @@ namespace nadar\quill;
  */
 class Line
 {
+    /**
+     * @var integer The status of a line which is not picked or done, which is default.
+     */
     const STATUS_CLEAN = 1;
+
+    /**
+     * @var integer The status of the line if its picked by a listenere.
+     */
     const STATUS_PICKED = 2;
+
+    /**
+     * @var integer The status of the line if some of the listeneres marked this line as done.
+     */
     const STATUS_DONE = 3;
-    public $row;
+
+    /**
+     * @var integer Holds the current status of the line.
+     */
+    protected $status = 1;
+
+    /**
+     * @var integer The ID/Index/Row of the line
+     */
+    protected $index;
     
-    public $attributes = [];
-    public $lexer;
+    /**
+     * @var array An array with all attributes which are assigned to this lines. attribute can be inline markers like
+     * bold, italic, links and so on.
+     */
+    protected $attributes = [];
+
+    /**
+     * @var Lexer The lexer object in order to access other lines and elements.
+     */
+    protected $lexer;
     
+    /**
+     * @var array An array with values which can be prependend to the actuall input string. This is mainly used if inline
+     * elements are passed to the next "not" inline element.
+     */
     public $prepend = [];
+
+    /**
+     * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
+     */
     public $input;
+
+    /**
+     * @var string The output is the value which will actually rendered by the lexer. So lines which directly write to the output
+     * buffer needs to fill in this variable.
+     */
     public $output;
 
-    public $status = 1;
-    public $isInline = false;
+    /**
+     * @var boolean Whether the current line is handled as "inline-line" or not. Inline lines have different effects when parsing the
+     * end output. For example those can be skipped as they usual prepend the input value into the next line. 
+     */
+    protected $isInline = false;
 
     /**
      * @var boolean As certain elements has an end of newline but those are removed within the lexer opt to line methods we remember
-     * this information in $hadEndNewline
+     * this information here. If true this element has an \n element which has been original removed from input (as lines are spliited into
+     * new lines).
      */
     public $hadEndNewline = false;
 
-    public function addPrepend($value)
-    {
-        $this->prepend[] = $value;
-    }
-
-    public function renderPrepend()
-    {
-        return implode("", array_unique($this->prepend));
-    }
-
     /**
-     * Undocumented function
+     * Constructor
      *
-     * @param [type] $row
-     * @param [type] $value
+     * @param integer $index The numberic index of the row within all the lines.
+     * @param string $input The input value from the line parser for the current line.
      * @param array $attributes
      * @param Lexer $lexer
+     * @param boolean $hadNedNewline Whether this element orignali had an newline at the end.
      */
-    public function __construct($row, $value, array $attributes, Lexer $lexer, $hadEndNewline)
+    public function __construct($index, $input, array $attributes, Lexer $lexer, $hadEndNewline)
     {
-        $this->row = $row;
-        $this->input = $value;
+        $this->index = $index;
+        $this->input = $input;
         $this->attributes = $attributes;
         $this->lexer = $lexer;
         $this->hadEndNewline = $hadEndNewline;
     }
 
-    public function hasAttribute()
+    /**
+     * Get the array with attributes, if any.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Whether the current line has attribute informations or not.
+     *
+     * @return boolean
+     */
+    public function hasAttributes()
     {
         return !empty($this->attributes);
     }
 
+    /**
+     * Get the value for a given attribute name, if not exists return false.
+     *
+     * @param string $name
+     * @return mixed
+     */
     public function getAttribute($name)
     {
         return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : false;
+    }
+
+    /**
+     * Add a new value to the prepend array.
+     * 
+     * Certain elements needs to prepend values into the next element.
+     *
+     * @param string $value The value to prepend.
+     * @return void
+     */
+    public function addPrepend($value)
+    {
+        $this->prepend[] = $value;
+    }
+
+    /**
+     * Returns the string for the prepend values.
+     *
+     * @return string The prepend value for this line.
+     */
+    public function renderPrepend()
+    {
+        return implode("", array_unique($this->prepend));
     }
 
     /**
@@ -84,17 +164,20 @@ class Line
      * ```
      * 
      * if true is returned this line will be assigned.
+     * 
+     * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the next element is returned.
+     * @return Line
      */
     public function next($fn = null)
     {
         if ($fn === null) {
-            return $this->lexer->getLine($this->row + 1);
+            return $this->lexer->getLine($this->index + 1);
         }
 
         $next = true;
         $i = 1;
         while ($next) {
-            $elmn = $this->lexer->getLine($this->row + $i);
+            $elmn = $this->lexer->getLine($this->index + $i);
             // no next element found
             if (!$elmn) {
                 return false;
@@ -108,41 +191,87 @@ class Line
         }
     }
 
+    /**
+     * Get the previous line.
+     * 
+     * If no previous line exists, false is returned.
+     *
+     * @return Line
+     */
     public function previous()
     {
-        return $this->lexer->getLine($this->row - 1);
+        return $this->lexer->getLine($this->index - 1);
     }
 
+    /**
+     * Setter method whether the current element is inline or not.
+     */
     public function setAsInline()
     {
         $this->isInline = true;
     }
 
+    /**
+     * Whether current line is an inline line or not.
+     *
+     * @return boolean
+     */
     public function getIsInline()
     {
         return $this->isInline;
     }
 
+    /**
+     * Getter method for the index of the line.
+     *
+     * @return integer
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+    
+    /**
+     * Set this line as picked.
+     */
     public function setPicked()
     {
         $this->status = self::STATUS_PICKED;
     }
 
+    /**
+     * Whether current line is picked or not.
+     *
+     * @return boolean
+     */
     public function isPicked()
     {
         return $this->status == self::STATUS_PICKED;
     }
 
+    /**
+     * Mark this line as done.
+     */
     public function setDone()
     {
         $this->status = self::STATUS_DONE;
     }
 
+    /**
+     * Whether this line is done or not.
+     *
+     * @return boolean
+     */
     public function isDone()
     {
         return $this->status == self::STATUS_DONE;
     }
 
+    /**
+     * Whether current line as empty content string or not.
+     *
+     * @return boolean
+     */
     public function isEmpty()
     {
         return $this->input == '' && empty($this->prepend);

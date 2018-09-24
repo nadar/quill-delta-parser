@@ -51,20 +51,20 @@ class Debug
         $d.= "Lines not picked: " . count($this->getNotPickedLines()) . PHP_EOL;
         $d.= "============= NOT PICKED LINES ==================<table border=1>";
         foreach ($this->getNotPickedLines() as $line) {
-            $d.= '<tr><td>#' . $line->row . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
+            $d.= '<tr><td>#' . $line->getIndex() . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
         }
         $d.= "</table><p>============= NOT DONE LINES ==================</p><table border=1>";
         foreach ($this->getNotDoneLines() as $line) {
-            $d.= '<tr><td>#' . $line->row . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
+            $d.= '<tr><td>#' . $line->getIndex() . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
         }
         $d.= "</table><p>============= LINE BY LINE ==================</p><table border=1>";
         foreach ($this->lexer->getLines() as $line) {
             $d.= '<tr>';
-            $d.= '<td>#' . $line->row . '</td>';
+            $d.= '<td>#' . $line->getIndex() . '</td>';
             $d.= '<td>'.htmlentities($line->input, ENT_QUOTES) . '</td>';
-            $d.= '<td>'.var_export($line->isInline, true).'</td>';
+            $d.= '<td>'.var_export($line->getIsInline(), true).'</td>';
             $d.= '<td>'.var_export($line->isPicked(), true).'</td>';
-            $d.= '<td>'.var_export($line->attributes, true).'</td>';
+            $d.= '<td>'.var_export($line->getAttributes(), true).'</td>';
             $d.= '</tr>';
         }
         $d.= '</table>';
