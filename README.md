@@ -1,6 +1,6 @@
 # Quill Delta to HTML Parser
 
-A PHP library to parse quill delta into html. All attributes and elements are based on a single listenere machnism. Therefore this makes this library highligh flexible. Adding your own listener to match a Quill plugin is easy to handle.
+A PHP library to parse [Quill WYSIWYG](https://quilljs.com/) [Deltas](https://github.com/quilljs/delta) into HTML - Flexibel and extendible for custom elements. Every element is parsed by the same mechanism, this makes it easy to extend and understand.
 
 [![Build Status](https://travis-ci.org/nadar/quill-delta-parser.svg?branch=master)](https://travis-ci.org/nadar/quill-delta-parser)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fdf80e7b61e4505bc421/maintainability)](https://codeclimate.com/github/nadar/quill-delta-parser/maintainability)
@@ -9,15 +9,17 @@ A PHP library to parse quill delta into html. All attributes and elements are ba
 [![Total Downloads](https://poser.pugx.org/nadar/quill-delta-parser/downloads)](https://packagist.org/packages/nadar/quill-delta-parser)
 [![License](https://poser.pugx.org/nadar/quill-delta-parser/license)](https://packagist.org/packages/nadar/quill-delta-parser)
 
+What is Quill? Quill is a free, open source WYSIWYG editor built for the modern web. With its modular architecture and expressive API, it is completely customizable to fit any need.
+
 ## Installation
 
-The package is only distributed trough the composer packagist
+The package is only available trough composer:
 
 ```sh
 composer require nadar/quill-delta-parser
 ```
 
-## Usage:
+## Usage
 
 ```php
 use nadar\quill\Lexer;
@@ -56,4 +58,11 @@ Where `$json` is the ops json array from quill, for example:
     }
   ]
 }
+```
+
+This would render the following HTML:
+
+```html
+<h1>Hello</h1>
+<p>THis is the php quill <strong>parsers</strong>!</p>
 ```
