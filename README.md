@@ -64,8 +64,50 @@ This would render the following HTML:
 
 ```html
 <h1>Hello</h1>
-<p>THis is the php quill <strong>parsers</strong>!</p>
+<p>This is the php quill <strong>parser</strong>!</p>
 ```
+
+## Extend
+
+In order to extend the Parser by adding your own listeneres (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether its:
+
++ inline element: Replaces content with new parsed content, this is mostly the case when working with quill extensions.
++ block element: Block elements which encloses the whole input with a tag, for example heading.
+
+An example for a mention plugin which generates the following delta `{"insert":{"mention":{"id":"1","value":"Basil","denotationChar":"@"}}}` an inline plugin could look like this:
+
+```php
+class Mention extends InlineListener
+{
+    /**
+     * {@inheritDoc}
+     */
+    public function process(Line $line)
+    {
+        // as "insert" value is not a string, it contains json notiation content:
+        if ($line->isJsonInsert()) {
+            // parse the given json into an array
+            $array = $line->getArrayInsert();
+            // it seems the array has a key with the name "mention":
+            if (isset($array['mention'])) {
+                // change the output of the current line with the value from the mention array config
+                $line->output = $array['mention']['value'];
+                // mark as inline, so other elements will not thread as block
+                $line->setAsInline();
+                // mark the line as done, so no other plugin will interact with the line
+                $line->setDone();
+            }
+        }
+    }
+}
+```
+
+Now register the listenere:
+
+```php
+$lexer = new Lexer($json);
+$lexer->registerListener(new Mention);
+echo $lexer->render();
 
 ## Credits
 
