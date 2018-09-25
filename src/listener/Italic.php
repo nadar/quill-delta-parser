@@ -8,7 +8,7 @@ use nadar\quill\Lexer;
 
 /**
  * Convert Italic Inline elements.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

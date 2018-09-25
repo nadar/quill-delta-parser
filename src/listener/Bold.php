@@ -8,7 +8,7 @@ use nadar\quill\Lexer;
 
 /**
  * Convert Bold attributes into tags.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

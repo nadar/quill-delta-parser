@@ -181,7 +181,6 @@ class Lexer
                 $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true, true);
                 $i++;
             } else {
-                
                 $line = $this->removeLastNewline($insert);
                 $hasEndNewline = false;
                 if ($line !== $insert) {

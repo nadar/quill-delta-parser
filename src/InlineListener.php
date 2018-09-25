@@ -22,7 +22,7 @@ abstract class InlineListener extends Listener
 
     /**
      * A short hand method for handling inline elements.
-     * 
+     *
      * 1. change input value
      * 2. set as done and inline
      * 3. Add to pick list, in order to process in render method
@@ -46,13 +46,11 @@ abstract class InlineListener extends Listener
     public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-
-            $next = $pick->line->next(function(Line $line) {
+            $next = $pick->line->next(function (Line $line) {
                 return !$line->getIsInline();
             });
 
             $next->addPrepend($pick->line->input);
-
         }
     }
 }

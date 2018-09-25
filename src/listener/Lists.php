@@ -9,7 +9,7 @@ use nadar\quill\Pick;
 
 /**
  * Convert List elements (ul, ol) into Block element.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
@@ -42,7 +42,7 @@ class Lists extends BlockListener
             
             // get the first element within this list <li>
             // problem with identify first element...
-            $first = $pick->line->previous(function(Line $line) {
+            $first = $pick->line->previous(function (Line $line) {
                 if ($line->isFirst() || $line->hasNewline()) {
                     return true;
                 }
@@ -51,7 +51,7 @@ class Lists extends BlockListener
 
             // while from first to pick line and store content in buffer
             $buffer = null;
-            $first->while(function(&$index, Line $line) use (&$buffer, $pick) {
+            $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
                 $buffer.= $line->input;
                 $line->setDone();

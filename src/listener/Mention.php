@@ -8,13 +8,13 @@ use nadar\quill\Lexer;
 
 /**
  * Mention Quill Plugin Listener.
- * 
+ *
  * Example mention insert text:
- * 
+ *
  * ```json
  * {"insert":{"mention":{"id":"1","value":"Basil","denotationChar":"@"}}},{"insert":" \n"}
  * ```
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

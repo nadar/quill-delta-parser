@@ -8,7 +8,7 @@ use nadar\quill\BlockListener;
 
 /**
  * Convert all the not done elements into paragraphs.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
@@ -40,7 +40,6 @@ class Text extends BlockListener
         $isOpen = false;
         foreach ($this->picks() as $pick) {
             if (!$pick->line->isDone() && !$pick->line->hasAttributes()) {
-
                 $pick->line->setDone();
 
                 $next = $pick->line->next();
@@ -83,7 +82,7 @@ class Text extends BlockListener
                 
                 // if its open, and it had an end newline, lets close
                 } elseif ($isOpen && $pick->line->hasEndNewline()) {
-                    $isOpen = $this->output($output, '</p>', false);   
+                    $isOpen = $this->output($output, '</p>', false);
                 }
                 
                 // we have a next element and the next elmenet is inline and its not open, open ...!

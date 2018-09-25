@@ -65,7 +65,7 @@ $debuger = new Debug($lex);
   var editor = new Quill('#editor', {
     modules: {  toolbar: [
                 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                 ['link'],
                 [{ 'script': 'sub'}, { 'script': 'super' }],
                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],

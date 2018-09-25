@@ -7,7 +7,7 @@ use nadar\quill\BlockListener;
 
 /**
  * Convert Blockquote Elements
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

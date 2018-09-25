@@ -67,7 +67,7 @@ class Line
 
     /**
      * @var boolean Whether the current line is handled as "inline-line" or not. Inline lines have different effects when parsing the
-     * end output. For example those can be skipped as they usual prepend the input value into the next line. 
+     * end output. For example those can be skipped as they usual prepend the input value into the next line.
      */
     protected $isInline = false;
 
@@ -146,7 +146,7 @@ class Line
 
     /**
      * Add a new value to the prepend array.
-     * 
+     *
      * Certain elements needs to prepend values into the next element.
      *
      * @param string $value The value to prepend.
@@ -217,19 +217,19 @@ class Line
 
     /**
      * Get the next element.
-     * 
+     *
      * If a closure is provided you can define a condition of whether next element should be taken or not.
-     * 
+     *
      * For example you can iterate to the next element which is not empty:
-     * 
+     *
      * ```php
      * $nextNotEmpty = $line->next(function(Line $line) {
      *     return !$line->isEmpty();
      * });
      * ```
-     * 
+     *
      * if true is returned this line will be assigned.
-     * 
+     *
      * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
      * @return Line
      */
@@ -239,14 +239,14 @@ class Line
             return $this->lexer->getLine($this->index + 1);
         }
 
-        return $this->iterate($this, function($i) {
+        return $this->iterate($this, function ($i) {
             return ++$i;
         }, $fn);
     }
 
     /**
      * Get the previous line.
-     * 
+     *
      * If no previous line exists, false is returned.
      *
      * ```php
@@ -254,9 +254,9 @@ class Line
      *     return !$line->isEmpty();
      * });
      * ```
-     * 
+     *
      * if true is returned this line will be assigned.
-     * 
+     *
      * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
      * @return Line
      */
@@ -266,7 +266,7 @@ class Line
             return $this->lexer->getLine($this->index - 1);
         }
 
-        return $this->iterate($this, function($i) {
+        return $this->iterate($this, function ($i) {
             return --$i;
         }, $fn);
     }
@@ -348,10 +348,10 @@ class Line
     /**
      * Some plugins have a json as insert value, in order to detected such values
      * you can use this method.
-     * 
+     *
      * This will check if the given insert string is a json. In order to deocde the
      * json into a php array afterwards, you can use getArrayInsert();
-     * 
+     *
      * @return boolean Whether current insert string is a json or not.
      */
     public function isJsonInsert()

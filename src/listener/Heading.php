@@ -7,7 +7,7 @@ use nadar\quill\BlockListener;
 
 /**
  * Convert header into heading elements.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */

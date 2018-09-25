@@ -7,7 +7,7 @@ use nadar\quill\Line;
 
 /**
  * Process underline elements
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
