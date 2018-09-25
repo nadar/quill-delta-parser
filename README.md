@@ -67,6 +67,6 @@ This would render the following HTML:
 <p>THis is the php quill <strong>parsers</strong>!</p>
 ```
 
-## Credits
+## Credits
 
 + [Dean Blackborough](https://github.com/deanblackborough)
