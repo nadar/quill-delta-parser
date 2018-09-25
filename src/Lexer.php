@@ -9,6 +9,7 @@ use nadar\quill\listener\Bold;
 use nadar\quill\listener\Blockquote;
 use nadar\quill\listener\Link;
 use nadar\quill\listener\Italic;
+use nadar\quill\listener\Strike;
 
 /**
  * Lexer Delta Parser.
@@ -103,6 +104,7 @@ class Lexer
         $this->registerListener(new Bold);
         $this->registerListener(new Italic);
         $this->registerListener(new Link);
+        $this->registerListener(new Strike);
         $this->registerListener(new Heading);
         $this->registerListener(new Text);
         $this->registerListener(new Lists);

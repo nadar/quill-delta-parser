@@ -5,9 +5,6 @@ namespace nadar\quill\tests;
 use nadar\quill\Lexer;
 use nadar\quill\listener\Mention;
 
-/**
- * @see https://www.transmute-coffee.com/php-quill-renderer.php#demo
- */
 class MentionTest extends DeltaTestCase
 {
     public $json = <<<'JSON'

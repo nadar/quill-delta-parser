@@ -66,3 +66,7 @@ This would render the following HTML:
 <h1>Hello</h1>
 <p>THis is the php quill <strong>parsers</strong>!</p>
 ```
+
+## Credits
+
++ [Dean Blackborough](https://github.com/deanblackborough)

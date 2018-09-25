@@ -31,6 +31,7 @@ class ParserTest extends TestCase
           {"attributes":{"bold":true},"insert":"Bold "},
           {"attributes":{"italic":true,"bold":true},"insert":"Italic"},
           {"insert":" without.\nAfter\n"}]',
+        '<p><del>strike</del></p>' => '[{"attributes":{"strike":true}, "insert" : "strike"},{"insert":"\n"}]',
     ];
 
     public function testJsonToArray()

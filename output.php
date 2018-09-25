@@ -4,14 +4,15 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 use nadar\quill\Parser;
 use nadar\quill\Lexer;
+use nadar\quill\Debug;
 
 require 'vendor/autoload.php';
 
 $json = isset($_POST['quill-editor-input']) ? $_POST['quill-editor-input'] : '{}';
 
 $lex = new Lexer($json);
-$lex->initBuiltInListeners();
 $html = $lex->render();
+$debuger = new Debug($lex);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,23 +49,15 @@ $html = $lex->render();
 <div style="border:1px solid blue; padding:20px; margin-top:20px;"><pre>
 <?= $json; ?>
 </pre></div>
-<?php foreach ($lex->getLines() as $line): ?>
-<ul>
-    <li>
-        Key: <?= $line->row; ?><br />
-        Input: <span style="color:green;">: <?= htmlentities($line->input, ENT_QUOTES); ?></span><br />
-        Output: <?= htmlentities($line->output, ENT_QUOTES); ?><br />
-        <?php if ($line->attributes): ?>
-        <b>Attributes: <?= implode(",", $line->attributes); ?></b>
-        <?php endif; ?>
-    </li>
-</ul>
-<?php endforeach; ?>
+<?php ?>
 <div style="border:1px solid red; padding:20px; margin-top:20px;"><pre>
 <?php var_dump($html); ?>
 </pre></div>
 <div style="border:1px solid green; padding:20px; margin-top:20px;">
 <?= htmlentities($html, ENT_QUOTES); ?>
+</div>
+<div style="border:1px solid green; padding:20px; margin-top:20px;">
+<?php $debuger->debugPrint(); ?>
 </div>
 
 <!-- Initialize Quill editor -->
