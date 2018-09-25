@@ -51,13 +51,13 @@ $debuger = new Debug($lex);
 </pre></div>
 <?php ?>
 <div style="border:1px solid red; padding:20px; margin-top:20px;"><pre>
-<?php var_dump($html); ?>
+<?= $html; ?>
 </pre></div>
 <div style="border:1px solid green; padding:20px; margin-top:20px;">
 <?= htmlentities($html, ENT_QUOTES); ?>
 </div>
 <div style="border:1px solid green; padding:20px; margin-top:20px;">
-<?php $debuger->debugPrint(); ?>
+<?= $debuger->debugPrint(); ?>
 </div>
 
 <!-- Initialize Quill editor -->

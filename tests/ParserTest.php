@@ -16,23 +16,22 @@ use nadar\quill\Debug;
 class ParserTest extends TestCase
 {
     public $asserts = [
-      '<p><a href="https://luya.io" target="_blank">luya.io</a> test</p><p><br></p><p>Footer</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":" test\n\nFooter\n"}]',
-      '<p><a href="https://luya.io" target="_blank">luya.io</a></p><p><br></p><p>Ende.</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":"\n\nEnde.\n"}]',
-      '<p>Start</p><p><br></p><p>Ende</p>' => '[{"insert":"Start\n"}, {"insert":"\n"}, {"insert":"Ende\n"}]',
-      '<ul><li>Foo</li><li>Bar</li></ul><p><br></p>' => '[{"insert": "Foo"},{"attributes": { "list": "bullet" },"insert": "\n"},{"insert": "Bar"},{"attributes": { "list": "bullet"},"insert": "\n"},{"insert": "\n"}]',
-      '<p>Hallo</p><p>Wie</p><p>Gehts?</p>' => '{"ops": [{"insert": "Hallo\nWie\nGehts?\n"}]}',
-      '<p>Hallo</p><p>Wie</p><p><br></p><p>Shift</p><p>Enter</p>' => '[{"insert": "Hallo\nWie\n\nShift\nEnter\n"}]',
-      '<h1>Title</h1><p>Text with <strong>bold</strong> element.</p>' => '{"ops":[{"insert":"Title"},{"attributes":{"header":1},"insert":"\n"},{"insert":"Text with "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" element.\n"}]}',
-      '<p><em>Italic</em></p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":"\n"}]',
-      '<blockquote><em>text</em></blockquote>' => '[{"attributes":{"italic":true},"insert":"text"},{"attributes":{"blockquote":true},"insert":"\n"}]',
-      '<p><em>Italic</em> <strong>Bold</strong> <em><strong>BoldItalic</strong></em> Append</p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":" "},{"attributes":{"bold":true},"insert":"Bold"},{"insert":" "},{"attributes":{"italic":true,"bold":true},"insert":"BoldItalic"},{"insert":" Append\n"}]',
-      '<p>Before</p><p><strong>Bold </strong><em><strong>Italic</strong></em> without.</p><p>After</p>' => '[
-          {"insert":"Before\n"},
-          {"attributes":{"bold":true},"insert":"Bold "},
-          {"attributes":{"italic":true,"bold":true},"insert":"Italic"},
-          {"insert":" without.\nAfter\n"}]',
+        
+        '<p><a href="https://luya.io" target="_blank">luya.io</a> test</p><p><br></p><p>Footer</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":" test\n\nFooter\n"}]',
+        '<p><a href="https://luya.io" target="_blank">luya.io</a></p><p><br></p><p>Ende.</p>' => '[{"attributes":{"link":"https://luya.io"},"insert":"luya.io"},{"insert":"\n\nEnde.\n"}]',
+        '<p>Start</p><p><br></p><p>Ende</p>' => '[{"insert":"Start\n"}, {"insert":"\n"}, {"insert":"Ende\n"}]',
+        '<ul><li>Foo</li><li>Bar</li></ul><p><br></p>' => '[{"insert": "Foo"},{"attributes": { "list": "bullet" },"insert": "\n"},{"insert": "Bar"},{"attributes": { "list": "bullet"},"insert": "\n"},{"insert": "\n"}]',
+        '<p>Hallo</p><p>Wie</p><p>Gehts?</p>' => '{"ops": [{"insert": "Hallo\nWie\nGehts?\n"}]}',
+        '<p>Hallo</p><p>Wie</p><p><br></p><p>Shift</p><p>Enter</p>' => '[{"insert": "Hallo\nWie\n\nShift\nEnter\n"}]',
+        '<h1>Title</h1><p>Text with <strong>bold</strong> element.</p>' => '{"ops":[{"insert":"Title"},{"attributes":{"header":1},"insert":"\n"},{"insert":"Text with "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" element.\n"}]}',
+        '<p><em>Italic</em></p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":"\n"}]',
+        '<blockquote><em>text</em></blockquote>' => '[{"attributes":{"italic":true},"insert":"text"},{"attributes":{"blockquote":true},"insert":"\n"}]',
+        '<p><em>Italic</em> <strong>Bold</strong> <em><strong>BoldItalic</strong></em> Append</p>' => '[{"attributes":{"italic":true},"insert":"Italic"},{"insert":" "},{"attributes":{"bold":true},"insert":"Bold"},{"insert":" "},{"attributes":{"italic":true,"bold":true},"insert":"BoldItalic"},{"insert":" Append\n"}]',
+        '<p>Before</p><p><strong>Bold </strong><em><strong>Italic</strong></em> without.</p><p>After</p>' => '[{"insert":"Before\n"},{"attributes":{"bold":true},"insert":"Bold "},{"attributes":{"italic":true,"bold":true},"insert":"Italic"},{"insert":" without.\nAfter\n"}]',
         '<p><del>strike</del></p>' => '[{"attributes":{"strike":true}, "insert" : "strike"},{"insert":"\n"}]',
         '<p><u>Underline</u></p>' => '[{"attributes":{"underline":true}, "insert" : "Underline"},{"insert":"\n"}]',
+        '<ol><li>Its <strong>bold</strong></li><li>Its <em>italic</em></li></ol>' => '[{"insert":"Its "},{"attributes":{"bold":true},"insert":"bold"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Its "},{"attributes":{"italic":true},"insert":"italic"},{"attributes":{"list":"ordered"},"insert":"\n"}]',
+        '<p>intro <strong>bold</strong>!</p><ul><li>elmn 1</li><li>elmn 2</li></ul><p>text</p><ul><li>elmn <strong>a</strong></li><li>elmn b</li></ul>' => '[{"insert":"intro "},{"attributes":{"bold":true},"insert":"bold"},{"insert":"!\nelmn 1"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn 2"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"text\nelmn "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" a"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn b"},{"attributes":{"list":"bullet"},"insert":"\n"}]'
     ];
 
     public function testJsonToArray()

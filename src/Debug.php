@@ -64,11 +64,34 @@ class Debug
             $d.= '<td>'.htmlentities($line->input, ENT_QUOTES) . '</td>';
             $d.= '<td>'.var_export($line->getIsInline(), true).'</td>';
             $d.= '<td>'.var_export($line->isPicked(), true).'</td>';
+            $d.= '<td>'.var_export($line->hasEndNewline(), true).'</td>';
             $d.= '<td>'.var_export($line->getAttributes(), true).'</td>';
             $d.= '</tr>';
         }
         $d.= '</table>';
         
         return nl2br($d);
+    }
+
+    protected function renderTable(array $rows, array $head = [])
+    {
+        $buffer = '<table border="1" width="100%">';
+        
+        if (!empty($head)) {
+            $buffer.= '<thead><tr>';
+            foreach ($head as $col) {
+                $buffer.= '<td><b>'.$col.'</b></td>';
+            }
+            $buffer.= '</tr></thead>';
+        }
+
+        foreach ($rows as $cols) {
+            $buffer .= '<tr>';
+            foreach ($cols as $col) {
+                $buffer .= '<td>'.$col.'</td>';
+            }
+            $buffer .= '</tr>';
+        }
+        return $buffer . '</table>';
     }
 }

@@ -96,6 +96,16 @@ class Line
         $this->hadEndNewline = $hadEndNewline;
     }
 
+    public function hasEndNewline()
+    {
+        return $this->hadEndNewline;
+    }
+
+    public function isFirst()
+    {
+        return $this->previous() === false;
+    }
+
     /**
      * Get the array with attributes, if any.
      *
@@ -150,6 +160,54 @@ class Line
         return implode("", array_unique($this->prepend));
     }
 
+    public function while(callable $condition)
+    {
+        $iterate = true;
+        $i = $this->getIndex();
+        while ($iterate) {
+            $line = $this->lexer->getLine($i);
+
+            if (!$line) {
+                $iterate = false;
+                return;
+            }
+            $iterate = call_user_func_array($condition, [&$i, $line]);
+
+            if ($iterate !== false) {
+                $iterate = true;
+            }
+        }
+    }
+
+    /**
+     * Iteration helper the go forward and backward in lines.
+     *
+     * @param Line $line
+     * @param callable $condition The condition callable for the index
+     * @param callable $fn The function which is returend to determine whether this line should be picked or not.
+     * @return void
+     */
+    protected function iterate(Line $line, callable $condition, callable $fn)
+    {
+        $iterate = true;
+        $i = $line->getIndex();
+        
+        while ($iterate) {
+            $i = call_user_func($condition, $i);
+            $elmn = $this->lexer->getLine($i);
+            // no next element found
+            if (!$elmn) {
+                return false;
+            }
+            // fn match return current element.
+            if (call_user_func($fn, $elmn)) {
+                return $elmn;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Get the next element.
      * 
@@ -165,7 +223,7 @@ class Line
      * 
      * if true is returned this line will be assigned.
      * 
-     * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the next element is returned.
+     * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
      * @return Line
      */
     public function next($fn = null)
@@ -174,21 +232,9 @@ class Line
             return $this->lexer->getLine($this->index + 1);
         }
 
-        $next = true;
-        $i = 1;
-        while ($next) {
-            $elmn = $this->lexer->getLine($this->index + $i);
-            // no next element found
-            if (!$elmn) {
-                return false;
-            }
-            // fn match return current element.
-            if (call_user_func($fn, $elmn)) {
-                return $elmn;
-            }
-            // update counter for rows
-            $i++;
-        }
+        return $this->iterate($this, function($i) {
+            return ++$i;
+        }, $fn);
     }
 
     /**
@@ -196,11 +242,26 @@ class Line
      * 
      * If no previous line exists, false is returned.
      *
+     * ```php
+     * $nextNotEmpty = $line->previous(function(Line $line) {
+     *     return !$line->isEmpty();
+     * });
+     * ```
+     * 
+     * if true is returned this line will be assigned.
+     * 
+     * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
      * @return Line
      */
-    public function previous()
+    public function previous($fn = null)
     {
-        return $this->lexer->getLine($this->index - 1);
+        if ($fn === null) {
+            return $this->lexer->getLine($this->index - 1);
+        }
+
+        return $this->iterate($this, function($i) {
+            return --$i;
+        }, $fn);
     }
 
     /**

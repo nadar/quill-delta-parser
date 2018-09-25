@@ -19,6 +19,10 @@ class Pick
      * @var Line
      */
     public $line;
+
+    protected $index;
+
+    protected $listener;
     
     /**
      * Create new line pick
@@ -26,10 +30,12 @@ class Pick
      * @param Line $line
      * @param array $options
      */
-    public function __construct(Line $line, array $options = [])
+    public function __construct(Line $line, array $options = [], $index, Listener $listener)
     {
         $this->line = $line;
         $this->options = $options;
+        $this->index = $index;
+        $this->listener = $listener;
     }
 
     /**
@@ -38,5 +44,15 @@ class Pick
     public function __get($name)
     {
         return $this->options[$name];
+    }
+
+    public function isFirst()
+    {
+        return $this->index == 0;
+    }
+
+    public function isLast()
+    {
+        return (count($this->listener->picks()) - 1) == $this->index;
     }
 }
