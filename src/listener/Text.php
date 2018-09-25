@@ -73,7 +73,7 @@ class Text extends BlockListener
                 // its open, but the previous element was already an inline element, so maybe we should close and the next element
                 // will take care of the "situation". But only if this current line also had an end new line element, otherwise
                 // repeated inline elements will close
-                } elseif ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->hadEndNewline) {
+                } elseif ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, '</p>', false);
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
@@ -82,7 +82,7 @@ class Text extends BlockListener
                     $isOpen = $this->output($output, '</p><p>', true);
                 
                 // if its open, and it had an end newline, lets close
-                } elseif ($isOpen && $pick->line->hadEndNewline) {
+                } elseif ($isOpen && $pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, '</p>', false);   
                 }
                 

@@ -66,6 +66,7 @@ class Debug
             $d.= '<td>'.var_export($line->isPicked(), true).'</td>';
             $d.= '<td>'.var_export($line->hasEndNewline(), true).'</td>';
             $d.= '<td>'.var_export($line->getAttributes(), true).'</td>';
+            $d.= '<td>'.var_export($line->hasNewline(), true).'</td>';
             $d.= '</tr>';
         }
         $d.= '</table>';

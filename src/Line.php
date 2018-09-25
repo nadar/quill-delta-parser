@@ -76,8 +76,9 @@ class Line
      * this information here. If true this element has an \n element which has been original removed from input (as lines are spliited into
      * new lines).
      */
-    public $hadEndNewline = false;
+    protected $hadEndNewline = false;
 
+    protected $hasNewline;
     /**
      * Constructor
      *
@@ -87,13 +88,19 @@ class Line
      * @param Lexer $lexer
      * @param boolean $hadNedNewline Whether this element orignali had an newline at the end.
      */
-    public function __construct($index, $input, array $attributes, Lexer $lexer, $hadEndNewline)
+    public function __construct($index, $input, array $attributes, Lexer $lexer, $hadEndNewline, $hasNewline)
     {
         $this->index = $index;
         $this->input = $input;
         $this->attributes = $attributes;
         $this->lexer = $lexer;
         $this->hadEndNewline = $hadEndNewline;
+        $this->hasNewline = $hasNewline;
+    }
+
+    public function hasNewline()
+    {
+        return $this->hasNewline;
     }
 
     public function hasEndNewline()

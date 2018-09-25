@@ -13,7 +13,7 @@ class LineTest extends TestCase
     {
         $lexer = new Lexer(['insert' => 'foo']);
 
-        $line = new Line(0, 'input', [], $lexer, false);
+        $line = new Line(0, 'input', [], $lexer, false, false);
         $this->assertFalse($line->next());
         $this->assertFalse($line->next(function(Line $line) {
             return true;

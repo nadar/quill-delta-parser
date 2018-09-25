@@ -34,7 +34,7 @@ class ParserTest extends TestCase
         '<p>intro <strong>bold</strong>!</p><ul><li>elmn 1</li><li>elmn 2</li></ul><p>text</p><ul><li>elmn <strong>a</strong></li><li>elmn b</li></ul>' => '[{"insert":"intro "},{"attributes":{"bold":true},"insert":"bold"},{"insert":"!\nelmn 1"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn 2"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"text\nelmn "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" a"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn b"},{"attributes":{"list":"bullet"},"insert":"\n"}]'
     ];
 
-    public function testJsonToArray()
+    public function testHtmlIsEqual()
     {
         foreach ($this->asserts as $e => $j) {
             $parser = new Lexer($j);

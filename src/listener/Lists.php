@@ -41,8 +41,9 @@ class Lists extends BlockListener
         foreach ($this->picks() as $pick) {
             
             // get the first element within this list <li>
+            // problem with identify first element...
             $first = $pick->line->previous(function(Line $line) {
-                if ($line->isFirst() || $line->hasEndNewline()) {
+                if ($line->isFirst() || $line->hasNewline()) {
                     return true;
                 }
             });
