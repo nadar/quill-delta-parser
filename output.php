@@ -78,6 +78,8 @@ $debuger = new Debug($lex);
         $('#quill-editor-input').val(JSON.stringify(editor.getContents()));
         return true;
     });
+
+    editor.setContents(<?= $json; ?>);
 </script>
 </body>
 </html>

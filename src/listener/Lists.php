@@ -24,24 +24,19 @@ class Lists extends BlockListener
     {
         $listType = $line->getAttribute(self::ATTRIBUTE_LIST);
         if ($listType) {
-            /*
-            $prev = $line->previous(); // the value for the <li>
-            $prevPrev = $prev->previous();
-            if ($prevPrev) {
-                $prevPrevType = $prevPrev->getAttribute('list'); // does the element before the element has also a list?
-            } else {
-                $prevPrevType = false;
-            }
-            */
             $this->pick($line, ['type' => $listType]);
             $line->setDone();
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function render(Lexer $lexer)
     {
         $lists = [];
 
+        $isOpen = false;
         foreach ($this->picks() as $pick) {
             
             // get the first element within this list <li>
@@ -64,24 +59,26 @@ class Lists extends BlockListener
             });
 
             // find out if last element of series of lists
-            $elementAfterSerie = $pick->line->next(function(Line $line) {
-                if ($line->isEmpty()) {
-                    return true;
-                }
-            });
+            // if a. is no next element
+            // or b. next element "has new line"
+            $isLast = false;
+            if (!$pick->line->next() || $pick->line->next()->hasNewline()) {
+                $isLast = true;
+            }
 
             // write the li element.
-            if ($pick->isFirst()) {
-                $pick->line->output = '<'.$this->getListAttribute($pick).'><li>' . $buffer .'</li>';
-            } elseif ($pick->isLast()) {
-                $pick->line->output = '<li>' . $buffer .'</li></'.$this->getListAttribute($pick).'>';
-            } else {
-                $pick->line->output = '<li>' . $buffer .'</li>';
+            $output = null;
+            if (!$isOpen && !$isLast) {
+                $output .= '<'.$this->getListAttribute($pick).'>';
             }
-            
-            $pick->line->setDone();
+            $output.= '<li>' . $buffer .'</li>';
+            if ($isLast) {
+                $output .= '</'.$this->getListAttribute($pick).'>';
+                $isOpen = false;
+            }
 
-            // assign buffer to current pick lines output and mark as done.
+            $pick->line->output = $output;
+            $pick->line->setDone();
         }
     }
 

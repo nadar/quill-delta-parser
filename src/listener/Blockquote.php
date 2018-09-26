@@ -13,17 +13,35 @@ use nadar\quill\BlockListener;
  */
 class Blockquote extends BlockListener
 {
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        $blockquote = $line->getAttribute('blockquote');
-        if ($blockquote) {
-            $prev = $line->previous();
-            $prev->output = '<blockquote>'.$prev->input.'</blockquote>';
+        if ($line->getAttribute('blockquote')) {
+            $this->pick($line);
             $line->setDone();
-            $prev->setDone();
         }
+    }
+
+    public function render(\nadar\quill\Lexer $lexer)
+    {
+        foreach ($this->picks() as $pick) {
+            // get all 
+            $prev = $pick->line->previous(function(Line $line) {
+                if (!$line->getIsInline()) {
+                    return true;
+                }
+            });
+
+            // if there is no previous element, we take the same line element.
+            if (!$prev) {
+                $prev = $pick->line;
+            }
+
+            $pick->line->output = '<blockquote>'.$prev->input . $pick->line->renderPrepend() . '</blockquote>';
+            $prev->setDone();
+        }   
     }
 }

@@ -20,10 +20,31 @@ class Heading extends BlockListener
     {
         $heading = $line->getAttribute('header');
         if ($heading) {
-            $prev = $line->previous();
-            $prev->output = '<h'.$heading.'>'.$prev->input.'</h'.$heading.'>';
+            $this->pick($line, ['heading' => $heading]);
             $line->setDone();
-            $prev->setDone();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function render(\nadar\quill\Lexer $lexer)
+    {
+        foreach ($this->picks() as $pick) {
+            // get all 
+            $prev = $pick->line->previous(function(Line $line) {
+                if (!$line->getIsInline()) {
+                    return true;
+                }
+            });
+
+            // if there is no previous element, we take the same line element.
+            if (!$prev) {
+                $prev = $pick->line;
+            }
+
+            $pick->line->output = '<h'.$pick->heading.'>'.$prev->input . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
+            $prev->setDone();
+        }   
     }
 }
