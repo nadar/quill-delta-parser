@@ -20,5 +20,13 @@ class LineTest extends TestCase
         $this->assertFalse($line->next(function (Line $line) {
             return false;
         }));
+
+        $this->assertNull($line->while(function(&$index, Line $line) {
+            ++$index;
+        }));
+        $this->assertNull($line->while(function(&$index, Line $line) {
+            --$index;
+        }));
+        $this->assertFalse($line->previous());
     }
 }

@@ -31,8 +31,8 @@ class Heading extends BlockListener
     public function render(\nadar\quill\Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-            // get all 
-            $prev = $pick->line->previous(function(Line $line) {
+            // get all
+            $prev = $pick->line->previous(function (Line $line) {
                 if (!$line->getIsInline()) {
                     return true;
                 }
@@ -45,6 +45,6 @@ class Heading extends BlockListener
 
             $pick->line->output = '<h'.$pick->heading.'>'.$prev->input . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
             $prev->setDone();
-        }   
+        }
     }
 }

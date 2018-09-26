@@ -28,8 +28,8 @@ class Blockquote extends BlockListener
     public function render(\nadar\quill\Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-            // get all 
-            $prev = $pick->line->previous(function(Line $line) {
+            // get all
+            $prev = $pick->line->previous(function (Line $line) {
                 if (!$line->getIsInline()) {
                     return true;
                 }
@@ -42,6 +42,6 @@ class Blockquote extends BlockListener
 
             $pick->line->output = '<blockquote>'.$prev->input . $pick->line->renderPrepend() . '</blockquote>';
             $prev->setDone();
-        }   
+        }
     }
 }

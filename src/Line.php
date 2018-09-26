@@ -167,6 +167,31 @@ class Line
         return implode("", array_unique($this->prepend));
     }
 
+    /**
+     * While trough lines forward or backwards define trough index until false is returned.
+     *
+     * An example how to while trough lines, increasing (down) the index until a certain condition
+     * ($line->isFirst) happens writing lint input into a buffer variable.
+     *  
+     * ```php
+     * $buffer = null;
+     * 
+     * $line->while(function (&$index, Line $line) use (&$buffer) {
+     *     $index++;
+     *     $buffer.= $line->input;
+     * 
+     *     if ($line->isFirst()) {
+     *         return false;
+     *     }
+     * });
+     * 
+     * echo $buffer;
+     * ```
+     *
+     * @param callable $condition A callable which requires 2 params, the first is the index which is passed as reference,
+     * second is the current line.
+     * @return void
+     */
     public function while(callable $condition)
     {
         $iterate = true;
@@ -192,7 +217,7 @@ class Line
      * @param Line $line
      * @param callable $condition The condition callable for the index
      * @param callable $fn The function which is returend to determine whether this line should be picked or not.
-     * @return void
+     * @return boolean|Line
      */
     protected function iterate(Line $line, callable $condition, callable $fn)
     {
@@ -211,8 +236,6 @@ class Line
                 return $elmn;
             }
         }
-
-        return false;
     }
 
     /**

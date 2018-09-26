@@ -70,7 +70,7 @@ abstract class Listener
     public function pick(Line $line, array $options = [])
     {
         $line->setPicked();
-        $this->_picks[] = new Pick($line, $options, count($this->_picks), $this);
+        $this->_picks[] = new Pick($this, $line, $options, count($this->_picks));
     }
 
     /**

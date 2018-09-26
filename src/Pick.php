@@ -26,16 +26,18 @@ class Pick
     
     /**
      * Create new line pick
-     *
+     * 
+     * @param Listener $listener
      * @param Line $line
      * @param array $options
+     * @param integer $index Index of picks, starts with 0
      */
-    public function __construct(Line $line, array $options = [], $index, Listener $listener)
+    public function __construct(Listener $listener, Line $line, array $options = [], $index)
     {
+        $this->listener = $listener;
         $this->line = $line;
         $this->options = $options;
         $this->index = $index;
-        $this->listener = $listener;
     }
 
     /**
@@ -46,11 +48,21 @@ class Pick
         return $this->options[$name];
     }
 
+    /**
+     * Whether current pick is the first pick inside this listenere.
+     *
+     * @return boolean
+     */
     public function isFirst()
     {
         return $this->index == 0;
     }
 
+    /**
+     * Whether current pick is the last pick inside the list of picks.
+     *
+     * @return boolean
+     */
     public function isLast()
     {
         return (count($this->listener->picks()) - 1) == $this->index;

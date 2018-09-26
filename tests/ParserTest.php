@@ -32,7 +32,8 @@ class ParserTest extends TestCase
         '<ol><li>Its <strong>bold</strong></li><li>Its <em>italic</em></li></ol>' => '[{"insert":"Its "},{"attributes":{"bold":true},"insert":"bold"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"Its "},{"attributes":{"italic":true},"insert":"italic"},{"attributes":{"list":"ordered"},"insert":"\n"}]',
         '<p>intro <strong>bold</strong>!</p><ul><li>elmn 1</li><li>elmn 2</li></ul><p>text</p><ul><li>elmn <strong>bold</strong> a</li><li>elmn b</li></ul>' => '[{"insert":"intro "},{"attributes":{"bold":true},"insert":"bold"},{"insert":"!\nelmn 1"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn 2"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"text\nelmn "},{"attributes":{"bold":true},"insert":"bold"},{"insert":" a"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"elmn b"},{"attributes":{"list":"bullet"},"insert":"\n"}]',
         '<h1>Head<strong>ing</strong></h1>' => '[{"insert":"Head"},{"attributes":{"bold":true},"insert":"ing"},{"attributes":{"header":1},"insert":"\n"}]',
-        '<blockquote>Wichtig <strong>Fett</strong></blockquote>' => '[{"insert":"Wichtig "},{"attributes":{"bold":true},"insert":"Fett"},{"attributes":{"blockquote":true},"insert":"\n"}]'
+        '<blockquote>Wichtig <strong>Fett</strong></blockquote>' => '[{"insert":"Wichtig "},{"attributes":{"bold":true},"insert":"Fett"},{"attributes":{"blockquote":true},"insert":"\n"}]',
+        '<blockquote>Quote</blockquote>' => '[{"insert":"Quote"},{"attributes":{"blockquote":true},"insert":"\n"}]',
     ];
 
     public function testHtmlIsEqual()
