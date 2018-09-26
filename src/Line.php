@@ -172,19 +172,19 @@ class Line
      *
      * An example how to while trough lines, increasing (down) the index until a certain condition
      * ($line->isFirst) happens writing lint input into a buffer variable.
-     *  
+     *
      * ```php
      * $buffer = null;
-     * 
+     *
      * $line->while(function (&$index, Line $line) use (&$buffer) {
      *     $index++;
      *     $buffer.= $line->input;
-     * 
+     *
      *     if ($line->isFirst()) {
      *         return false;
      *     }
      * });
-     * 
+     *
      * echo $buffer;
      * ```
      *
@@ -221,17 +221,15 @@ class Line
      */
     protected function iterate(Line $line, callable $condition, callable $fn)
     {
-        $iterate = true;
         $i = $line->getIndex();
-        
-        while ($iterate) {
+        while (true) {
             $i = call_user_func($condition, $i);
             $elmn = $this->lexer->getLine($i);
             // no next element found
             if (!$elmn) {
                 return false;
             }
-            // fn match return current element.
+            // fn match (return true) return current element.
             if (call_user_func($fn, $elmn)) {
                 return $elmn;
             }

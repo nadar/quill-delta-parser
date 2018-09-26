@@ -26,7 +26,7 @@ class Pick
     
     /**
      * Create new line pick
-     * 
+     *
      * @param Listener $listener
      * @param Line $line
      * @param array $options

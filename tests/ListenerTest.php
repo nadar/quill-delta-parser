@@ -18,7 +18,6 @@ class ListenerTest extends TestCase
         $listener->pick($line);
 
         foreach ($listener->picks() as $pick) {
-
             $this->assertTrue($pick->isFirst());
             $this->assertTrue($pick->isLast());
         }
@@ -31,11 +30,10 @@ class TestListener extends Listener
 {
     public function type(): int
     {
-        self::TYPE_BLOCK;    
+        self::TYPE_BLOCK;
     }
 
     public function process(\nadar\quill\Line $line)
     {
-        
     }
 }
