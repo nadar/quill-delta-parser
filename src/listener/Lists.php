@@ -82,6 +82,12 @@ class Lists extends BlockListener
         }
     }
 
+    /**
+     * Get the html tag for the given value.
+     *
+     * @param Pick $pick
+     * @return string
+     */
     protected function getListAttribute(Pick $pick)
     {
         if ($pick->type == 'ordered') {
@@ -90,33 +96,4 @@ class Lists extends BlockListener
 
         return 'ul';
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    /*
-    public function render(Lexer $lexer)
-    {
-        // go back to the first line or last line which ends with newline, this is the full content for the current list
-        $isFirst = false;
-        $list = [];
-        $lastId = 0;
-        foreach ($this->picks() as $pick) {
-            if ($pick->isFirst) {
-                $lastId = $pick->line->getIndex();
-            }
-
-            $list[$lastId][] = $pick->line;
-        }
-
-        foreach ($list as $index => $items) {
-            $content = '<ul>';
-            foreach ($items as $item) {
-                $content.= '<li>'.$item->input.'</li>';
-            }
-
-            $lexer->getLine($index)->output = $content . '</ul>';
-        }
-    }
-    */
 }

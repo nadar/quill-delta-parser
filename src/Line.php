@@ -78,7 +78,11 @@ class Line
      */
     protected $hadEndNewline = false;
 
+    /**
+     * @var boolean Whether this line has a newline or not, this information is already provided by the lines to ops method.
+     */
     protected $hasNewline;
+    
     /**
      * Constructor
      *
@@ -98,16 +102,34 @@ class Line
         $this->hasNewline = $hasNewline;
     }
 
+    /**
+     * Whether the current line had a new line char or not, this is very important in terms of finding out wether its a block
+     * element or inline element.
+     *
+     * This informations as assigned in the opsToLine() method in the lexer object.
+     *
+     * @return boolean
+     */
     public function hasNewline()
     {
         return $this->hasNewline;
     }
 
+    /**
+     * Whether this line as an end newline char or not.
+     *
+     * @return boolean
+     */
     public function hasEndNewline()
     {
         return $this->hadEndNewline;
     }
 
+    /**
+     * Whether this line is the first line or not.
+     *
+     * @return boolean
+     */
     public function isFirst()
     {
         return $this->previous() === false;

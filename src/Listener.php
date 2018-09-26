@@ -9,6 +9,7 @@ namespace nadar\quill;
  * pick and process this line.
  *
  * @author Basil Suter <basil@nadar.io>
+ * @since 1.0.0
  */
 abstract class Listener
 {
@@ -61,11 +62,12 @@ abstract class Listener
     private $_picks = [];
 
     /**
-     * Undocumented function
+     * Pick a certain line during the process() process in order to use them later in render method.
+     *
+     * If a line is picked, the status of the line switches to picked.
      *
      * @param Line $line
      * @param array $options
-     * @return void
      */
     public function pick(Line $line, array $options = [])
     {
@@ -74,7 +76,7 @@ abstract class Listener
     }
 
     /**
-     * Undocumented function
+     * Returns an array with all picked lineds.
      *
      * @return Line An array with Line objects, for IDE purposes we return the Line object as phpdoc
      */
@@ -84,13 +86,14 @@ abstract class Listener
     }
 
     /**
-     * Undocumented function
+     * The render metho is processed after the process() method is done.
+     *
+     * Its the right place to go forward and backward in lines if you need to, as at the point all lines
+     * are allready processed trough process() method.
      *
      * @param Lexer $lexer
-     * @return void
      */
     public function render(Lexer $lexer)
     {
-        // override in your listenere if needed.
     }
 }

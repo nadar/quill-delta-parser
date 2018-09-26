@@ -4,6 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Line;
 use nadar\quill\BlockListener;
+use nadar\quill\Lexer;
 
 /**
  * Convert Blockquote Elements
@@ -25,7 +26,10 @@ class Blockquote extends BlockListener
         }
     }
 
-    public function render(\nadar\quill\Lexer $lexer)
+    /**
+     * {@inheritDoc}
+     */
+    public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
             // get all

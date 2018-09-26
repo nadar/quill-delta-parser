@@ -11,17 +11,23 @@ namespace nadar\quill;
 class Pick
 {
     /**
-     * @var array An array with options which can be read trough magical getter
-     */
-    public $options = [];
-
-    /**
      * @var Line
      */
     public $line;
 
+    /**
+     * @var array An array with options which can be read trough magical getter
+     */
+    protected $options = [];
+
+    /**
+     * @var integer Contains the current index number for this pick.
+     */
     protected $index;
 
+    /**
+     * @var Listener The listener object the picke was made from.
+     */
     protected $listener;
     
     /**

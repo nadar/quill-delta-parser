@@ -56,7 +56,7 @@ class Lexer
     /**
      * @var string An internal string for newlines, this makes it more easy to debug instead of using \n (newlines).
      */
-    const NEWLINE_EXPRESSION = '<!--CDATA:NEWLINE-->';
+    const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
 
     /**
      * @var boolean Whether debbuging is enabled or not. If enabled some html comments will be added to certain elements.
@@ -165,49 +165,52 @@ class Lexer
     private $_lines = [];
 
     /**
-     * Undocumented function
+     * Convert the arrray operations array into lines
      *
-     * @param array $ops
-     * @return void
+     * @param array $ops An array from json with ops data in delta format.
+     * @return array An array with Line objects
      */
     protected function opsToLines(array $ops)
     {
         $lines = [];
         $i = 0;
         foreach ($ops as $key => $delta) {
+            // replace newline chars with internal expression
             $insert = $this->replaceNewlineWithExpression($delta['insert']);
-            
+            // if its an empty "newline-line"
             if ($insert == self::NEWLINE_EXPRESSION) {
                 $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true, true);
                 $i++;
             } else {
+                // remove the last newline from the line, as it will be splited into lines anyhow.
                 $line = $this->removeLastNewline($insert);
-                $hasEndNewline = false;
-                if ($line !== $insert) {
-                    // seems like we have removed something
-                    $hasEndNewline = true;
-                }
-
-                $has = strpos($line, self::NEWLINE_EXPRESSION);
-                
-                if ($has !== false) {
-                    $has = true;
-                }
-
+                // check if the original input was changed, in order to determine whether current line had new line char.
+                $hasEndNewline = ($line !== $insert);
+                // check if current input string has a new line char in the string
+                $hasNewline = $this->lineHasNewline($line);
+                // split the input string into parts / lines.
                 $parts = explode(self::NEWLINE_EXPRESSION, $line);
                 foreach ($parts as $index => $value) {
-                    if (($index + 1) == count($parts) && $hasEndNewline) {
-                        $hadEndNewline = true;
-                    } else {
-                        $hadEndNewline = false;
-                    }
-                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline, $has);
+                    // check if this line had the end newline
+                    $hadEndNewline = ($hasEndNewline && ($index + 1) == count($parts)) ? true : false;
+                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline, $hasNewline);
                     $i++;
                 }
             }
         }
 
         return $lines;
+    }
+
+    /**
+     * Whether the current line as a newline char.
+     *
+     * @param string $input
+     * @return string
+     */
+    protected function lineHasNewline($input)
+    {
+        return (strpos($input, self::NEWLINE_EXPRESSION) !== false) ? true : false;
     }
 
     /**
