@@ -15,12 +15,14 @@ use nadar\quill\Pick;
  */
 class Lists extends BlockListener
 {
+    const ATTRIBUTE_LIST = 'list';
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        $listType = $line->getAttribute('list');
+        $listType = $line->getAttribute(self::ATTRIBUTE_LIST);
         if ($listType) {
             /*
             $prev = $line->previous(); // the value for the <li>
@@ -38,10 +40,11 @@ class Lists extends BlockListener
 
     public function render(Lexer $lexer)
     {
+        $lists = [];
+
         foreach ($this->picks() as $pick) {
             
             // get the first element within this list <li>
-            // problem with identify first element...
             $first = $pick->line->previous(function (Line $line) {
                 if ($line->isFirst() || $line->hasNewline()) {
                     return true;
@@ -60,6 +63,14 @@ class Lists extends BlockListener
                 }
             });
 
+            // find out if last element of series of lists
+            $elementAfterSerie = $pick->line->next(function(Line $line) {
+                if ($line->isEmpty()) {
+                    return true;
+                }
+            });
+
+            // write the li element.
             if ($pick->isFirst()) {
                 $pick->line->output = '<'.$this->getListAttribute($pick).'><li>' . $buffer .'</li>';
             } elseif ($pick->isLast()) {
