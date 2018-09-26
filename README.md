@@ -64,6 +64,7 @@ This would render the following HTML:
 
 ```html
 <h1>Hello</h1>
+<p><br></p>
 <p>This is the php quill <strong>parser</strong>!</p>
 ```
 
