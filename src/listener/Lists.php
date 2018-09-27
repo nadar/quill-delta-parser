@@ -17,6 +17,10 @@ class Lists extends BlockListener
 {
     const ATTRIBUTE_LIST = 'list';
 
+    const LIST_TYPE_BULLET = 'bullet';
+
+    const LIST_TYPE_ORDERED = 'ordered';
+
     /**
      * {@inheritDoc}
      */
@@ -90,7 +94,7 @@ class Lists extends BlockListener
      */
     protected function getListAttribute(Pick $pick)
     {
-        if ($pick->type == 'ordered') {
+        if ($pick->type == self::LIST_TYPE_ORDERED) {
             return 'ol';
         }
 

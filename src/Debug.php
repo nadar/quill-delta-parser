@@ -12,13 +12,26 @@ namespace nadar\quill;
  */
 class Debug
 {
+    /**
+     * @var Lexer
+     */
     public $lexer;
 
+    /**
+     * Debug constructor
+     *
+     * @param Lexer $lexer
+     */
     public function __construct(Lexer $lexer)
     {
         $this->lexer = $lexer;
     }
 
+    /**
+     * Get an array of lines which does not have status done.
+     *
+     * @return void
+     */
     protected function getNotDoneLines()
     {
         $lines = [];
@@ -30,6 +43,11 @@ class Debug
         return $lines;
     }
 
+    /**
+     * Get an array of lines which does not have the status picked
+     *
+     * @return void
+     */
     protected function getNotPickedLines()
     {
         $lines = [];
@@ -42,32 +60,32 @@ class Debug
         return $lines;
     }
 
+    /**
+     * return a string with debug informations.
+     */
     public function debugPrint()
     {
-        $d = "QUILL DELTA LEXER DEBUG".PHP_EOL;
-        $d.= "============= SUMMARY ===================" . PHP_EOL;
+        $d = "<h1>Summary</h1>" . PHP_EOL;
         $d.= "Lines:" . count($this->lexer->getLines()) . PHP_EOL;
         $d.= "Lines not done: " . count($this->getNotDoneLines()) . PHP_EOL;
         $d.= "Lines not picked: " . count($this->getNotPickedLines()) . PHP_EOL;
-        $d.= "============= NOT PICKED LINES ==================<table border=1>";
-        foreach ($this->getNotPickedLines() as $line) {
-            $d.= '<tr><td>#' . $line->getIndex() . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
-        }
-        $d.= "</table><p>============= NOT DONE LINES ==================</p><table border=1>";
-        foreach ($this->getNotDoneLines() as $line) {
-            $d.= '<tr><td>#' . $line->getIndex() . '</td><td>' . htmlentities($line->input, ENT_QUOTES) . '</td></tr>';
-        }
-        $d.= "</table><p>============= LINE BY LINE ==================</p>";
+        
+        $d.= "<h2>NOT PICKED LINES</h2>";
+        $d.= $this->getLinesTable($this->getNotPickedLines());
 
-        $d.= $this->getLinesTable();
+        $d.= "<h2>NOT DONE LINES</h2>";
+        $d.= $this->getLinesTable($this->getNotDoneLines());
+        
+        $d.= "<h2>LINE BY LINE</h2>";
+        $d.= $this->getLinesTable($this->lexer->getLines());
         
         return nl2br($d);
     }
 
-    public function getLinesTable()
+    public function getLinesTable(array $lines)
     {
         $lines = [];
-        foreach ($this->lexer->getLines() as $line) {
+        foreach ($lines as $line) {
             $lines[] = [
                 $line->getIndex(),
                 htmlentities($line->input, ENT_QUOTES),
