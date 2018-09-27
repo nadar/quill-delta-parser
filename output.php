@@ -57,24 +57,25 @@ $debuger = new Debug($lex);
 
 <!-- Initialize Quill editor -->
 <script>
-  var editor = new Quill('#editor', {
-    modules: {  toolbar: [
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                ['link'],
-                [{ 'script': 'sub'}, { 'script': 'super' }],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                ['image', 'video'],
-                ['clean']
-            ] },
+var editor = new Quill('#editor', {
+    modules: {
+        toolbar: [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            ['link'],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['image', 'video'],
+            ['clean']
+        ]
+    },
     theme: 'snow'
-  });
-  $('form.demo').submit(function() {
-        $('#quill-editor-input').val(JSON.stringify(editor.getContents()));
-        return true;
-    });
-
-    editor.setContents(<?= $json; ?>);
+});
+$('form.demo').submit(function() {
+    $('#quill-editor-input').val(JSON.stringify(editor.getContents()));
+    return true;
+});
+editor.setContents(<?= $json; ?>);
 </script>
 </body>
 </html>

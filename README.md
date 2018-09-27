@@ -91,12 +91,8 @@ class Mention extends InlineListener
             $array = $line->getArrayInsert();
             // it seems the array has a key with the name "mention":
             if (isset($array['mention'])) {
-                // change the output of the current line with the value from the mention array config
-                $line->output = $array['mention']['value'];
-                // mark as inline, so other elements will not thread as block
-                $line->setAsInline();
-                // mark the line as done, so no other plugin will interact with the line
-                $line->setDone();
+                // use default inline behavior, updates the content and append to next "block" element.
+                $this->updateInput($line, $array['mention']['value']);
             }
         }
     }

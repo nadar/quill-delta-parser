@@ -28,9 +28,7 @@ class Mention extends InlineListener
         if ($line->isJsonInsert()) {
             $array = $line->getArrayInsert();
             if (isset($array['mention'])) {
-                $line->output = $array['mention']['value'];
-                $line->setAsInline();
-                $line->setDone();
+                $this->updateInput($line, $array['mention']['value']);
             }
         }
     }

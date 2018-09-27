@@ -35,7 +35,7 @@ class ParserTest extends TestCase
         '<blockquote>Wichtig <strong>Fett</strong></blockquote>' => '[{"insert":"Wichtig "},{"attributes":{"bold":true},"insert":"Fett"},{"attributes":{"blockquote":true},"insert":"\n"}]',
         '<blockquote>Quote</blockquote>' => '[{"insert":"Quote"},{"attributes":{"blockquote":true},"insert":"\n"}]',
         '<h1>Heading 1</h1>' => '[{"insert":"Heading 1"},{"attributes":{"header":1},"insert":"\n"}]',
-        '<h1>Hello</h1><p><br></p><p>This is the php quill <strong>parser</strong>!</p>' => '[{"insert":"Hello"},{"attributes":{"header":1},"insert":"\n"},{"insert":"\nThis is the php quill "},{"attributes":{"bold":true},"insert":"parser"},{"insert":"!\n"}]'
+        '<h1>Hello</h1><p><br></p><p>This is the php quill <strong>parser</strong>!</p>' => '[{"insert":"Hello"},{"attributes":{"header":1},"insert":"\n"},{"insert":"\nThis is the php quill "},{"attributes":{"bold":true},"insert":"parser"},{"insert":"!\n"}]',
     ];
 
     public function testHtmlIsEqual()

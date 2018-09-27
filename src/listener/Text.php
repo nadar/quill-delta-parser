@@ -39,7 +39,7 @@ class Text extends BlockListener
     {
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            if (!$pick->line->isDone() && !$pick->line->hasAttributes()) {
+            if (!$pick->line->isDone() && !$pick->line->hasAttributes() && !$pick->line->getIsInline()) {
                 $pick->line->setDone();
 
                 $next = $pick->line->next();
