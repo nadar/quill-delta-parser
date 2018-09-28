@@ -74,6 +74,7 @@ class Lists extends BlockListener
             $output = null;
             if (!$isOpen && !$isLast) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
+                $isOpen = true;
             }
             $output.= '<li>' . $buffer .'</li>';
             if ($isLast) {

@@ -84,9 +84,9 @@ class Debug
 
     public function getLinesTable(array $lines)
     {
-        $lines = [];
+        $_lines = [];
         foreach ($lines as $line) {
-            $lines[] = [
+            $_lines[] = [
                 $line->getIndex(),
                 htmlentities($line->input, ENT_QUOTES),
                 htmlentities($line->output, ENT_QUOTES),
@@ -100,7 +100,7 @@ class Debug
             ];
         }
 
-        return $this->renderTable($lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'is picked', 'has end newline', 'has new line', 'is empty']);
+        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'is picked', 'has end newline', 'has new line', 'is empty']);
     }
 
     protected function renderTable(array $rows, array $head = [])
@@ -122,6 +122,7 @@ class Debug
             }
             $buffer .= '</tr>';
         }
+
         return $buffer . '</table>';
     }
 }
