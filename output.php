@@ -25,18 +25,6 @@ $debuger = new Debug($lex);
 <form method="post" class="demo">
     <input type="hidden" id="quill-editor-input" name="quill-editor-input" />
     <div id="editor" style="height:100px;">
-    <p>intro</p>
-    <h1>heading</h1>
-    <p>paragraph <b>fett</b>!</p>
-    <ul>
-        <li>elmn 1</li>
-        <li>elmn 2</li>
-    </ul>
-    <p>text</p>
-    <ul>
-        <li>elmn <b>bold</b> a</li>
-        <li>elmn b</li>
-    </ul>
     </div>
     <input type="submit" name="submit" value="Parse" class="btn btn-primary" />
 </form>

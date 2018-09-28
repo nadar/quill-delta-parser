@@ -66,7 +66,9 @@ class Lists extends BlockListener
             // if a. is no next element
             // or b. next element "has new line"
             $isLast = false;
-            if (!$pick->line->next() || $pick->line->next()->hasNewline()) {
+            if (!$pick->line->next() || $pick->line->next(function (Line $line) {
+                return !$line->getIsInline();
+            })->hasNewline()) {
                 $isLast = true;
             }
 
@@ -77,7 +79,8 @@ class Lists extends BlockListener
                 $isOpen = true;
             }
             $output.= '<li>' . $buffer .'</li>';
-            if ($isLast) {
+            
+            if ($isLast && $isOpen) {
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
