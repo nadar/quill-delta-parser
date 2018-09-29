@@ -411,4 +411,15 @@ class Line
     {
         return Lexer::decodeJson($this->input);
     }
+
+    public function insertJsonKey($key)
+    {
+        if (!$this->isJsonInsert()) {
+            return false;
+        }
+
+        $insert = $this->getArrayInsert();
+
+        return array_key_exists($key, $insert) ? $insert[$key] : false;
+    }
 }
