@@ -47,7 +47,7 @@ abstract class InlineListener extends Listener
     {
         foreach ($this->picks() as $pick) {
             $next = $pick->line->next(function (Line $line) {
-                return !$line->getIsInline();
+                return !$line->isInline();
             });
 
             $next->addPrepend($pick->line->input);

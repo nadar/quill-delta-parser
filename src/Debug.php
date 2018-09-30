@@ -92,7 +92,7 @@ class Debug
                 htmlentities($line->output, ENT_QUOTES),
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
                 var_export($line->getAttributes(), true),
-                var_export($line->getIsInline(), true),
+                var_export($line->isInline(), true),
                 var_export($line->isPicked(), true),
                 var_export($line->hasEndNewline(), true),
                 var_export($line->hasNewline(), true),

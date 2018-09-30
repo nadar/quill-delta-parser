@@ -34,7 +34,7 @@ class Blockquote extends BlockListener
         foreach ($this->picks() as $pick) {
             // get all
             $prev = $pick->line->previous(function (Line $line) {
-                if (!$line->getIsInline()) {
+                if (!$line->isInline()) {
                     return true;
                 }
             });

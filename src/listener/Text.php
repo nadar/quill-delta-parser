@@ -39,7 +39,7 @@ class Text extends BlockListener
     {
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            if (!$pick->line->isDone() && !$pick->line->hasAttributes() && !$pick->line->getIsInline()) {
+            if (!$pick->line->isDone() && !$pick->line->hasAttributes() && !$pick->line->isInline()) {
                 $pick->line->setDone();
 
                 $next = $pick->line->next();
@@ -49,9 +49,12 @@ class Text extends BlockListener
 
                 // wenn previous ist inline und das tag bereits göffnet. Am schluss schliesen.
                 // aber nur wenn diese linie leer ist.
-                if ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->isEmpty()) {
+                // @todo temp disable this behavior as it seems not to have any effect
+                /*
+                if ($isOpen && ($prev && $prev->isInline()) && $pick->line->isEmpty()) {
                     $isOpen = $this->output($output, '</p>', false);
                 }
+                */
                 
                 // if its close - we just open tag paragraph as we have a line here!
                 if (!$isOpen) {
@@ -62,7 +65,7 @@ class Text extends BlockListener
                 $output[] = $pick->line->isEmpty() ? '<br>' : $pick->line->renderPrepend() . $pick->line->input;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
-                if ($isOpen && ($next && !$next->getIsInline())) {
+                if ($isOpen && ($next && !$next->isInline())) {
                     $isOpen = $this->output($output, '</p>', false);
 
                 // if its open and we dont have a next element, its the end of the document! lets close this damn paragraph.
@@ -72,7 +75,7 @@ class Text extends BlockListener
                 // its open, but the previous element was already an inline element, so maybe we should close and the next element
                 // will take care of the "situation". But only if this current line also had an end new line element, otherwise
                 // repeated inline elements will close
-                } elseif ($isOpen && ($prev && $prev->getIsInline()) && $pick->line->hasEndNewline()) {
+                } elseif ($isOpen && ($prev && $prev->isInline()) && $pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, '</p>', false);
             
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
@@ -86,7 +89,7 @@ class Text extends BlockListener
                 }
                 
                 // we have a next element and the next elmenet is inline and its not open, open ...!
-                if ($next && $next->getIsInline() && !$isOpen) {
+                if ($next && $next->isInline() && !$isOpen) {
                     $isOpen = $this->output($output, '<p>', true);
                 }
 

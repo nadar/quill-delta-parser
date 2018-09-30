@@ -327,7 +327,7 @@ class Line
      *
      * @return boolean
      */
-    public function getIsInline()
+    public function isInline()
     {
         return $this->isInline;
     }
@@ -412,6 +412,12 @@ class Line
         return Lexer::decodeJson($this->input);
     }
 
+    /**
+     * Check whether insert is json/array input. if yes return the requres key.
+     *
+     * @param string $key The key from the json array
+     * @return mixed
+     */
     public function insertJsonKey($key)
     {
         if (!$this->isJsonInsert()) {

@@ -67,7 +67,7 @@ class Lists extends BlockListener
             // or b. next element "has new line"
             $isLast = false;
             if (!$pick->line->next() || $pick->line->next(function (Line $line) {
-                return !$line->getIsInline();
+                return !$line->isInline();
             })->hasNewline()) {
                 $isLast = true;
             }
