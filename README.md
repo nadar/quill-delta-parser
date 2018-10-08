@@ -85,16 +85,13 @@ class Mention extends InlineListener
      */
     public function process(Line $line)
     {
-        // as "insert" value is not a string, it contains json notiation content:
-        if ($line->isJsonInsert()) {
-            // parse the given json into an array
-            $array = $line->getArrayInsert();
-            // it seems the array has a key with the name "mention":
-            if (isset($array['mention'])) {
-                // use default inline behavior, updates the content and append to next "block" element.
-                $this->updateInput($line, $array['mention']['value']);
-            }
-        }
+      // check if input is json, decodes to an array and checks if the key "mention" 
+      // exsts, if yes return the value for this key.
+      $mention = $line->insertJsonKey('mention');
+      if ($mention) {
+            // use default inline behavior, updates the content and append to next "block" element.
+            // the value in this example would be "<mention>Basil</mention>".
+            $this->updateInput($line, '<mention>'.$mention['value'].'</mention>');
     }
 }
 ```

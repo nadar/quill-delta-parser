@@ -25,12 +25,10 @@ class Mention extends InlineListener
      */
     public function process(Line $line)
     {
-        // @todo use: $line->insertJsonKey('mention');
-        if ($line->isJsonInsert()) {
-            $array = $line->getArrayInsert();
-            if (isset($array['mention'])) {
-                $this->updateInput($line, $array['mention']['value']);
-            }
+        $mention = $line->insertJsonKey('mention');
+
+        if ($mention) {
+            $this->updateInput($line, $mention['value']);
         }
     }
 }
