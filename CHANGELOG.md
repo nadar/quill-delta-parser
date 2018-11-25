@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.0.1 (in progress)
+## 1.0.1 (25. November 2018)
 
 + Improve Video-Tag output (Remove frameborder, use youtube embed code allow tag).
 
