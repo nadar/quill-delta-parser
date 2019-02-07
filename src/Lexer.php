@@ -12,6 +12,7 @@ use nadar\quill\listener\Italic;
 use nadar\quill\listener\Strike;
 use nadar\quill\listener\Underline;
 use nadar\quill\listener\Video;
+use nadar\quill\listener\Image;
 
 /**
  * Lexer Delta Parser.
@@ -107,6 +108,7 @@ class Lexer
         $this->registerListener(new Italic);
         $this->registerListener(new Link);
         $this->registerListener(new Video);
+        $this->registerListener(new Image);
         $this->registerListener(new Strike);
         $this->registerListener(new Underline);
         $this->registerListener(new Heading);

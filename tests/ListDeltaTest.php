@@ -45,7 +45,7 @@ class ListDeltaTest extends DeltaTestCase
 ]
 JSON;
 
-public $html = <<<'EOT'
+    public $html = <<<'EOT'
 <p><strong>Infobox</strong></p>
 <ul>
 <li>1</li>

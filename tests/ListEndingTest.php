@@ -79,7 +79,7 @@ class ListEndingTest extends DeltaTestCase
   ]
 JSON;
 
-public $html = <<<'EOT'
+    public $html = <<<'EOT'
 <p>Intro</p>
 <p><br></p>
 <p><strong>Infobox</strong></p>

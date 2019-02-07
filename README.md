@@ -104,6 +104,20 @@ $lexer->registerListener(new Mention);
 echo $lexer->render();
 ```
 
+## Overide built int Listeners
+
+Certain listeners (image, video) produce a HTMl output which maybe not suit your use case, so you have to the option to override the properties of those plugins, example with image tags:
+
+```php
+$image = new Image();
+$image->wrapper = '<img src="{src}" class="my-image" />';
+
+// override the default plugin from the lexer:
+$lexer = new Lexer($json);
+$lexer->registerListener($image);
+echo $lexer->render();
+```
+
 ## Credits
 
 + [Dean Blackborough](https://github.com/deanblackborough)
