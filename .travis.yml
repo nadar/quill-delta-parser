@@ -7,6 +7,9 @@ php:
   - 7.2
   - 7.3
   - nightly
+matrix:
+  allow_failures:
+      - php: nightly
 before_script:
   - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
