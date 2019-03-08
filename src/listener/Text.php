@@ -16,14 +16,9 @@ class Text extends BlockListener
 {
     const CLOSEP = '</p>';
 
-    const LINEBREAK = '<br>';
+    const OPENP = '<p>';
 
-    /**
-     * @var boolean Whether the attributes of texts should be ignored or not. This means that attributes like `color` will not apply to the paragraph
-     * elements if disabled. This can make sense when you want to have clean and formated output renderd via css.
-     * @since 1.1.0
-     */
-    public $applyAttributes = true;
+    const LINEBREAK = '<br>';
 
     /**
      * {@inheritDoc}
@@ -50,19 +45,17 @@ class Text extends BlockListener
     {
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            if (!$pick->line->isDone() && !$pick->line->isInline()) {
+            if (!$pick->line->isDone() && !$pick->line->hasAttributes() && !$pick->line->isInline()) {
                 $pick->line->setDone();
 
                 $next = $pick->line->next();
                 $prev = $pick->line->previous();
                 
                 $output = [];
-
-                $openParagraph = $this->generateParagraph($pick->line);
                 
                 // if its close - we just open tag paragraph as we have a line here!
                 if (!$isOpen) {
-                    $isOpen = $this->output($output, $openParagraph, true);
+                    $isOpen = $this->output($output, self::OPENP, true);
                 }
 
                 // write the actuall content of the element into the output
@@ -85,7 +78,7 @@ class Text extends BlockListener
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
                 } elseif ($pick->line->isEmpty() && $next) {
-                    $isOpen = $this->output($output, self::CLOSEP.$openParagraph, true);
+                    $isOpen = $this->output($output, self::CLOSEP.self::OPENP, true);
                 
                 // if its open, and it had an end newline, lets close
                 } elseif ($isOpen && $pick->line->hasEndNewline()) {
@@ -94,7 +87,7 @@ class Text extends BlockListener
                 
                 // we have a next element and the next elmenet is inline and its not open, open ...!
                 if ($next && $next->isInline() && !$isOpen) {
-                    $isOpen = $this->output($output, $openParagraph, true);
+                    $isOpen = $this->output($output, self::OPENP, true);
                 }
 
                 $pick->line->output = implode("", $output);
@@ -114,31 +107,5 @@ class Text extends BlockListener
     {
         $output[] = $tag;
         return $openState;
-    }
-
-    /**
-     * Generate the opening paragraph tag (<p>) with the given attributes styles.
-     * 
-     * @param Line $line The line to extract the attributes
-     * @return string The <p> string with optional attributes.
-     * @since 1.1.0
-     */
-    public function generateParagraph(Line $line)
-    {
-        $style = null;
-        // handling attributes
-        if ($this->applyAttributes) {
-            $attributes = [];
-            // add color style
-            if (($color = $line->getAttribute('color'))) {
-                $attributes[] = 'color:' . $color;
-            }
-            // if attributs are available generate style string
-            if (!empty($attributes)) {
-                $style.= ' style="'. implode(", ", $attributes).'"';
-            }
-        }
-
-        return '<p'.$style.'>';
     }
 }

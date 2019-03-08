@@ -18,10 +18,15 @@ class DeltaTestCase extends TestCase
         return new Lexer($this->json);
     }
 
+    public function listeners(Lexer $lexer)
+    {
+
+    }
+
     public function testOutput()
     {
         $parser = $this->getLexer();
-
+        $this->listeners($parser);
         $this->assertSame(trim(str_replace(PHP_EOL, '', $this->html)), trim($parser->render()));
     }
 }

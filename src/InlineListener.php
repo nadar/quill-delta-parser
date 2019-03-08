@@ -2,6 +2,8 @@
 
 namespace nadar\quill;
 
+use Exception;
+
 /**
  * Inline Listenere.
  *
@@ -50,6 +52,9 @@ abstract class InlineListener extends Listener
                 return !$line->isInline();
             });
 
+            if (!$next) {
+                throw new Exception("Unable to find a next element. Invalid DELTA on '{$this->input}'");
+            }
             $next->addPrepend($pick->line->input);
         }
     }
