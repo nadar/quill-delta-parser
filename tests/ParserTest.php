@@ -57,9 +57,19 @@ class ParserTest extends TestCase
     public function testDebugPrint()
     {
         $lexer = new Lexer([["attributes" => ['none' => true], "insert" => "not"], ["insert" => "f\nfoo\n"]]);
-        $this->assertSame('<p>f</p><p>foo</p>', $lexer->render());
+        $this->assertSame('<p>not</p><p>f</p><p>foo</p>', $lexer->render());
         
         $debug = new Debug($lexer);
         $this->assertNotNull($debug->debugPrint());
+    }
+
+    public function testTextRenderWithoutAttributes()
+    {
+        $text = new Text();
+        $text->applyAttributes = false;
+
+        $lexer = new Lexer([["attributes" => ['color' => 'red'], "insert" => "not"], ["insert" => "f\nfoo\n"]]);
+        $lexer->registerListener($text);
+        $this->assertSame('<p>not</p><p>f</p><p>foo</p>', $lexer->render());
     }
 }
