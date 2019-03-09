@@ -106,7 +106,7 @@ echo $lexer->render();
 
 ## Overide built int Listeners
 
-Certain listeners (image, video) produce a HTMl output which maybe not suit your use case, so you have to the option to override the properties of those plugins, example with image tags:
+Certain listeners (image, video, color) produce a HTML output which maybe not suit your use case, so you have to the option to override the properties of those plugins, example with image tags:
 
 ```php
 $image = new Image();
