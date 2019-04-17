@@ -29,4 +29,13 @@ class LineTest extends TestCase
         }));
         $this->assertFalse($line->previous());
     }
+
+    public function testNoNextElementException()
+    {
+        $lexer = new Lexer('[{"insert":"first "},{"insert":"second","attributes":{"bold":true}}]');
+        
+        $this->expectException('\Exception');
+        $this->expectExceptionMessage('Unable to find a next element. Invalid DELTA on \'<strong>second</strong>\'. Maybe your delta code does not end with a newline?');
+        $response = $lexer->render();
+    }
 }
