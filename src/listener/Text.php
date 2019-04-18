@@ -20,6 +20,10 @@ class Text extends BlockListener
 
     const LINEBREAK = '<br>';
 
+    public $escapeFlags = ENT_QUOTES|ENT_HTML5;
+
+    public $escapeEncoding = 'UTF-8';
+
     /**
      * {@inheritDoc}
      */
@@ -58,8 +62,11 @@ class Text extends BlockListener
                     $isOpen = $this->output($output, self::OPENP, true);
                 }
 
+                // escape plain text output before mixing with paragraph tags
+                $escapedInput = htmlspecialchars($pick->line->input, $this->escapeFlags, $this->escapeEncoding, $double=false);
+                
                 // write the actuall content of the element into the output
-                $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $pick->line->input;
+                $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $escapedInput;
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
                 if ($isOpen && ($next && !$next->isInline())) {
