@@ -5,14 +5,14 @@ namespace nadar\quill\tests;
 use nadar\quill\Lexer;
 use nadar\quill\listener\Text;
 
-class TextInjection2Test extends DeltaTestCase
+class TextInjectionFlagsTest extends DeltaTestCase
 {
     public $json = <<<'JSON'
 [
-    {"insert":"normal text"},
-    {"insert":"<script type='text/javascript'>alert(\"html injection\");</script>"},
-    {"insert":"bold text", "attributes":{"bold":true}},
-    {"insert":"\n"}
+    {"insert": "normal text"},
+    {"insert": "<script type='text/javascript'>alert(\"html injection\");</script>"},
+    {"insert": "bold text", "attributes": {"bold": true}},
+    {"insert": "\n"}
 ]
 JSON;
 
@@ -22,9 +22,6 @@ EOT;
 
     public function listeners(Lexer $lexer)
     {
-        $text = new Text();
-        $text->escapeFlags = ENT_COMPAT;
-
-        $lexer->registerListener($text);
+        Text::$escapeFlags = ENT_COMPAT;
     }
 }

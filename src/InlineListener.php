@@ -39,6 +39,7 @@ abstract class InlineListener extends Listener
         $line->input = $value;
         $line->setDone();
         $line->setAsInline();
+        $line->setAsEscaped();
         $this->pick($line);
     }
 

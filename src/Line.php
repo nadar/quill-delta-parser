@@ -70,6 +70,8 @@ class Line
      * end output. For example those can be skipped as they usual prepend the input value into the next line.
      */
     protected $isInline = false;
+    
+    protected $isEscaped = false;
 
     /**
      * @var boolean As certain elements has an end of newline but those are removed within the lexer opt to line methods we remember
@@ -331,6 +333,16 @@ class Line
     {
         return $this->isInline;
     }
+    
+    public function setAsEscaped()
+    {
+        $this->isEscaped = true;
+    }
+    
+    public function isEscaped()
+    {
+        return $this->isEscaped;
+    }
 
     /**
      * Getter method for the index of the line.
@@ -427,5 +439,14 @@ class Line
         $insert = $this->getArrayInsert();
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
+    }
+    
+    public function escapedInput()
+    {
+        if ($this->isEscaped()) {
+            return $this->input;
+        }
+        
+        return Listener::escape($this->input);
     }
 }

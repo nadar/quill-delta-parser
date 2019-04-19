@@ -34,6 +34,10 @@ abstract class Listener
      */
     const PRIORITY_GARBAGE_COLLECTOR = 2;
 
+    public static $escapeFlags = ENT_QUOTES|ENT_HTML5;
+
+    public static $escapeEncoding = 'UTF-8';
+
     /**
      * Undocumented function
      *
@@ -95,5 +99,16 @@ abstract class Listener
      */
     public function render(Lexer $lexer)
     {
+    }
+    
+    /**
+     * escape plain text output before mixing with html tags
+     * 
+     * @param  string $value
+     * @return string
+     */
+    public static function escape($value)
+    {
+        return htmlspecialchars($value, static::$escapeFlags, static::$escapeEncoding, $double=false);
     }
 }

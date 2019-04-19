@@ -31,6 +31,11 @@ class Heading extends BlockListener
     public function render(\nadar\quill\Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
+            if (in_array($pick->heading, [1, 2, 3, 4, 5, 6], $strict=true) === false) {
+                // prevent html injection in case the attribute is user input
+                throw new \Exception('unknown heading level');
+            }
+            
             // get all
             $prev = $pick->line->previous(function (Line $line) {
                 if (!$line->isInline()) {
@@ -43,7 +48,7 @@ class Heading extends BlockListener
                 $prev = $pick->line;
             }
 
-            $pick->line->output = '<h'.$pick->heading.'>'.$prev->input . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
+            $pick->line->output = '<h'.$pick->heading.'>'.$prev->escapedInput() . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
             $prev->setDone();
         }
     }

@@ -19,7 +19,7 @@ class Underline extends InlineListener
     public function process(Line $line)
     {
         if ($line->getAttribute('underline')) {
-            $this->updateInput($line, '<u>'.$line->input.'</u>');
+            $this->updateInput($line, '<u>'.$line->escapedInput().'</u>');
         }
     }
 }

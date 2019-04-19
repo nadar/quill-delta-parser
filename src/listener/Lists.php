@@ -55,7 +55,7 @@ class Lists extends BlockListener
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
-                $buffer.= $line->input;
+                $buffer.= $line->escapedInput();
                 $line->setDone();
                 if ($index == $pick->line->getIndex()) {
                     return false;
@@ -102,6 +102,11 @@ class Lists extends BlockListener
             return 'ol';
         }
 
-        return 'ul';
+        if ($pick->type == self::LIST_TYPE_BULLET) {
+            return 'ul';
+        }
+        
+        // prevent html injection in case the attribute is user input
+        throw new \Exception('unknown list type');
     }
 }
