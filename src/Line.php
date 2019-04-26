@@ -70,7 +70,11 @@ class Line
      * end output. For example those can be skipped as they usual prepend the input value into the next line.
      */
     protected $isInline = false;
-    
+
+    /**
+     * @var boolean Whether the current line is already escaped by a listener. If this is false, the next listener should preferable do so.
+     * If this is true, it should not be done again by a next listener.
+     */
     protected $isEscaped = false;
 
     /**
@@ -333,12 +337,20 @@ class Line
     {
         return $this->isInline;
     }
-    
+
+    /**
+     * Setter method whether the current line is escaped or not.
+     */
     public function setAsEscaped()
     {
         $this->isEscaped = true;
     }
-    
+
+    /**
+     * Whether the current line is escaped or not.
+     * 
+     * @return boolean
+     */
     public function isEscaped()
     {
         return $this->isEscaped;
@@ -440,7 +452,12 @@ class Line
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
     }
-    
+
+    /**
+     * Get the line's input in a safe way. Escaping for html is done if this wasn't done by a previous listener already.
+     * 
+     * @return string
+     */
     public function escapedInput()
     {
         if ($this->isEscaped()) {

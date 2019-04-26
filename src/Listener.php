@@ -34,8 +34,14 @@ abstract class Listener
      */
     const PRIORITY_GARBAGE_COLLECTOR = 2;
 
+    /**
+     * @var boolean These flags are used for escaping values for mixing with a html context. They can be overridden by a specific listener.
+     */
     public static $escapeFlags = ENT_QUOTES|ENT_HTML5;
 
+    /**
+     * @var boolean The encoding is used for escaping values for mixing with a html context. It can be overridden by a specific listener.
+     */
     public static $escapeEncoding = 'UTF-8';
 
     /**
@@ -102,7 +108,10 @@ abstract class Listener
     }
     
     /**
-     * escape plain text output before mixing with html tags
+     * Escape plain text output before mixing in a html context.
+     * 
+     * This should be used on any input or attributes in a delta operation.
+     * For escaping input, use Line->escapedInput() instead as it keeps track of only doing it once.
      * 
      * @param  string $value
      * @return string
