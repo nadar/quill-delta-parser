@@ -26,7 +26,7 @@ abstract class InlineListener extends Listener
      * A short hand method for handling inline elements.
      *
      * 1. change input value
-     * 2. set as done and inline
+     * 2. set as done, inline, and escaped
      * 3. Add to pick list, in order to process in render method
      *
      * @param Line $line
