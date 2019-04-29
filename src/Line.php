@@ -74,6 +74,8 @@ class Line
     /**
      * @var boolean Whether the current line is already escaped by a listener. If this is false, the next listener should preferable do so.
      * If this is true, it should not be done again by a next listener.
+     * 
+     * @since 1.2.0
      */
     protected $isEscaped = false;
 
@@ -340,6 +342,8 @@ class Line
 
     /**
      * Setter method whether the current line is escaped or not.
+     * 
+     * @since 1.2.0
      */
     public function setAsEscaped()
     {
@@ -348,6 +352,8 @@ class Line
 
     /**
      * Whether the current line is escaped or not.
+     * 
+     * @since 1.2.0
      * 
      * @return boolean
      */
@@ -455,6 +461,8 @@ class Line
 
     /**
      * Get the line's input in a safe way. Escaping for html is done if this wasn't done by a previous listener already.
+     * 
+     * @since 1.2.0
      * 
      * @return string
      */

@@ -27,6 +27,10 @@ class Heading extends BlockListener
 
     /**
      * {@inheritDoc}
+     * 
+     * @since 1.2.0 Added exception
+     * 
+     * @throws \Exception for unknown heading levels
      */
     public function render(\nadar\quill\Lexer $lexer)
     {
