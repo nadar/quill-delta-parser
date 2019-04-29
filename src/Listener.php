@@ -59,9 +59,10 @@ abstract class Listener
      * Undocumented function
      *
      * @param Line $line
+     * @param Lexer $lexer
      * @return void
      */
-    abstract public function process(Line $line);
+    abstract public function process(Line $line, Lexer $lexer=null);
 
     /**
      * Undocumented function

@@ -23,12 +23,13 @@ class Mention extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line)
+    public function process(Line $line, Lexer $lexer=null)
     {
         $mention = $line->insertJsonKey('mention');
 
         if ($mention) {
-            $this->updateInput($line, self::escape($mention['value']));
+            $value = ($lexer->escapeInput) ? self::escape($mention['value']) : $mention['value'];
+            $this->updateInput($line, $value);
         }
     }
 }

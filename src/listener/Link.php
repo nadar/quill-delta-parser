@@ -17,11 +17,12 @@ class Link extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line)
+    public function process(Line $line, Lexer $lexer=null)
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, '<a href="'.self::escape($link).'" target="_blank">'.$line->escapedInput().'</a>');
+            $link = ($lexer->escapeInput) ? self::escape($link) : $link;
+            $this->updateInput($line, '<a href="'.$link.'" target="_blank">'.$line->escapedInput().'</a>');
         }
     }
 }

@@ -18,7 +18,7 @@ class Blockquote extends BlockListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line)
+    public function process(Line $line, Lexer $lexer=null)
     {
         if ($line->getAttribute('blockquote')) {
             $this->pick($line);

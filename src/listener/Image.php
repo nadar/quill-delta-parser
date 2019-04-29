@@ -20,11 +20,12 @@ class Image extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line)
+    public function process(Line $line, Lexer $lexer=null)
     {
         $embedUrl = $line->insertJsonKey('image');
         if ($embedUrl) {
-            $this->updateInput($line, str_replace(['{src}'], [self::escape($embedUrl)], $this->wrapper));
+            $embedUrl = ($lexer->escapeInput) ? self::escape($embedUrl) : $embedUrl;
+            $this->updateInput($line, str_replace(['{src}'], [$embedUrl], $this->wrapper));
         }
     }
 }

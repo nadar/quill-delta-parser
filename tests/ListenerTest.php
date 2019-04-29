@@ -33,7 +33,7 @@ class TestListener extends Listener
         self::TYPE_BLOCK;
     }
 
-    public function process(\nadar\quill\Line $line)
+    public function process(Line $line, Lexer $lexer=null)
     {
     }
 }
