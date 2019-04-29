@@ -2,7 +2,6 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Lexer;
 use nadar\quill\Line;
 use nadar\quill\InlineListener;
 
@@ -23,11 +22,10 @@ class Color extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         if (($color = $line->getAttribute('color'))) {
-            $color = ($lexer->escapeInput) ? self::escape($color) : $color;
-            $this->updateInput($line, $this->ignore ? $line->input : '<span style="color:'.$color.'">'.$line->escapedInput().'</span>');
+            $this->updateInput($line, $this->ignore ? $line->input : '<span style="color:'.self::escape($color).'">'.$line->escapedInput().'</span>');
         }
     }
 }

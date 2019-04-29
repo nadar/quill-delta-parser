@@ -17,7 +17,7 @@ class Italic extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         if ($line->getAttribute('italic')) {
             $this->updateInput($line, '<em>'.$line->escapedInput().'</em>');

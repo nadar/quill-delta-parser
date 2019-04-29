@@ -18,12 +18,11 @@ class Video extends BlockListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         $embedUrl = $line->insertJsonKey('video');
         if ($embedUrl) {
-            $embedUrl = ($lexer->escapeInput) ? self::escape($embedUrl) : $embedUrl;
-            $line->output = str_replace(['{url}'], [$embedUrl], $this->wrapper);
+            $line->output = str_replace(['{url}'], [self::escape($embedUrl)], $this->wrapper);
             $line->setDone();
         }
     }

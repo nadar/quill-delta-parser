@@ -24,7 +24,7 @@ class Lists extends BlockListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         $listType = $line->getAttribute(self::ATTRIBUTE_LIST);
         if ($listType) {

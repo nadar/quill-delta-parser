@@ -2,7 +2,6 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Lexer;
 use nadar\quill\Line;
 use nadar\quill\InlineListener;
 
@@ -17,7 +16,7 @@ class Bold extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         if ($line->getAttribute('bold')) {
             $this->updateInput($line, '<strong>'.$line->escapedInput().'</strong>');

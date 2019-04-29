@@ -62,7 +62,7 @@ class Lexer
     const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
 
     /**
-     * @var boolean Whether input and attributes from the delta should be escaped by listeners when mixed with html elements.
+     * @var boolean Whether input should be escaped by listeners when mixed with html elements.
      * Note that a specific listener can decide to not escape if their output should be raw html.
      * Defaults to false, will default to true in the next major version.
      * 
@@ -274,7 +274,7 @@ class Lexer
     {
         foreach ($this->listeners[$type] as $prios) {
             foreach ($prios as $listener) {
-                $listener->process($line, $this);
+                $listener->process($line);
             }
         }
     }

@@ -2,7 +2,6 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Lexer;
 use nadar\quill\Line;
 use nadar\quill\BlockListener;
 
@@ -17,7 +16,7 @@ class Heading extends BlockListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         $heading = $line->getAttribute('header');
         if ($heading) {

@@ -31,7 +31,7 @@ class Text extends BlockListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         if (!$line->isDone()) {
             $this->pick($line);

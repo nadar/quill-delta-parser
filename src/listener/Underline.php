@@ -3,7 +3,6 @@
 namespace nadar\quill\listener;
 
 use nadar\quill\InlineListener;
-use nadar\quill\Lexer;
 use nadar\quill\Line;
 
 /**
@@ -17,7 +16,7 @@ class Underline extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line, Lexer $lexer=null)
+    public function process(Line $line)
     {
         if ($line->getAttribute('underline')) {
             $this->updateInput($line, '<u>'.$line->escapedInput().'</u>');
