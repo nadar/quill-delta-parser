@@ -150,6 +150,8 @@ class Line
     /**
      * Get the Lexer
      * 
+     * @since 1.2.0
+     * 
      * @return Lexer
      */
     public function getLexer()
