@@ -2,6 +2,7 @@
 
 namespace nadar\quill\tests;
 
+use nadar\quill\Lexer;
 use PHPUnit\Framework\TestCase;
 
 class TextInjectionNestedTest extends DeltaTestCase
@@ -24,4 +25,12 @@ JSON;
     public $html = <<<'EOT'
 <p><em><strong>&lt;script&gt;alert(1)&lt;/script&gt;</strong></em></p>
 EOT;
+
+    public function getLexer()
+    {
+        $lexer = new Lexer($this->json);
+        $lexer->escapeInput = true;
+
+        return $lexer;
+    }
 }

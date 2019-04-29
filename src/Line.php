@@ -460,7 +460,10 @@ class Line
     }
 
     /**
-     * Get the line's input in a safe way. Escaping for html is done if this wasn't done by a previous listener already.
+     * Get the line's input in a safe way.
+     * 
+     * Escaping for html is done if this wasn't done by a previous listener already.
+     * Escaping is skipped is not enabled.
      * 
      * @since 1.2.0
      * 
@@ -468,6 +471,10 @@ class Line
      */
     public function escapedInput()
     {
+        if ($this->lexer->escapeInput === false) {
+            return $this->input;
+        }
+        
         if ($this->isEscaped()) {
             return $this->input;
         }

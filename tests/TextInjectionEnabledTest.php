@@ -5,7 +5,7 @@ namespace nadar\quill\tests;
 use nadar\quill\Lexer;
 use nadar\quill\listener\Text;
 
-class TextInjectionFlagsTest extends DeltaTestCase
+class TextInjectionEnabledTest extends DeltaTestCase
 {
     public $json = <<<'JSON'
 [
@@ -17,13 +17,13 @@ class TextInjectionFlagsTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-<p>normal text</p><p>&lt;script type='text/javascript'&gt;alert(&quot;html injection&quot;);&lt;/script&gt;<strong>bold text</strong></p>
+<p>normal text</p><p><script type='text/javascript'>alert("html injection");</script><strong>bold text</strong></p>
 EOT;
 
     public function getLexer()
     {
         $lexer = new Lexer($this->json);
-        $lexer->escapeInput = true;
+        $lexer->escapeInput = false;
 
         return $lexer;
     }

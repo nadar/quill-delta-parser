@@ -53,6 +53,7 @@ EOT;
     public function getLexer()
     {
         $lexer = new Lexer($this->json);
+        $lexer->escapeInput = true;
         $lexer->registerListener(new Mention());
 
         return $lexer;

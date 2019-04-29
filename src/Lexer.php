@@ -62,6 +62,15 @@ class Lexer
     const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
 
     /**
+     * @var boolean Whether input should be escaped by listeners when mixed with html elements.
+     * Note that a specific listener can decide to not escape if their output should be raw html.
+     * Defaults to false, will default to true in the next major version.
+     * 
+     * @since 1.2.0
+     */
+    public $escapeInput = false;
+
+    /**
      * @var boolean Whether debbuging is enabled or not. If enabled some html comments will be added to certain elements.
      */
     public $debug = false;
