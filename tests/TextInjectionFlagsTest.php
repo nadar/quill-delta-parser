@@ -24,12 +24,8 @@ EOT;
     {
         $lexer = new Lexer($this->json);
         $lexer->escapeInput = true;
+        $lexer->escapeFlags = ENT_COMPAT;
 
         return $lexer;
-    }
-
-    public function listeners(Lexer $lexer)
-    {
-        Text::$escapeFlags = ENT_COMPAT;
     }
 }

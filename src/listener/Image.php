@@ -24,7 +24,7 @@ class Image extends InlineListener
     {
         $embedUrl = $line->insertJsonKey('image');
         if ($embedUrl) {
-            $this->updateInput($line, str_replace(['{src}'], [self::escape($embedUrl)], $this->wrapper));
+            $this->updateInput($line, str_replace(['{src}'], [$line->getLexer()->escape($embedUrl)], $this->wrapper));
         }
     }
 }

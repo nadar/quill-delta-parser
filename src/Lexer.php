@@ -71,6 +71,20 @@ class Lexer
     public $escapeInput = false;
 
     /**
+     * @var boolean These flags are used for escaping values for mixing with a html context.
+     * 
+     * @since 1.2.0
+     */
+    public $escapeFlags = ENT_QUOTES|ENT_HTML5;
+
+    /**
+     * @var boolean The encoding is used for escaping values for mixing with a html context.
+     * 
+     * @since 1.2.0
+     */
+    public $escapeEncoding = 'UTF-8';
+
+    /**
      * @var boolean Whether debbuging is enabled or not. If enabled some html comments will be added to certain elements.
      */
     public $debug = false;
@@ -360,5 +374,25 @@ class Lexer
     public static function decodeJson($json)
     {
         return json_decode($json, true);
+    }
+
+    /**
+     * Escape plain text output before mixing in a html context.
+     * 
+     * This should be used on any input or attributes in a delta operation.
+     * For escaping input, use Line->escapedInput() instead as it keeps track of only doing it once.
+     * 
+     * @since 1.2.0
+     * 
+     * @param  string $value
+     * @return string
+     */
+    public function escape($value)
+    {
+        if ($this->escapeInput === false) {
+            return $value;
+        }
+        
+        return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double=false);
     }
 }

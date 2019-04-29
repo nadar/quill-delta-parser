@@ -35,20 +35,6 @@ abstract class Listener
     const PRIORITY_GARBAGE_COLLECTOR = 2;
 
     /**
-     * @var boolean These flags are used for escaping values for mixing with a html context. They can be overridden by a specific listener.
-     * 
-     * @since 1.2.0
-     */
-    public static $escapeFlags = ENT_QUOTES|ENT_HTML5;
-
-    /**
-     * @var boolean The encoding is used for escaping values for mixing with a html context. It can be overridden by a specific listener.
-     * 
-     * @since 1.2.0
-     */
-    public static $escapeEncoding = 'UTF-8';
-
-    /**
      * Undocumented function
      *
      * @return integer
@@ -109,21 +95,5 @@ abstract class Listener
      */
     public function render(Lexer $lexer)
     {
-    }
-    
-    /**
-     * Escape plain text output before mixing in a html context.
-     * 
-     * This should be used on any input or attributes in a delta operation.
-     * For escaping input, use Line->escapedInput() instead as it keeps track of only doing it once.
-     * 
-     * @since 1.2.0
-     * 
-     * @param  string $value
-     * @return string
-     */
-    public static function escape($value)
-    {
-        return htmlspecialchars($value, static::$escapeFlags, static::$escapeEncoding, $double=false);
     }
 }

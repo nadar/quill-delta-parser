@@ -27,9 +27,4 @@ EOT;
 
         return $lexer;
     }
-
-    public function listeners(Lexer $lexer)
-    {
-        Text::$escapeFlags = ENT_COMPAT;
-    }
 }

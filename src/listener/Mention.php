@@ -28,7 +28,7 @@ class Mention extends InlineListener
         $mention = $line->insertJsonKey('mention');
 
         if ($mention) {
-            $this->updateInput($line, self::escape($mention['value']));
+            $this->updateInput($line, $line->getLexer()->escape($mention['value']));
         }
     }
 }

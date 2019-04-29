@@ -21,7 +21,7 @@ class Link extends InlineListener
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, '<a href="'.self::escape($link).'" target="_blank">'.$line->escapedInput().'</a>');
+            $this->updateInput($line, '<a href="'.$line->getLexer()->escape($link).'" target="_blank">'.$line->escapedInput().'</a>');
         }
     }
 }

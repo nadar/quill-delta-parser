@@ -25,7 +25,7 @@ class Color extends InlineListener
     public function process(Line $line)
     {
         if (($color = $line->getAttribute('color'))) {
-            $this->updateInput($line, $this->ignore ? $line->input : '<span style="color:'.self::escape($color).'">'.$line->escapedInput().'</span>');
+            $this->updateInput($line, $this->ignore ? $line->input : '<span style="color:'.$line->getLexer()->escape($color).'">'.$line->escapedInput().'</span>');
         }
     }
 }
