@@ -55,7 +55,7 @@ class Lists extends BlockListener
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
-                $buffer.= $line->escapedInput();
+                $buffer.= $line->getInput();
                 $line->setDone();
                 if ($index == $pick->line->getIndex()) {
                     return false;

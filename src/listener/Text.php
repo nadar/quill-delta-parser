@@ -59,7 +59,7 @@ class Text extends BlockListener
                 }
 
                 // write the actuall content of the element into the output
-                $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $pick->line->escapedInput();
+                $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $pick->line->getInput();
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
                 if ($isOpen && ($next && !$next->isInline())) {

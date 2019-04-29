@@ -52,7 +52,7 @@ class Heading extends BlockListener
                 $prev = $pick->line;
             }
 
-            $pick->line->output = '<h'.$pick->heading.'>'.$prev->escapedInput() . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
+            $pick->line->output = '<h'.$pick->heading.'>'.$prev->getInput() . $pick->line->renderPrepend() . '</h'.$pick->heading.'>';
             $prev->setDone();
         }
     }

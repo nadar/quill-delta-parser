@@ -56,6 +56,10 @@ class Line
 
     /**
      * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
+     * 
+     * @deprecated use getInput() instead
+     * 
+     * @since 1.2.0 Deprecated
      */
     public $input;
 
@@ -151,6 +155,38 @@ class Line
     public function getLexer()
     {
         return $this->lexer;
+    }
+
+    /**
+     * Get the line's input in a safe way.
+     * 
+     * Escaping for html is done if this wasn't done by a previous listener already.
+     * 
+     * @since 1.2.0
+     * 
+     * @return string
+     */
+    public function getInput()
+    {
+        if ($this->isEscaped()) {
+            return $this->input;
+        }
+        
+        return $this->lexer->escape($this->getUnsafeInput());
+    }
+
+    /**
+     * Get the raw line's input, this might not be escaped for html context.
+     * 
+     * Note it could be escaped if a previous inline listener updated the input value
+     * 
+     * @since 1.2.0
+     * 
+     * @return string
+     */
+    public function getUnsafeInput()
+    {
+        return $this->input;
     }
 
     /**
@@ -467,23 +503,5 @@ class Line
         $insert = $this->getArrayInsert();
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
-    }
-
-    /**
-     * Get the line's input in a safe way.
-     * 
-     * Escaping for html is done if this wasn't done by a previous listener already.
-     * 
-     * @since 1.2.0
-     * 
-     * @return string
-     */
-    public function escapedInput()
-    {
-        if ($this->isEscaped()) {
-            return $this->input;
-        }
-        
-        return $this->lexer->escape($this->input);
     }
 }
