@@ -2,6 +2,7 @@
 
 namespace nadar\quill\listener;
 
+use Exception;
 use nadar\quill\Line;
 use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
@@ -92,13 +93,10 @@ class Lists extends BlockListener
 
     /**
      * Get the html tag for the given value.
-     * 
      * @since 1.2.0 Added exception
-     *
      * @param Pick $pick
      * @return string
-     * 
-     * @throws \Exception for unknown list types
+     * @throws Exception for unknown list types
      */
     protected function getListAttribute(Pick $pick)
     {
@@ -111,6 +109,6 @@ class Lists extends BlockListener
         }
         
         // prevent html injection in case the attribute is user input
-        throw new \Exception('unknown list type');
+        throw new Exception('unknown list type');
     }
 }

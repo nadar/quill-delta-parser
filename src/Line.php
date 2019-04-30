@@ -56,10 +56,7 @@ class Line
 
     /**
      * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
-     * 
-     * @deprecated use getInput() instead
-     * 
-     * @since 1.2.0 Deprecated
+     * @deprecated Deprecated since 1.2.0 will be removed in 2.0 use getInput() instead.
      */
     public $input;
 
@@ -78,7 +75,6 @@ class Line
     /**
      * @var boolean Whether the current line is already escaped by a listener. If this is false, the next listener should preferable do so.
      * If this is true, it should not be done again by a next listener.
-     * 
      * @since 1.2.0
      */
     protected $isEscaped = false;
@@ -149,9 +145,7 @@ class Line
 
     /**
      * Get the Lexer
-     * 
      * @since 1.2.0
-     * 
      * @return Lexer
      */
     public function getLexer()
@@ -163,9 +157,7 @@ class Line
      * Get the line's input in a safe way.
      * 
      * Escaping for html is done if this wasn't done by a previous listener already.
-     * 
      * @since 1.2.0
-     * 
      * @return string
      */
     public function getInput()
@@ -180,10 +172,8 @@ class Line
     /**
      * Get the raw line's input, this might not be escaped for html context.
      * 
-     * Note it could be escaped if a previous inline listener updated the input value
-     * 
+     * > Note it could be escaped if a previous inline listener updated the input value
      * @since 1.2.0
-     * 
      * @return string
      */
     public function getUnsafeInput()
@@ -390,7 +380,6 @@ class Line
 
     /**
      * Setter method whether the current line is escaped or not.
-     * 
      * @since 1.2.0
      */
     public function setAsEscaped()
@@ -400,7 +389,6 @@ class Line
 
     /**
      * Whether the current line is escaped or not.
-     * 
      * @since 1.2.0
      * 
      * @return boolean

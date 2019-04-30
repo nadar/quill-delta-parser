@@ -65,21 +65,18 @@ class Lexer
      * @var boolean Whether input should be escaped by listeners when mixed with html elements.
      * Note that a specific listener can decide to not escape if their output should be raw html.
      * Defaults to false, will default to true in the next major version.
-     * 
      * @since 1.2.0
      */
     public $escapeInput = false;
 
     /**
      * @var boolean These flags are used for escaping values for mixing with a html context.
-     * 
      * @since 1.2.0
      */
     public $escapeFlags = ENT_QUOTES|ENT_HTML5;
 
     /**
      * @var boolean The encoding is used for escaping values for mixing with a html context.
-     * 
      * @since 1.2.0
      */
     public $escapeEncoding = 'UTF-8';
@@ -381,11 +378,9 @@ class Lexer
      * 
      * This should be used on any input or attributes in a delta operation.
      * For escaping input, use Line->getInput() instead as it keeps track of only doing it once for nested inline listeners.
-     * 
      * @since 1.2.0
-     * 
-     * @param  string $value
-     * @return string
+     * @param string $value The value to escape.
+     * @return string The escaped value, safe for usage in html, as long as $escapeInput is set to true.
      */
     public function escape($value)
     {
