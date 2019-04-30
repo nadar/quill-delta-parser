@@ -18,11 +18,11 @@ class HeadingListenerTest extends DeltaTestCase
     {
         "insert" : "header",
       "attributes": {
-        "heading": 1
+        "header": 1
       }
     }
 ]
 JSON;
 
-    public $html = '';
+    public $html = '<h1>header</h1>';
 }
