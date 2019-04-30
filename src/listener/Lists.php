@@ -93,6 +93,7 @@ class Lists extends BlockListener
 
     /**
      * Get the html tag for the given value.
+     * 
      * @since 1.2.0 Added exception
      * @param Pick $pick
      * @return string

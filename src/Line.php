@@ -145,6 +145,7 @@ class Line
 
     /**
      * Get the Lexer
+     * 
      * @since 1.2.0
      * @return Lexer
      */
@@ -157,6 +158,7 @@ class Line
      * Get the line's input in a safe way.
      * 
      * Escaping for html is done if this wasn't done by a previous listener already.
+     * 
      * @since 1.2.0
      * @return string
      */
@@ -173,6 +175,7 @@ class Line
      * Get the raw line's input, this might not be escaped for html context.
      * 
      * > Note it could be escaped if a previous inline listener updated the input value
+     * 
      * @since 1.2.0
      * @return string
      */
@@ -380,6 +383,7 @@ class Line
 
     /**
      * Setter method whether the current line is escaped or not.
+     * 
      * @since 1.2.0
      */
     public function setAsEscaped()
@@ -389,8 +393,8 @@ class Line
 
     /**
      * Whether the current line is escaped or not.
-     * @since 1.2.0
      * 
+     * @since 1.2.0
      * @return boolean
      */
     public function isEscaped()

@@ -378,6 +378,7 @@ class Lexer
      * 
      * This should be used on any input or attributes in a delta operation.
      * For escaping input, use Line->getInput() instead as it keeps track of only doing it once for nested inline listeners.
+     * 
      * @since 1.2.0
      * @param string $value The value to escape.
      * @return string The escaped value, safe for usage in html, as long as $escapeInput is set to true.
