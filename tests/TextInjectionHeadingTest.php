@@ -12,7 +12,7 @@ class TextInjectionHeadingTest extends TestCase
         $lexer = new Lexer('[{"insert": "heading"}, {"insert": "\n", "attributes": {"header": "<script>alert(1)</script>"}}]');
         
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('unknown heading level');
+        $this->expectExceptionMessage('An unknown heading level "<script>alert(1)</script>" has been detected.');
         $lexer->render();
     }
 }

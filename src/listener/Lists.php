@@ -109,6 +109,6 @@ class Lists extends BlockListener
         }
         
         // prevent html injection in case the attribute is user input
-        throw new Exception('unknown list type');
+        throw new Exception('The provided list type "'.$pick->type.'" is not a known list type (ordered or bullet).');
     }
 }

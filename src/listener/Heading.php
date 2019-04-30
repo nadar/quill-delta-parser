@@ -36,7 +36,7 @@ class Heading extends BlockListener
         foreach ($this->picks() as $pick) {
             if (in_array($pick->heading, [1, 2, 3, 4, 5, 6], $strict=true) === false) {
                 // prevent html injection in case the attribute is user input
-                throw new Exception('unknown heading level');
+                throw new Exception('An unknown heading level "'.$pick->heading.'" has been detected.');
             }
             
             // get all
