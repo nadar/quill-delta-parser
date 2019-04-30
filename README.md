@@ -136,4 +136,5 @@ echo $lexer->render();
 
 #### Credits
 
++ [Lode Claassen](https://github.com/lode)
 + [Dean Blackborough](https://github.com/deanblackborough)
