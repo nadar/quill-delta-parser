@@ -2,6 +2,7 @@
 
 namespace nadar\quill\listener;
 
+use Exception;
 use nadar\quill\Line;
 use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
@@ -55,7 +56,7 @@ class Lists extends BlockListener
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
-                $buffer.= $line->input;
+                $buffer.= $line->getInput();
                 $line->setDone();
                 if ($index == $pick->line->getIndex()) {
                     return false;
@@ -92,9 +93,10 @@ class Lists extends BlockListener
 
     /**
      * Get the html tag for the given value.
-     *
+     * 
      * @param Pick $pick
      * @return string
+     * @throws Exception for unknown list types {@since 1.2.0}
      */
     protected function getListAttribute(Pick $pick)
     {
@@ -102,6 +104,11 @@ class Lists extends BlockListener
             return 'ol';
         }
 
-        return 'ul';
+        if ($pick->type == self::LIST_TYPE_BULLET) {
+            return 'ul';
+        }
+        
+        // prevent html injection in case the attribute is user input
+        throw new Exception('The provided list type "'.$pick->type.'" is not a known list type (ordered or bullet).');
     }
 }

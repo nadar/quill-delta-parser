@@ -19,7 +19,7 @@ class Strike extends InlineListener
     public function process(Line $line)
     {
         if ($line->getAttribute('strike')) {
-            $this->updateInput($line, '<del>'.$line->input.'</del>');
+            $this->updateInput($line, '<del>'.$line->getInput().'</del>');
         }
     }
 }

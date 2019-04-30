@@ -62,6 +62,26 @@ class Lexer
     const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
 
     /**
+     * @var boolean Whether input should be escaped by listeners when mixed with html elements.
+     * Note that a specific listener can decide to not escape if their output should be raw html.
+     * Defaults to false, will default to true in the next major version.
+     * @since 1.2.0
+     */
+    public $escapeInput = false;
+
+    /**
+     * @var boolean These flags are used for escaping values for mixing with a html context.
+     * @since 1.2.0
+     */
+    public $escapeFlags = ENT_QUOTES|ENT_HTML5;
+
+    /**
+     * @var boolean The encoding is used for escaping values for mixing with a html context.
+     * @since 1.2.0
+     */
+    public $escapeEncoding = 'UTF-8';
+
+    /**
      * @var boolean Whether debbuging is enabled or not. If enabled some html comments will be added to certain elements.
      */
     public $debug = false;
@@ -351,5 +371,25 @@ class Lexer
     public static function decodeJson($json)
     {
         return json_decode($json, true);
+    }
+
+    /**
+     * Escape plain text output before mixing in a html context.
+     * 
+     * This should be used on any input or attributes in a delta operation.
+     * Double encoding is prevented on already encoded characters.
+     * For escaping input, use Line->getInput() instead. Otherwise an inline listener would encode the tags from another nested inline listener.
+     * 
+     * @since 1.2.0
+     * @param string $value The value to escape.
+     * @return string The escaped value, safe for usage in html, as long as $escapeInput is set to true.
+     */
+    public function escape($value)
+    {
+        if (!$this->escapeInput) {
+            return $value;
+        }
+        
+        return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double = false);
     }
 }

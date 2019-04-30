@@ -22,7 +22,7 @@ class Video extends BlockListener
     {
         $embedUrl = $line->insertJsonKey('video');
         if ($embedUrl) {
-            $line->output = str_replace(['{url}'], [$embedUrl], $this->wrapper);
+            $line->output = str_replace(['{url}'], [$line->getLexer()->escape($embedUrl)], $this->wrapper);
             $line->setDone();
         }
     }

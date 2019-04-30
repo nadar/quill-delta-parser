@@ -44,7 +44,7 @@ class Blockquote extends BlockListener
                 $prev = $pick->line;
             }
 
-            $pick->line->output = '<blockquote>'.$prev->input . $pick->line->renderPrepend() . '</blockquote>';
+            $pick->line->output = '<blockquote>'.$prev->getInput() . $pick->line->renderPrepend() . '</blockquote>';
             $prev->setDone();
         }
     }
