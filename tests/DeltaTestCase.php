@@ -4,9 +4,6 @@ namespace nadar\quill\tests;
 
 use PHPUnit\Framework\TestCase;
 use nadar\quill\Lexer;
-use nadar\quill\listener\Text;
-use nadar\quill\listener\Heading;
-use nadar\quill\listener\Bold;
 
 class DeltaTestCase extends TestCase
 {

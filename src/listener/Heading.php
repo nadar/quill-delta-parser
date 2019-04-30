@@ -5,6 +5,7 @@ namespace nadar\quill\listener;
 use Exception;
 use nadar\quill\Line;
 use nadar\quill\BlockListener;
+use nadar\quill\Lexer;
 
 /**
  * Convert header into heading elements.
@@ -37,7 +38,7 @@ class Heading extends BlockListener
      * 
      * @throws Exception for unknown heading levels {@since 1.2.0}
      */
-    public function render(\nadar\quill\Lexer $lexer)
+    public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
             if (!in_array($pick->heading, $this->levels)) {

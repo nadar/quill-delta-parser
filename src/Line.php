@@ -293,18 +293,22 @@ class Line
     protected function iterate(Line $line, callable $condition, callable $fn)
     {
         $i = $line->getIndex();
-        while (true) {
+        $iterate = true;
+        $response = false;
+        while ($iterate) {
             $i = call_user_func($condition, $i);
             $elmn = $this->lexer->getLine($i);
             // no next element found
             if (!$elmn) {
-                return false;
-            }
-            // fn match (return true) return current element.
-            if (call_user_func($fn, $elmn)) {
-                return $elmn;
+                $iterate = false;
+            } elseif (call_user_func($fn, $elmn)) {
+                // fn match (return true) return current element.
+                $response = $elmn;
+                $iterate = false;
             }
         }
+
+        return $response;
     }
 
     /**
