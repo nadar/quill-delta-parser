@@ -200,7 +200,7 @@ class Lexer
     {
         $lines = [];
         $i = 0;
-        foreach ($ops as $key => $delta) {
+        foreach ($ops as $delta) {
             // replace newline chars with internal expression
             $insert = $this->replaceNewlineWithExpression($delta['insert']);
             // if its an empty "newline-line"

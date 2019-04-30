@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace nadar\quill\tests;
+
+error_reporting(E_ALL);
 
 use PHPUnit\Framework\TestCase;
 use nadar\quill\Lexer;

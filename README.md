@@ -134,6 +134,18 @@ $lexer->registerListener($image);
 echo $lexer->render();
 ```
 
+## Debuging
+
+Sometimes the handling of delta and how the data is parsed is very hard to debug and understand. Therefore you can use the debugger class which will print a table with informations about how the data is parsed.
+
+```php
+$lexer = new Lexer($json);
+$lexer->render(); // make sure to run the render before call debugPrint();
+ 
+$debug = new Debug($lexer);
+echo $debug->debugPrint();
+```
+
 #### Credits
 
 + [Lode Claassen](https://github.com/lode)

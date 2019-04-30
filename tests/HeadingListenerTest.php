@@ -16,6 +16,7 @@ class HeadingListenerTest extends DeltaTestCase
     public $json = <<<'JSON'
 [
     {
+        "insert" : "header",
       "attributes": {
         "heading": 1
       }

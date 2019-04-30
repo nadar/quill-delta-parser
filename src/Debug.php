@@ -5,7 +5,16 @@ namespace nadar\quill;
 /**
  * Debug Object.
  *
- * The Debug class can return informations in a readable way from a lexer object.
+ * The Debug class can return informations in a readable way from a lexer object. It will generate a html table
+ * with additional infos about how each line is parsed line by line.
+ * 
+ * ```php
+ * $lexer = new Lexer($json);
+ * $lexer->render(); // make sure to run the render before call debugPrint();
+ * 
+ * $debug = new Debug($lexer);
+ * echo $debug->debugPrint();
+ * ```
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
@@ -30,7 +39,7 @@ class Debug
     /**
      * Get an array of lines which does not have status done.
      *
-     * @return void
+     * @return array
      */
     protected function getNotDoneLines()
     {
@@ -46,7 +55,7 @@ class Debug
     /**
      * Get an array of lines which does not have the status picked
      *
-     * @return void
+     * @return array
      */
     protected function getNotPickedLines()
     {
@@ -62,6 +71,8 @@ class Debug
 
     /**
      * return a string with debug informations.
+     * 
+     * @return string
      */
     public function debugPrint()
     {
