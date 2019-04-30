@@ -385,10 +385,10 @@ class Lexer
      */
     public function escape($value)
     {
-        if ($this->escapeInput === false) {
+        if (!$this->escapeInput) {
             return $value;
         }
         
-        return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double=false);
+        return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double = false);
     }
 }
