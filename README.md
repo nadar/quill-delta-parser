@@ -146,6 +146,14 @@ $debug = new Debug($lexer);
 echo $debug->debugPrint();
 ```
 
+There is also a built in docker compose file which provides access to the output.php file. The output.php helps to directly write content with the quill editor while displaying what is rendered including all debug informations. In order to run this docker webserver execute the following command in the root directory of your clone:
+
+```sh
+docker-compose up
+```
+
+and visit `http://localhost:5555/` in your browser.
+
 #### Credits
 
 + [Lode Claassen](https://github.com/lode)
