@@ -21,6 +21,5 @@
         "psr-4": {
             "nadar\\quill\\tests\\" : "tests/"
         }
-    },
-    "require": {}
+    }
 }

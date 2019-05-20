@@ -39,18 +39,14 @@ class Lists extends BlockListener
      */
     public function render(Lexer $lexer)
     {
-        $lists = [];
-
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            
             // get the first element within this list <li>
             $first = $pick->line->previous(function (Line $line) {
                 if ($line->isFirst() || $line->hasNewline()) {
                     return true;
                 }
             });
-            
 
             // while from first to pick line and store content in buffer
             $buffer = null;
@@ -63,9 +59,9 @@ class Lists extends BlockListener
                 }
             });
 
-            // find out if last element of series of lists
-            // if a. is no next element
-            // or b. next element "has new line"
+            // find out if last element of series of lists if:
+            //   a. is no next element
+            //   b. next element "has new line"
             $isLast = false;
             if (!$pick->line->next() || $pick->line->next(function (Line $line) {
                 return !$line->isInline();
@@ -73,15 +69,23 @@ class Lists extends BlockListener
                 $isLast = true;
             }
 
-            // write the li element.
             $output = null;
-            if (!$isOpen && !$isLast) {
+
+            // create the opining OL/UL tag if:
+            //  a. its not already open AND $isLast is false (which means not the last element)
+            //  b. or its the first the pick inside the picked elements list https://github.com/nadar/quill-delta-parser/issues/8
+            if ((!$isOpen && !$isLast) || $pick->isFirst()) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
             }
+
+            // write the li element.
             $output.= '<li>' . $buffer .'</li>';
             
-            if ($isLast && $isOpen) {
+            // close the opening OL/UL tag if:
+            //   a. its the last element and the tag is opened.
+            //   b. or its the last element in the picked list.
+            if (($isLast && $isOpen) || $pick->isLast()) {
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
