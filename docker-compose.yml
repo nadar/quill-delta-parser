@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  php:
+    image: php:7-fpm
+    volumes:
+      - ./:/code
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/code
+      - ./docker/site.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
