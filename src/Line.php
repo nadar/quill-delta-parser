@@ -425,7 +425,8 @@ class Line
     }
 
     /**
-     * Whether current line is picked or not.
+     * Whether current line is picked or not. If the line has been picked an is marked as 
+     * done, is picked will return false.
      *
      * @return boolean
      */
