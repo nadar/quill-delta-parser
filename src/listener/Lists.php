@@ -59,13 +59,16 @@ class Lists extends BlockListener
                 }
             });
 
-            // find out if last element of series of lists if:
-            //   a. is no next element
-            //   b. next element "has new line"
+            // defines whether this attribute list element is the last one of a list serie.
             $isLast = false;
-            if (!$pick->line->next() || $pick->line->next(function (Line $line) {
-                return !$line->isInline();
-            })->hasNewline()) {
+
+            // find the next element which is NOT empty.
+            $next = $pick->line->next(function (Line $line) {
+                return !$line->isEmpty();
+            });
+
+            // if there is a next element and this element has a new line, this is the last element.
+            if ($next && $next->hasNewline()) {
                 $isLast = true;
             }
 
@@ -74,7 +77,7 @@ class Lists extends BlockListener
             // create the opining OL/UL tag if:
             //  a. its not already open AND $isLast is false (which means not the last element)
             //  b. or its the first the pick inside the picked elements list https://github.com/nadar/quill-delta-parser/issues/8
-            if ((!$isOpen && !$isLast) || $pick->isFirst()) {
+            if ((!$isOpen && !$isLast) || (!$isOpen && $pick->isFirst())) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
             }
@@ -85,7 +88,7 @@ class Lists extends BlockListener
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
-            if (($isLast && $isOpen) || $pick->isLast()) {
+            if (($isLast && $isOpen) || ($isOpen && $pick->isLast())) {
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
