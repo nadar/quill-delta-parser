@@ -61,7 +61,7 @@ class Debug
     {
         $lines = [];
         foreach ($this->lexer->getLines() as $line) {
-            if (!$line->isPicked()) {
+            if (!$line->isPicked() && !$line->isDone()) {
                 $lines[] = $line;
             }
         }
@@ -93,6 +93,12 @@ class Debug
         return nl2br($d);
     }
 
+    /**
+     * Get an array with alles lines rendered a string
+     *
+     * @param array $lines
+     * @return string
+     */
     public function getLinesTable(array $lines)
     {
         $_lines = [];
@@ -104,19 +110,43 @@ class Debug
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
                 var_export($line->getAttributes(), true),
                 var_export($line->isInline(), true),
-                var_export($line->isPicked(), true),
+                $this->lineStatus($line),
                 var_export($line->hasEndNewline(), true),
                 var_export($line->hasNewline(), true),
                 var_export($line->isEmpty(), true),
             ];
         }
 
-        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'is picked', 'has end newline', 'has new line', 'is empty']);
+        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'status', 'has end newline', 'has new line', 'is empty']);
     }
 
+    /**
+     * Get the status waterfall of a given line
+     *
+     * @param Line $line
+     * @return string
+     */
+    public function lineStatus(Line $line)
+    {
+        if ($line->isDone()) {
+            return 'Clean => Picked => Done';
+        } elseif ($line->isPicked()) {
+            return 'Clean => Picked';
+        }
+
+        return 'Clean';
+    }
+
+    /**
+     * Render the given table line by line
+     *
+     * @param array $rows
+     * @param array $head
+     * @return string
+     */
     protected function renderTable(array $rows, array $head = [])
     {
-        $buffer = '<table border="1" width="100%" cellpadding="3" cellspacing="0">';
+        $buffer = '<table border="1" width="100%" cellpadding="5" cellspacing="0">';
         
         if (!empty($head)) {
             $buffer.= '<thead><tr>';

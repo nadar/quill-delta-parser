@@ -26,6 +26,24 @@ class Line
      * @var integer The status of the line if some of the listeneres marked this line as done.
      */
     const STATUS_DONE = 3;
+    
+    /**
+     * @var array An array with values which can be prependend to the actuall input string. This is mainly used if inline
+     * elements are passed to the next "not" inline element.
+     */
+    public $prepend = [];
+
+    /**
+     * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
+     * @deprecated Deprecated since 1.2.0 will be removed in 2.0 use getInput() instead.
+     */
+    public $input;
+
+    /**
+     * @var string The output is the value which will actually rendered by the lexer. So lines which directly write to the output
+     * buffer needs to fill in this variable.
+     */
+    public $output;
 
     /**
      * @var integer Holds the current status of the line.
@@ -47,24 +65,6 @@ class Line
      * @var Lexer The lexer object in order to access other lines and elements.
      */
     protected $lexer;
-    
-    /**
-     * @var array An array with values which can be prependend to the actuall input string. This is mainly used if inline
-     * elements are passed to the next "not" inline element.
-     */
-    public $prepend = [];
-
-    /**
-     * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
-     * @deprecated Deprecated since 1.2.0 will be removed in 2.0 use getInput() instead.
-     */
-    public $input;
-
-    /**
-     * @var string The output is the value which will actually rendered by the lexer. So lines which directly write to the output
-     * buffer needs to fill in this variable.
-     */
-    public $output;
 
     /**
      * @var boolean Whether the current line is handled as "inline-line" or not. Inline lines have different effects when parsing the
