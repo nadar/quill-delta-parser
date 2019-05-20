@@ -37,6 +37,7 @@ class ParserTest extends TestCase
         '<p><img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" />text</p>' => '[{"insert": {"image": "https://example.com/image.jpg"}},{"insert": "text\n"}]',
         '<p>before1</p><p><img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" /></p><p>after</p>' => '[{"insert": "before1\n"},{"insert": {"image": "https://example.com/image.jpg"}},{"insert": "\nafter\n"}]',
         '<p>before2<img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" />after</p>' => '[{"insert": "before2"},{"insert": {"image": "https://example.com/image.jpg"}},{"insert": "after\n"}]',
+        '<ol><li>Title <strong>bold</strong></li></ol>' => '[{"insert":"Title "},{"attributes":{"bold":true},"insert":"bold"},{"attributes":{"list":"ordered"},"insert":"\n"}]',
     ];
 
     public function testHtmlIsEqual()

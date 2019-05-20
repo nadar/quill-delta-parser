@@ -72,16 +72,18 @@ class Lists extends BlockListener
             })->hasNewline()) {
                 $isLast = true;
             }
-
-            // write the li element.
+            
             $output = null;
+            // create the opining OL/UL tag
             if (!$isOpen && !$isLast) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
             }
+            // write the li element.
             $output.= '<li>' . $buffer .'</li>';
             
             if ($isLast && $isOpen) {
+                // close the opening OL/UL tag
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
