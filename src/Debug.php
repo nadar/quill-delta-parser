@@ -76,18 +76,13 @@ class Debug
      */
     public function debugPrint()
     {
-        $d = "<h1>Summary</h1>" . PHP_EOL;
-        $d.= "Lines:" . count($this->lexer->getLines()) . PHP_EOL;
-        $d.= "Lines not done: " . count($this->getNotDoneLines()) . PHP_EOL;
-        $d.= "Lines not picked: " . count($this->getNotPickedLines()) . PHP_EOL;
-        
-        $d.= "<h2>NOT PICKED LINES</h2>";
+        $d = "<p><b>NOT PICKED LINES</b></p>";
         $d.= $this->getLinesTable($this->getNotPickedLines());
 
-        $d.= "<h2>NOT DONE LINES</h2>";
+        $d.= "<p><b>NOT DONE LINES</b></p>";
         $d.= $this->getLinesTable($this->getNotDoneLines());
         
-        $d.= "<h2>LINE BY LINE</h2>";
+        $d.= "<p><b>LINE BY LINE</b></p>";
         $d.= $this->getLinesTable($this->lexer->getLines());
         
         return nl2br($d);
@@ -146,7 +141,7 @@ class Debug
      */
     protected function renderTable(array $rows, array $head = [])
     {
-        $buffer = '<table border="1" width="100%" cellpadding="5" cellspacing="0">';
+        $buffer = '<table class="table table-bordered table-striped table-hover table-sm" border="1" width="100%" cellpadding="3" cellspacing="0">';
         
         if (!empty($head)) {
             $buffer.= '<thead><tr>';
