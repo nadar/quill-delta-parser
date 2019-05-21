@@ -40,6 +40,7 @@ class Lists extends BlockListener
     public function render(Lexer $lexer)
     {
         $isOpen = false;
+        $listTag = null;
         foreach ($this->picks() as $pick) {
             $first = $pick->line;
             // Go back to the first element which is not in the LIST of items and store the current item into $first
@@ -83,6 +84,13 @@ class Lists extends BlockListener
 
             $output = null;
 
+            // this makes sure that when two list types are after each other (OL and UL)
+            // the previous will be closed so the new one will open
+            if ($listTag && $listTag !== $this->getListAttribute($pick)) {
+                $output .= '</'.$listTag.'>';
+                $isOpen = false;
+            }
+
             // create the opining OL/UL tag if:
             //  a. its not already open AND $isLast is false (which means not the last element)
             //  b. or its the first the pick inside the picked elements list https://github.com/nadar/quill-delta-parser/issues/8
@@ -101,6 +109,9 @@ class Lists extends BlockListener
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
+
+            // store the last list type into a variable to determine if type switches
+            $listTag = $this->getListAttribute($pick);
 
             $pick->line->output = $output;
             $pick->line->setDone();
