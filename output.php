@@ -11,6 +11,7 @@ require 'vendor/autoload.php';
 $json = isset($_POST['quill-editor-input']) ? $_POST['quill-editor-input'] : '{}';
     
 $lex = new Lexer($json);
+$lex->debug = true;
 $html = $lex->render();
 $debuger = new Debug($lex);
 

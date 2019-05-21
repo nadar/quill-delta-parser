@@ -114,7 +114,7 @@ class Line
      * Whether the current line had a new line char or not, this is very important in terms of finding out wether its a block
      * element or inline element.
      *
-     * This informations as assigned in the opsToLine() method in the lexer object.
+     * This informations is assigned in the opsToLine() method in the lexer object.
      *
      * @return boolean
      */
@@ -243,6 +243,9 @@ class Line
      *
      * An example how to while trough lines, increasing (down) the index until a certain condition
      * ($line->isFirst) happens writing lint input into a buffer variable.
+     * 
+     * > Keep in mind that while() will contain the line where the function applys, so the first line will always be
+     * > the line you apply the while() function.
      *
      * ```php
      * $buffer = null;
@@ -284,6 +287,16 @@ class Line
 
     /**
      * Iteration helper the go forward and backward in lines.
+     * 
+     * The condition contains whether index should go up or down.
+     * 
+     * ```php
+     * return $this->iterate($line, function ($i) {
+     *    return ++$i;
+     * }, function(Line $line) {
+     *    echo $line->input;
+     * });
+     * ```
      *
      * @param Line $line
      * @param callable $condition The condition callable for the index
@@ -502,5 +515,31 @@ class Line
         $insert = $this->getArrayInsert();
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
+    }
+
+    private $_debug = [];
+
+    /**
+     * Add debug message for this line if {{Lexer::$debug}} is enabled.
+     *
+     * @param string $message The message which should be logged.
+     * @since 1.2.1
+     */
+    public function debugInfo($message)
+    {
+        if ($this->lexer->debug) {
+            $this->_debug[] = $message;
+        }
+    }
+
+    /**
+     * Return an array with all debug informations
+     *
+     * @return array
+     * @since 1.2.1
+     */
+    public function getDebugInfo() : array
+    {
+        return $this->_debug;
     }
 }

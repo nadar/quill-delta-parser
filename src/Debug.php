@@ -103,6 +103,7 @@ class Debug
                 htmlentities($line->input, ENT_QUOTES),
                 htmlentities($line->output, ENT_QUOTES),
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
+                implode(", ", $line->getDebugInfo()),
                 var_export($line->getAttributes(), true),
                 var_export($line->isInline(), true),
                 $this->lineStatus($line),
@@ -112,7 +113,7 @@ class Debug
             ];
         }
 
-        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'status', 'has end newline', 'has new line', 'is empty']);
+        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'debug', 'attributes', 'is inline', 'status', 'has end newline', 'has new line', 'is empty']);
     }
 
     /**

@@ -41,14 +41,23 @@ class Lists extends BlockListener
     {
         $isOpen = false;
         foreach ($this->picks() as $pick) {
-            // get the first element within this list <li>
-            $first = $pick->line->previous(function (Line $line) {
-                if ($line->isFirst() || $line->hasNewline()) {
+            $first = $pick->line;
+            // Go back to the first element which is not in the LIST of items and store the current item into $first
+            $pick->line->while(function(&$index, Line $line) use ($pick, &$first) {
+                $index--;
+                // its the same line as the start.. skip this one as its by default included in while operations
+                if ($line == $pick->line) {
                     return true;
+                } elseif (($line->hasEndNewline() || $line->hasNewline())) {
+                    return false;
                 }
+
+                // assign the line to $first
+                $first = $line;
+                return true;
             });
 
-            // while from first to pick line and store content in buffer
+            // while from first to the pick line and store content in buffer
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
