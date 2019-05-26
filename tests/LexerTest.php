@@ -61,4 +61,13 @@ class LexerTest extends TestCase
         $this->assertTrue($lines[5]->hasNewline());
         $this->assertTrue($lines[5]->hasEndNewline());
     }
+
+    public function testDebugInfo()
+    {
+        $lexer = new Lexer('[{"insert":"huhu\n"}]');
+        $lexer->debug = true;
+        $lexer->render();
+        $info = $lexer->getLine(0)->getDebugInfo();
+        $this->assertSame(['picked by nadar\quill\listener\Text'], $info);
+    }
 }
