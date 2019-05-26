@@ -565,7 +565,7 @@ class Line
      * Add debug message for this line if {{Lexer::$debug}} is enabled.
      *
      * @param string $message The message which should be logged.
-     * @since 1.2.1
+     * @since 1.3.0
      */
     public function debugInfo($message)
     {
@@ -578,7 +578,7 @@ class Line
      * Return an array with all debug informations
      *
      * @return array
-     * @since 1.2.1
+     * @since 1.3.0
      */
     public function getDebugInfo() : array
     {
