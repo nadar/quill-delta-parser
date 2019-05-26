@@ -125,12 +125,10 @@ class Debug
     public function lineStatus(Line $line)
     {
         if ($line->isDone()) {
-            return 'Clean => Picked => Done';
+            return 'Picked => Done';
         } elseif ($line->isPicked()) {
-            return 'Clean => Picked';
+            return 'Picked';
         }
-
-        return 'Clean';
     }
 
     /**
@@ -142,7 +140,7 @@ class Debug
      */
     protected function renderTable(array $rows, array $head = [])
     {
-        $buffer = '<table class="table table-bordered table-striped table-hover table-sm" border="1" width="100%" cellpadding="3" cellspacing="0">';
+        $buffer = '<table class="table table-bordered table-striped table-hover table-sm small" border="1" width="100%" cellpadding="3" cellspacing="0">';
         
         if (!empty($head)) {
             $buffer.= '<thead><tr>';

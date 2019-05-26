@@ -52,12 +52,17 @@ class LineTest extends TestCase
 
         $this->assertSame('line 1', $line0->input);
 
+        $this->assertTrue($line0->isFirst());
+
         $line1 = null;
         $line0->whileNext(function($line) use (&$line1) {
             $line1 = $line;
             return false;
         });
         
+
+        $this->assertFalse($line1->isFirst());
+
         $this->assertSame('line 2', $line1->input);
         
         $prevLine = null;
