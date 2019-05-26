@@ -72,16 +72,24 @@ class Lists extends BlockListener
             // defines whether this attribute list element is the last one of a list serie.
             $isLast = false;
 
-            // find the next element which is NOT empty.
-            $next = $pick->line->next(function (Line $line) {
-                return !$line->isEmpty();
+            // go to the next element with endlinew and check if it contains a list type until then   
+            $hasNextInside = false;
+            $pick->line->whileNext(function(Line $line) use (&$hasNextInside) {
+                // we found the next list elemnt, stop thie while loop
+                if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
+                    return false;
+                }
+                // if one of those new lines contains a endnew line or newline store this information
+                if ($line->hasEndNewline() || $line->hasNewline()) {
+                    $hasNextInside = true;
+                }
             });
 
-            // if there is a next element and this element has a new line, this is the last element.
-            if ($next && $next->hasNewline()) {
+            // There was a newline element until next list element, so end of list has reached.
+            if ($hasNextInside) {
                 $isLast = true;
             }
-
+            
             $output = null;
 
             // this makes sure that when two list types are after each other (OL and UL)
@@ -105,7 +113,7 @@ class Lists extends BlockListener
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
-            if (($isLast && $isOpen) || ($isOpen && $pick->isLast())) {
+            if (($isOpen && $isLast) || ($isOpen && $pick->isLast())) {
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }

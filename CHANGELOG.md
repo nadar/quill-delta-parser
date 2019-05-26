@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.2.1 (20. May 2019)
+## 1.3.0 (in progress)
 
 + Added new debugInfo option for lines
 + Added new behavior for hasNewline (which is now more consistent according to delta input)

@@ -261,6 +261,8 @@ class Line
      *
      * echo $buffer;
      * ```
+     * 
+     * > Keep in mind that `false` must be returned to stop the while process.
      *
      * @param callable $condition A callable which requires 2 params, the first is the index which is passed as reference,
      * second is the current line.
@@ -286,15 +288,55 @@ class Line
     }
 
     /**
+     * While loop down (to the next elements) until false is returend.
+     * 
+     * > This metod wont return the line.
+     * 
+     * @param callable $condition The while condition until false is returned.
+     * @since 1.3.0
+     */
+    public function whileNext(callable $condition)
+    {
+        $next = $this->next();
+        if ($next) {
+            return $next->while(function(&$index, Line $line) use ($condition) {
+                $index++;
+                return call_user_func($condition, $line);
+            });
+        }
+    }
+    
+    /**
+     * While loop up (to the previous elements) until false is returend.
+     * 
+     * > This metod wont return the line.
+     * 
+     * @param callable $condition The while condition until false is returned.
+     * @since 1.3.0
+     */
+    public function whilePrevious(callable $condition)
+    {
+        $previous = $this->previous();
+        if ($previous) {
+            return $previous->while(function(&$index, Line $line) use ($condition) {
+                $index--;
+
+                return call_user_func($condition, $line);
+            });
+        }
+    }
+
+    /**
      * Iteration helper the go forward and backward in lines.
      * 
      * The condition contains whether index should go up or down.
      * 
      * ```php
      * return $this->iterate($line, function ($i) {
-     *    return ++$i;
+     *    return $i+1;
      * }, function(Line $line) {
-     *    echo $line->input;
+     *      // will stop the process and return this current line
+     *      return true; 
      * });
      * ```
      *
@@ -349,7 +391,7 @@ class Line
         }
 
         return $this->iterate($this, function ($i) {
-            return ++$i;
+            return $i+1;
         }, $fn);
     }
 
@@ -376,7 +418,7 @@ class Line
         }
 
         return $this->iterate($this, function ($i) {
-            return --$i;
+            return $i-1;
         }, $fn);
     }
 
