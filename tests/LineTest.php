@@ -59,5 +59,13 @@ class LineTest extends TestCase
         });
         
         $this->assertSame('line 2', $line1->input);
+        
+        $prevLine = null;
+        $line1->whilePrevious(function($line) use (&$prevLine) {
+            $prevLine = $line;
+            return false;
+        });
+
+        $this->assertSame('line 1', $prevLine->input);
     }
 }
