@@ -67,5 +67,13 @@ class LineTest extends TestCase
         });
 
         $this->assertSame('line 1', $prevLine->input);
+
+        $value = false;
+        $lineNoPrevious = $line0->whilePrevious(function($line) use (&$value) {
+            $value = true;
+        });
+
+        // should never change to true as there is no previous element.
+        $this->assertFalse($value);
     }
 }
