@@ -153,7 +153,7 @@ class Debug
         }
 
         foreach ($rows as $cols) {
-            $buffer .= '<tr onclick="this.style.backgroundColor= \'red\'">';
+            $buffer .= '<tr onclick="this.style.backgroundColor=(this.style.backgroundColor==\'red\')?(\'transparent\'):(\'red\');">';
             foreach ($cols as $col) {
                 $buffer .= '<td>'.$col.'</td>';
             }
