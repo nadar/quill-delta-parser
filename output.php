@@ -9,7 +9,7 @@ use nadar\quill\Debug;
 require 'vendor/autoload.php';
 
 $json = isset($_POST['quill-editor-input']) ? $_POST['quill-editor-input'] : '{}';
-    
+$jsonOptions = JSON_PRETTY_PRINT;
 $lex = new Lexer($json);
 $lex->debug = true;
 $html = $lex->render();
@@ -63,7 +63,7 @@ EOT;
     <?php if (isset($_POST['quill-editor-input'])): ?>
         <div class="mt-3">
             <p class="lead">Delta Json</p>
-            <pre class="border p-2"><code><?= $json; ?></code></pre>
+            <pre class="border small p-2"><code><?= json_encode(json_decode($json), $jsonOptions); ?></code></pre>
             <p class="lead">RAW Html Output</p>
             <pre class="border p-2"><code><?= htmlentities($html, ENT_QUOTES); ?></code></pre>
             <p class="lead">HTML</p>
