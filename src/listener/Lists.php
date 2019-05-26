@@ -94,7 +94,7 @@ class Lists extends BlockListener
 
             // this makes sure that when two list types are after each other (OL and UL)
             // the previous will be closed so the new one will open
-            if ($listTag && $listTag !== $this->getListAttribute($pick)) {
+            if ($isOpen && $listTag && $listTag !== $this->getListAttribute($pick)) {
                 $output .= '</'.$listTag.'>';
                 $isOpen = false;
             }
