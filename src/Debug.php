@@ -103,6 +103,7 @@ class Debug
                 htmlentities($line->input, ENT_QUOTES),
                 htmlentities($line->output, ENT_QUOTES),
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
+                implode(", ", $line->getDebugInfo()),
                 var_export($line->getAttributes(), true),
                 var_export($line->isInline(), true),
                 $this->lineStatus($line),
@@ -112,7 +113,7 @@ class Debug
             ];
         }
 
-        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'attributes', 'is inline', 'status', 'has end newline', 'has new line', 'is empty']);
+        return $this->renderTable($_lines, ['ID', 'input', 'output', 'prepend', 'debug', 'attributes', 'is inline', 'status', 'has end newline', 'has new line', 'is empty']);
     }
 
     /**
@@ -152,7 +153,7 @@ class Debug
         }
 
         foreach ($rows as $cols) {
-            $buffer .= '<tr onclick="this.style.backgroundColor= \'red\'">';
+            $buffer .= '<tr onclick="this.style.backgroundColor=(this.style.backgroundColor==\'red\')?(\'transparent\'):(\'red\');">';
             foreach ($cols as $col) {
                 $buffer .= '<td>'.$col.'</td>';
             }

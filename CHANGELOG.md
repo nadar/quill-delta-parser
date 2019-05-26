@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 1.2.1 (20. May 2019)
+## 1.3.0 (in progress)
 
++ Added new debugInfo option for lines
++ Added new behavior for hasNewline (which is now more consistent according to delta input)
 + [#8](https://github.com/nadar/quill-delta-parser/issues/8) Fixed issue with UL/OL list elements if only one element is inside the list.
 
 ## 1.2.0 (30. April 2019)

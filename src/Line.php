@@ -114,7 +114,7 @@ class Line
      * Whether the current line had a new line char or not, this is very important in terms of finding out wether its a block
      * element or inline element.
      *
-     * This informations as assigned in the opsToLine() method in the lexer object.
+     * This informations is assigned in the opsToLine() method in the lexer object.
      *
      * @return boolean
      */
@@ -243,6 +243,9 @@ class Line
      *
      * An example how to while trough lines, increasing (down) the index until a certain condition
      * ($line->isFirst) happens writing lint input into a buffer variable.
+     * 
+     * > Keep in mind that while() will contain the line where the function applys, so the first line will always be
+     * > the line you apply the while() function.
      *
      * ```php
      * $buffer = null;
@@ -258,6 +261,8 @@ class Line
      *
      * echo $buffer;
      * ```
+     * 
+     * > Keep in mind that `false` must be returned to stop the while process.
      *
      * @param callable $condition A callable which requires 2 params, the first is the index which is passed as reference,
      * second is the current line.
@@ -283,7 +288,57 @@ class Line
     }
 
     /**
+     * While loop down (to the next elements) until false is returend.
+     * 
+     * > This metod wont return the line.
+     * 
+     * @param callable $condition The while condition until false is returned.
+     * @since 1.3.0
+     */
+    public function whileNext(callable $condition)
+    {
+        $next = $this->next();
+        if ($next) {
+            return $next->while(function(&$index, Line $line) use ($condition) {
+                $index++;
+                return call_user_func($condition, $line);
+            });
+        }
+    }
+    
+    /**
+     * While loop up (to the previous elements) until false is returend.
+     * 
+     * > This metod wont return the line.
+     * 
+     * @param callable $condition The while condition until false is returned.
+     * @since 1.3.0
+     */
+    public function whilePrevious(callable $condition)
+    {
+        $previous = $this->previous();
+        if ($previous) {
+            return $previous->while(function(&$index, Line $line) use ($condition) {
+                $index--;
+
+                return call_user_func($condition, $line);
+            });
+        }
+    }
+
+    /**
      * Iteration helper the go forward and backward in lines.
+     * 
+     * The condition contains whether index should go up or down.
+     * 
+     * ```php
+     * return $this->iterate($line, function ($i) {
+     *    return $i+1;
+     * }, function(Line $line) {
+     *      // will stop the process and return this current line
+     *      return true; 
+     * });
+     * ```
      *
      * @param Line $line
      * @param callable $condition The condition callable for the index
@@ -336,7 +391,7 @@ class Line
         }
 
         return $this->iterate($this, function ($i) {
-            return ++$i;
+            return $i+1;
         }, $fn);
     }
 
@@ -363,7 +418,7 @@ class Line
         }
 
         return $this->iterate($this, function ($i) {
-            return --$i;
+            return $i-1;
         }, $fn);
     }
 
@@ -502,5 +557,31 @@ class Line
         $insert = $this->getArrayInsert();
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
+    }
+
+    private $_debug = [];
+
+    /**
+     * Add debug message for this line if {{Lexer::$debug}} is enabled.
+     *
+     * @param string $message The message which should be logged.
+     * @since 1.3.0
+     */
+    public function debugInfo($message)
+    {
+        if ($this->lexer->debug) {
+            $this->_debug[] = $message;
+        }
+    }
+
+    /**
+     * Return an array with all debug informations
+     *
+     * @return array
+     * @since 1.3.0
+     */
+    public function getDebugInfo() : array
+    {
+        return $this->_debug;
     }
 }

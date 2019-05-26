@@ -55,7 +55,7 @@ class Pick
     }
 
     /**
-     * Whether current pick is the first pick inside this listenere.
+     * Whether current pick is the first pick inside the list of picks.
      *
      * @return boolean
      */

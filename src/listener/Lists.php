@@ -40,15 +40,25 @@ class Lists extends BlockListener
     public function render(Lexer $lexer)
     {
         $isOpen = false;
+        $listTag = null;
         foreach ($this->picks() as $pick) {
-            // get the first element within this list <li>
-            $first = $pick->line->previous(function (Line $line) {
-                if ($line->isFirst() || $line->hasNewline()) {
+            $first = $pick->line;
+            // Go back to the first element which is not in the LIST of items and store the current item into $first
+            $pick->line->while(function(&$index, Line $line) use ($pick, &$first) {
+                $index--;
+                // its the same line as the start.. skip this one as its by default included in while operations
+                if ($line == $pick->line) {
                     return true;
+                } elseif (($line->hasEndNewline() || $line->hasNewline())) {
+                    return false;
                 }
+
+                // assign the line to $first
+                $first = $line;
+                return true;
             });
 
-            // while from first to pick line and store content in buffer
+            // while from first to the pick line and store content in buffer
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
                 $index++;
@@ -62,17 +72,32 @@ class Lists extends BlockListener
             // defines whether this attribute list element is the last one of a list serie.
             $isLast = false;
 
-            // find the next element which is NOT empty.
-            $next = $pick->line->next(function (Line $line) {
-                return !$line->isEmpty();
+            // go to the next element with endlinew and check if it contains a list type until then   
+            $hasNextInside = false;
+            $pick->line->whileNext(function(Line $line) use (&$hasNextInside) {
+                // we found the next list elemnt, stop thie while loop
+                if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
+                    return false;
+                }
+                // if one of those new lines contains a endnew line or newline store this information
+                if ($line->hasEndNewline() || $line->hasNewline()) {
+                    $hasNextInside = true;
+                }
             });
 
-            // if there is a next element and this element has a new line, this is the last element.
-            if ($next && $next->hasNewline()) {
+            // There was a newline element until next list element, so end of list has reached.
+            if ($hasNextInside) {
                 $isLast = true;
             }
-
+            
             $output = null;
+
+            // this makes sure that when two list types are after each other (OL and UL)
+            // the previous will be closed so the new one will open
+            if ($isOpen && $listTag && $listTag !== $this->getListAttribute($pick)) {
+                $output .= '</'.$listTag.'>';
+                $isOpen = false;
+            }
 
             // create the opining OL/UL tag if:
             //  a. its not already open AND $isLast is false (which means not the last element)
@@ -88,10 +113,13 @@ class Lists extends BlockListener
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
-            if (($isLast && $isOpen) || ($isOpen && $pick->isLast())) {
+            if (($isOpen && $isLast) || ($isOpen && $pick->isLast())) {
                 $output .= '</'.$this->getListAttribute($pick).'>';
                 $isOpen = false;
             }
+
+            // store the last list type into a variable to determine if type switches
+            $listTag = $this->getListAttribute($pick);
 
             $pick->line->output = $output;
             $pick->line->setDone();

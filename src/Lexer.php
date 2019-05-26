@@ -82,7 +82,7 @@ class Lexer
     public $escapeEncoding = 'UTF-8';
 
     /**
-     * @var boolean Whether debbuging is enabled or not. If enabled some html comments will be added to certain elements.
+     * @var boolean Whether debbuging is enabled or not. If enabled lines can contain debugInfo messages which can be retrieved with {{Debug}} class.
      */
     public $debug = false;
 
@@ -208,17 +208,25 @@ class Lexer
                 $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true, true);
                 $i++;
             } else {
+                
+                $insert = $this->normalizeInsert($insert);
                 // remove the last newline from the line, as it will be splited into lines anyhow.
                 $line = $this->removeLastNewline($insert);
                 // check if the original input was changed, in order to determine whether current line had new line char.
                 $hasEndNewline = ($line !== $insert);
-                // check if current input string has a new line char in the string
-                $hasNewline = $this->lineHasNewline($line);
+
+                // check if original insert string has a new line char in the string
+                $hasNewline = $this->lineHasNewline($insert);
                 // split the input string into parts / lines.
                 $parts = explode(self::NEWLINE_EXPRESSION, $line);
+                $count = count($parts);
                 foreach ($parts as $index => $value) {
                     // check if this line had the end newline
-                    $hadEndNewline = ($hasEndNewline && ($index + 1) == count($parts)) ? true : false;
+                    $isLast = ($index + 1) == $count;
+                    $hadEndNewline = $isLast && $hasEndNewline ? true : false;
+                    if ($hasNewline && $isLast && !$hasEndNewline) {
+                        $hasNewline = false;
+                    }
                     $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline, $hasNewline);
                     $i++;
                 }
@@ -251,6 +259,24 @@ class Lexer
     }
 
     /**
+     * Normamlize the insert values into json
+     *
+     * @param array|string $insert
+     * @return string
+     * @since 1.2.2
+     */
+    protected function normalizeInsert($insert)
+    {
+        // plugins can have array values as text.
+        if (is_array($insert)) {
+            // convert the array into a json string
+            return json_encode($insert);
+        }
+
+        return $insert;
+    }
+
+    /**
      * Undocumented function
      *
      * @param [type] $insert
@@ -258,12 +284,6 @@ class Lexer
      */
     protected function removeLastNewline($insert)
     {
-        // plugsin can have array values as text.
-        if (is_array($insert)) {
-            // convert the array into a json string
-            return json_encode($insert);
-        }
-
         $expLength = strlen(self::NEWLINE_EXPRESSION);
         // remove new line from the end of the string
         // as this explode split well be done anyhow or its already part of a new line
