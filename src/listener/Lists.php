@@ -44,7 +44,7 @@ class Lists extends BlockListener
         foreach ($this->picks() as $pick) {
             $first = $pick->line;
             // Go back to the first element which is not in the LIST of items and store the current item into $first
-            $pick->line->while(function(&$index, Line $line) use ($pick, &$first) {
+            $pick->line->while(function (&$index, Line $line) use ($pick, &$first) {
                 $index--;
                 // its the same line as the start.. skip this one as its by default included in while operations
                 if ($line == $pick->line) {
@@ -72,9 +72,9 @@ class Lists extends BlockListener
             // defines whether this attribute list element is the last one of a list serie.
             $isLast = false;
 
-            // go to the next element with endlinew and check if it contains a list type until then   
+            // go to the next element with endlinew and check if it contains a list type until then
             $hasNextInside = false;
-            $pick->line->whileNext(function(Line $line) use (&$hasNextInside) {
+            $pick->line->whileNext(function (Line $line) use (&$hasNextInside) {
                 // we found the next list elemnt, stop thie while loop
                 if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
                     return false;
@@ -128,7 +128,7 @@ class Lists extends BlockListener
 
     /**
      * Get the html tag for the given value.
-     * 
+     *
      * @param Pick $pick
      * @return string
      * @throws Exception for unknown list types {@since 1.2.0}

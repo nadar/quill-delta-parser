@@ -21,7 +21,6 @@ class DeltaTestCase extends TestCase
 
     public function listeners(Lexer $lexer)
     {
-
     }
 
     public function testOutput()

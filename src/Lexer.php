@@ -208,7 +208,6 @@ class Lexer
                 $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true, true);
                 $i++;
             } else {
-                
                 $insert = $this->normalizeInsert($insert);
                 // remove the last newline from the line, as it will be splited into lines anyhow.
                 $line = $this->removeLastNewline($insert);
@@ -395,11 +394,11 @@ class Lexer
 
     /**
      * Escape plain text output before mixing in a html context.
-     * 
+     *
      * This should be used on any input or attributes in a delta operation.
      * Double encoding is prevented on already encoded characters.
      * For escaping input, use Line->getInput() instead. Otherwise an inline listener would encode the tags from another nested inline listener.
-     * 
+     *
      * @since 1.2.0
      * @param string $value The value to escape.
      * @return string The escaped value, safe for usage in html, as long as $escapeInput is set to true.

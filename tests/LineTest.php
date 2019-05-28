@@ -55,7 +55,7 @@ class LineTest extends TestCase
         $this->assertTrue($line0->isFirst());
 
         $line1 = null;
-        $line0->whileNext(function($line) use (&$line1) {
+        $line0->whileNext(function ($line) use (&$line1) {
             $line1 = $line;
             return false;
         });
@@ -66,7 +66,7 @@ class LineTest extends TestCase
         $this->assertSame('line 2', $line1->input);
         
         $prevLine = null;
-        $line1->whilePrevious(function($line) use (&$prevLine) {
+        $line1->whilePrevious(function ($line) use (&$prevLine) {
             $prevLine = $line;
             return false;
         });
@@ -74,7 +74,7 @@ class LineTest extends TestCase
         $this->assertSame('line 1', $prevLine->input);
 
         $value = false;
-        $lineNoPrevious = $line0->whilePrevious(function($line) use (&$value) {
+        $lineNoPrevious = $line0->whilePrevious(function ($line) use (&$value) {
             $value = true;
         });
 

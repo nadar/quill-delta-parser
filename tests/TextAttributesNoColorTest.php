@@ -4,7 +4,6 @@ namespace nadar\quill\tests;
 
 use nadar\quill\listener\Color;
 
-
 class TextAttributesNoColorTest extends DeltaTestCase
 {
     public $json = <<<'JSON'

@@ -7,11 +7,11 @@ namespace nadar\quill;
  *
  * The Debug class can return informations in a readable way from a lexer object. It will generate a html table
  * with additional infos about how each line is parsed line by line.
- * 
+ *
  * ```php
  * $lexer = new Lexer($json);
  * $lexer->render(); // make sure to run the render before call debugPrint();
- * 
+ *
  * $debug = new Debug($lexer);
  * echo $debug->debugPrint();
  * ```
@@ -71,7 +71,7 @@ class Debug
 
     /**
      * return a string with debug informations.
-     * 
+     *
      * @return string
      */
     public function debugPrint()

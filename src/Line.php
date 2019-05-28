@@ -145,7 +145,7 @@ class Line
 
     /**
      * Get the Lexer
-     * 
+     *
      * @since 1.2.0
      * @return Lexer
      */
@@ -156,9 +156,9 @@ class Line
 
     /**
      * Get the line's input in a safe way.
-     * 
+     *
      * Escaping for html is done if this wasn't done by a previous listener already.
-     * 
+     *
      * @since 1.2.0
      * @return string
      */
@@ -173,9 +173,9 @@ class Line
 
     /**
      * Get the raw line's input, this might not be escaped for html context.
-     * 
+     *
      * > Note it could be escaped if a previous inline listener updated the input value
-     * 
+     *
      * @since 1.2.0
      * @return string
      */
@@ -243,7 +243,7 @@ class Line
      *
      * An example how to while trough lines, increasing (down) the index until a certain condition
      * ($line->isFirst) happens writing lint input into a buffer variable.
-     * 
+     *
      * > Keep in mind that while() will contain the line where the function applys, so the first line will always be
      * > the line you apply the while() function.
      *
@@ -261,7 +261,7 @@ class Line
      *
      * echo $buffer;
      * ```
-     * 
+     *
      * > Keep in mind that `false` must be returned to stop the while process.
      *
      * @param callable $condition A callable which requires 2 params, the first is the index which is passed as reference,
@@ -289,9 +289,9 @@ class Line
 
     /**
      * While loop down (to the next elements) until false is returend.
-     * 
+     *
      * > This metod wont return the line.
-     * 
+     *
      * @param callable $condition The while condition until false is returned.
      * @since 1.3.0
      */
@@ -299,7 +299,7 @@ class Line
     {
         $next = $this->next();
         if ($next) {
-            return $next->while(function(&$index, Line $line) use ($condition) {
+            return $next->while(function (&$index, Line $line) use ($condition) {
                 $index++;
                 return call_user_func($condition, $line);
             });
@@ -308,9 +308,9 @@ class Line
     
     /**
      * While loop up (to the previous elements) until false is returend.
-     * 
+     *
      * > This metod wont return the line.
-     * 
+     *
      * @param callable $condition The while condition until false is returned.
      * @since 1.3.0
      */
@@ -318,7 +318,7 @@ class Line
     {
         $previous = $this->previous();
         if ($previous) {
-            return $previous->while(function(&$index, Line $line) use ($condition) {
+            return $previous->while(function (&$index, Line $line) use ($condition) {
                 $index--;
 
                 return call_user_func($condition, $line);
@@ -328,15 +328,15 @@ class Line
 
     /**
      * Iteration helper the go forward and backward in lines.
-     * 
+     *
      * The condition contains whether index should go up or down.
-     * 
+     *
      * ```php
      * return $this->iterate($line, function ($i) {
      *    return $i+1;
      * }, function(Line $line) {
      *      // will stop the process and return this current line
-     *      return true; 
+     *      return true;
      * });
      * ```
      *
@@ -442,7 +442,7 @@ class Line
 
     /**
      * Setter method whether the current line is escaped or not.
-     * 
+     *
      * @since 1.2.0
      */
     public function setAsEscaped()
@@ -452,7 +452,7 @@ class Line
 
     /**
      * Whether the current line is escaped or not.
-     * 
+     *
      * @since 1.2.0
      * @return boolean
      */
@@ -480,7 +480,7 @@ class Line
     }
 
     /**
-     * Whether current line is picked or not. If the line has been picked an is marked as 
+     * Whether current line is picked or not. If the line has been picked an is marked as
      * done, is picked will return false.
      *
      * @return boolean

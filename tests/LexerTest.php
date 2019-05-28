@@ -33,7 +33,6 @@ class LexerTest extends TestCase
 
         $this->assertTrue($lines[0]->hasNewline());
         $this->assertTrue($lines[0]->hasEndNewline());
-        
     }
 
     public function testLineHasNewLineStatus()

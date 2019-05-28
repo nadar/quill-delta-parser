@@ -35,7 +35,7 @@ class Heading extends BlockListener
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @throws Exception for unknown heading levels {@since 1.2.0}
      */
     public function render(Lexer $lexer)

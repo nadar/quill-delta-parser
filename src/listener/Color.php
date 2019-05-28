@@ -15,7 +15,7 @@ class Color extends InlineListener
 {
     /**
      * @var boolean If ignore is enabled, the colors won't apply. This can be use full if coloring is disabled in your quill editor
-     * but people copy past content from somewhere else which will then generate the color attribute. 
+     * but people copy past content from somewhere else which will then generate the color attribute.
      */
     public $ignore = false;
     

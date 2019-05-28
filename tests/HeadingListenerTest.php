@@ -4,11 +4,11 @@ namespace nadar\quill\tests;
 
 /**
  * Testing the Header Listener no prev element exists:
- * 
+ *
  * ```php
  * if (!$prev) {
  *     $prev = $pick->line;
- * } 
+ * }
  * ```
  */
 class HeadingListenerTest extends DeltaTestCase
