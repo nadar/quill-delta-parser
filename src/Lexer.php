@@ -57,6 +57,14 @@ use nadar\quill\listener\Color;
 class Lexer
 {
     /**
+     * @var string The quill deltas newline is always \n, thefore do not use PHP_EOL as its different in win platforms.
+     * @see https://quilljs.com/guides/designing-the-delta-format/
+     * @see https://github.com/nadar/quill-delta-parser/issues/12
+     * @since 1.3.1
+     */
+    const DELTA_EOL = "\n";
+
+    /**
      * @var string An internal string for newlines, this makes it more easy to debug instead of using \n (newlines).
      */
     const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
@@ -254,7 +262,7 @@ class Lexer
      */
     protected function replaceNewlineWithExpression($string)
     {
-        return str_replace(PHP_EOL, self::NEWLINE_EXPRESSION, $string);
+        return str_replace(self::DELTA_EOL, self::NEWLINE_EXPRESSION, $string);
     }
 
     /**
