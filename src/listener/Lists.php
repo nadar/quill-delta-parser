@@ -49,7 +49,7 @@ class Lists extends BlockListener
                 // its the same line as the start.. skip this one as its by default included in while operations
                 if ($line == $pick->line) {
                     return true;
-                } elseif (($line->hasEndNewline() || $line->hasNewline())) {
+                } elseif (($line->hasEndNewline() || $line->hasNewline() || $line->isJsonInsert())) {
                     return false;
                 }
 
@@ -80,7 +80,7 @@ class Lists extends BlockListener
                     return false;
                 }
                 // if one of those new lines contains a endnew line or newline store this information
-                if ($line->hasEndNewline() || $line->hasNewline()) {
+                if ($line->hasEndNewline() || $line->hasNewline() || $line->isJsonInsert()) {
                     $hasNextInside = true;
                 }
             });
