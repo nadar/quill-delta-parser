@@ -63,26 +63,4 @@ class Heading extends BlockListener
             $pick->line->setDone();
         }
     }
-
-	private function getFirstLine($pick) {
-		$first = $pick->line;
-		
-		$pick->line->while(
-			function (&$index, Line $line) use ($pick, &$first) {
-				$index--;
-				// its the same line as the start.. skip this one as its by default included in while operations
-				if ($line == $pick->line) {
-					return true;
-				}
-				elseif (($line->hasEndNewline() || $line->hasNewline())) {
-					return false;
-				}
-				
-				// assign the line to $first
-				$first = $line;
-				return true;
-			}
-		);
-		return $first;
-	}
 }
