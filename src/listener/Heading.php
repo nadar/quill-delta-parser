@@ -43,25 +43,25 @@ class Heading extends BlockListener
         foreach ($this->picks() as $pick) {
             if (!in_array($pick->heading, $this->levels)) {
                 // prevent html injection in case the attribute is user input
-                throw new Exception('An unknown heading level "'.$pick->heading.'" has been detected.');
+                throw new Exception('An unknown heading level "' . $pick->heading . '" has been detected.');
             }
-	
-	        $first = $this->getFirstLine($pick);
-	
-	        // while from first to the pick line and store content in buffer
+
+            $first = $this->getFirstLine($pick);
+
+            // while from first to the pick line and store content in buffer
             $buffer = null;
             $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
-				$index++;
-				$buffer.= $line->getInput();
-				$line->setDone();
-				if ($index == $pick->line->getIndex()) {
-					return false;
-				}
-			});
-	
-			$pick->line->output = '<h'.$pick->heading.'>'.$buffer . '</h'.$pick->heading.'>';
-			$pick->line->setDone();
-		}
+                $index++;
+                $buffer .= $line->getInput();
+                $line->setDone();
+                if ($index == $pick->line->getIndex()) {
+                    return false;
+                }
+            });
+
+            $pick->line->output = '<h' . $pick->heading . '>' . $buffer . '</h' . $pick->heading . '>';
+            $pick->line->setDone();
+        }
     }
 
 	private function getFirstLine($pick) {
