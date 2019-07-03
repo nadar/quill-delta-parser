@@ -6,144 +6,46 @@ class ListBlockTest extends DeltaTestCase
 {
     public $json = <<<'JSON'
 [
-    {
-      "insert": "Before\nA 1"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "attributes": {
-        "bold": true
-      },
-      "insert": "A 2"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "A 3"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": {
-        "video": "https://www.youtube.com/embed/Ybq878PMe_U?showinfo=0"
-      }
-    },
-    {
-      "insert": "B 1"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "B "
-    },
-    {
-      "insert": {
-        "image": "https://example.com/image.jpg"
-      }
-    },
-    {
-      "insert": " 2"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "B 3"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "In between\n"
-    },
-    {
-      "insert": "C 1"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "C 2"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "C 3"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": {
-        "image": "https://example.com/image.jpg"
-      }
-    },
-    {
-      "insert": "\n"
-    },
-    {
-      "insert": "D 1"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "D 2"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "D 3"
-    },
-    {
-      "attributes": {
-        "list": "bullet"
-      },
-      "insert": "\n"
-    },
-    {
-      "insert": "After\n"
-    }
+    {"insert": "Before\n"},
+    
+    {"insert": "A 1"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "A 2", "attributes": {"bold": true}},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "A 3"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    
+    {"insert": {"video": "https://www.youtube.com/embed/Ybq878PMe_U?showinfo=0"}},
+    
+    {"insert": "B 1"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "B "},
+    {"insert": {"image": "https://example.com/image.jpg"}},
+    {"insert": " 2"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "B 3"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    
+    {"insert": "In between\n"},
+    
+    {"insert": "C 1"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "C 2"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "C 3"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    
+    {"insert": {"image": "https://example.com/image.jpg"}},
+    {"insert": "\n"},
+    
+    {"insert": "D 1"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "D 2"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    {"insert": "D 3"},
+    {"attributes": {"list": "bullet"}, "insert": "\n"},
+    
+    {"insert": "After\n"}
 ]
 JSON;
 
