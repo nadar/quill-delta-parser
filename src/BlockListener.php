@@ -21,11 +21,11 @@ abstract class BlockListener extends Listener
     }
 
     /**
-     * @param Line - An array with Line objects
+     * @param Pick $pick
      * @return Line
      * @since 1.3.2
      */
-    public function getFirstLine($pick)
+    protected function getFirstLine($pick)
     {
         $first = $pick->line;
 
@@ -33,7 +33,7 @@ abstract class BlockListener extends Listener
             function (&$index, Line $line) use ($pick, &$first) {
                 $index--;
                 // its the same line as the start.. skip this one as its by default included in while operations
-                if ($line == $pick->line) {
+                if ($line === $pick->line) {
                     return true;
                 } elseif (($line->hasEndNewline() || $line->hasNewline())) {
                     return false;
