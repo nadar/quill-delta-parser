@@ -51,31 +51,39 @@ JSON;
 
     public $html = <<<'EOT'
 <p>Before</p>
+
 <ul>
 <li>A 1</li>
 <li><strong>A 2</strong></li>
 <li>A 3</li>
 </ul>
+
 <div class="embed-responsive embed-responsive-16by9">
 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ybq878PMe_U?showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
 <ul>
 <li>B 1</li>
 <li>B <img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" /> 2</li>
 <li>B 3</li>
 </ul>
+
 <p>In between</p>
+
 <ul>
 <li>C 1</li>
 <li>C 2</li>
 <li>C 3</li>
 </ul>
+
 <p><img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" /></p>
+
 <ul>
 <li>D 1</li>
 <li>D 2</li>
 <li>D 3</li>
 </ul>
+
 <p>After</p>
 EOT;
 }
