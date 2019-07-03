@@ -42,21 +42,7 @@ class Lists extends BlockListener
         $isOpen = false;
         $listTag = null;
         foreach ($this->picks() as $pick) {
-            $first = $pick->line;
-            // Go back to the first element which is not in the LIST of items and store the current item into $first
-            $pick->line->while(function (&$index, Line $line) use ($pick, &$first) {
-                $index--;
-                // its the same line as the start.. skip this one as its by default included in while operations
-                if ($line == $pick->line) {
-                    return true;
-                } elseif (($line->hasEndNewline() || $line->hasNewline())) {
-                    return false;
-                }
-
-                // assign the line to $first
-                $first = $line;
-                return true;
-            });
+            $first = $this->getFirstLine($pick);
 
             // while from first to the pick line and store content in buffer
             $buffer = null;
