@@ -220,12 +220,15 @@ class Line
      *
      * Certain elements needs to prepend values into the next element.
      *
+     * > Since version 1.3.3 the Line argument is required in order to ensure the correct index for the prepend element.
+     * 
      * @param string $value The value to prepend.
+     * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements.
      * @return void
      */
-    public function addPrepend($value)
+    public function addPrepend($value, Line $line)
     {
-        $this->prepend[] = $value;
+        $this->prepend[$line->getIndex()] = $value;
     }
 
     /**
@@ -235,6 +238,7 @@ class Line
      */
     public function renderPrepend()
     {
+        ksort($this->prepend);
         return implode("", array_unique($this->prepend));
     }
 
