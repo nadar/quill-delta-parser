@@ -218,12 +218,11 @@ class Line
     /**
      * Add a new value to the prepend array.
      *
-     * Certain elements needs to prepend values into the next element.
-     *
-     * > Since version 1.3.3 the Line argument is required in order to ensure the correct index for the prepend element.
+     * Certain elements needs to prepend values into the next element. The Line argument is required in order to 
+     * ensure the correct index for the prepend element.
      * 
      * @param string $value The value to prepend.
-     * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements.
+     * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements. {@since 1.3.3}
      * @return void
      */
     public function addPrepend($value, Line $line)
