@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.0.0
 
-> This release contains breaks which might break your application. Checkout the [upgrade document](UPGRADE.md) for more details.
+> This release contains breaks which might affect your application. Checkout the [upgrade document](UPGRADE.md) for more details.
 
 + [#18](https://github.com/nadar/quill-delta-parser/issues/18) Enable `escapeInput` option by default in order to increase security.
 
