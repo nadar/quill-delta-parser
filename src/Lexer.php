@@ -72,7 +72,7 @@ class Lexer
     /**
      * @var boolean Whether input should be escaped by listeners when mixed with html elements.
      * Note that a specific listener can decide to not escape if their output should be raw html.
-     * If script and other insecure input values should be allowed this must be turned off.
+     * If script and other insecure input values should be allowed this can be turned off but its not recommend!
      * @since 1.2.0
      */
     public $escapeInput = true;
