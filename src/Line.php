@@ -222,7 +222,7 @@ class Line
      * ensure the correct index for the prepend element.
      * 
      * @param string $value The value to prepend.
-     * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements. {@since 1.3.3}
+     * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements. {@since 1.3.2}
      * @return void
      */
     public function addPrepend($value, Line $line)
