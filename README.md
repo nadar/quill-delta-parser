@@ -69,21 +69,6 @@ This would render the following HTML:
 <p>This is the php quill <strong>parser</strong>!</p>
 ```
 
-## Security
-
-Currently html escaping is not turned on by default. This means that a delta where the insert or attributes contain user supplied data can cause XSS.
-
-To use html escaping always set `$lexer->escapeInput` to true:
-
-```php
-use nadar\quill\Lexer;
-
-$lexer = new Lexer($json);
-$lexer->escapeInput = true;
-```
-
-The next major version will set this to true by default.
-
 ## Extend the Parser
 
 In order to extend the Parser by adding your own listeneres (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether its:

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0
+
++ [#18](https://github.com/nadar/quill-delta-parser/issues/18) Enable `escapeInput` option by default in order to increase security.
+
 ## 1.3.2 (9. July 2019)
 
 + [#13](https://github.com/nadar/quill-delta-parser/pull/13) Fixed bug when lists are interrupted with block level elements (e.g. videos)
