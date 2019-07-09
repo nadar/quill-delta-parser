@@ -38,7 +38,7 @@ abstract class BlockListener extends Listener
                 // its the same line as the start.. skip this one as its by default included in while operations
                 if ($line === $pick->line) {
                     return true;
-                } elseif (($line->hasEndNewline() || $line->hasNewline())) {
+                } elseif (($line->hasEndNewline() || $line->hasNewline() || ($line->isJsonInsert() && !$line->isInline()))) {
                     return false;
                 }
 
