@@ -5,6 +5,7 @@ namespace nadar\quill\listener;
 use nadar\quill\Line;
 use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
+use nadar\quill\Pick;
 
 /**
  * Convert all the not done elements into paragraphs.
@@ -66,7 +67,7 @@ class Text extends BlockListener
                 $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $pick->line->getInput();
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
-                if ($isOpen && ($next && !$next->isInline() && !$next->isTextOnly() && !$pick->line->isTextOnly())) {
+                if ($isOpen && $this->shouldClose($pick)) {
                     $isOpen = $this->output($output, self::CLOSEP, false);
 
                 // if its open and we dont have a next element, its the end of the document! lets close this damn paragraph.
@@ -111,5 +112,17 @@ class Text extends BlockListener
     {
         $output[] = $tag;
         return $openState;
+    }
+
+    /**
+     * @param Pick $pick
+     * @return bool
+     */
+    private function shouldClose(Pick $pick): bool
+    {
+        /** @var Line $next */
+        $next = $pick->line->next();
+        if (!$next) return false;
+        return (!$next->isInline() && !$next->isTextOnly() && !$pick->line->isTextOnly());
     }
 }
