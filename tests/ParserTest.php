@@ -34,7 +34,7 @@ class ParserTest extends TestCase
         '<h1>Head<strong>ing</strong></h1>' => '[{"insert":"Head"},{"attributes":{"bold":true},"insert":"ing"},{"attributes":{"header":1},"insert":"\n"}]',
         '<blockquote>Wichtig <strong>Fett</strong></blockquote>' => '[{"insert":"Wichtig "},{"attributes":{"bold":true},"insert":"Fett"},{"attributes":{"blockquote":true},"insert":"\n"}]',
         '<blockquote>Quote</blockquote>' => '[{"insert":"Quote"},{"attributes":{"blockquote":true},"insert":"\n"}]',
-        '<h1>Header 1</h1>' => '[{"insert":"Header 1"},{"attributes":{"header":1},"insert":"\n"}]',
+        '<h1>Heading 1</h1>' => '[{"insert":"Heading 1"},{"attributes":{"header":1},"insert":"\n"}]',
         '<h1>Hello</h1><p><br></p><p>This is the php quill <strong>parser</strong>!</p>' => '[{"insert":"Hello"},{"attributes":{"header":1},"insert":"\n"},{"insert":"\nThis is the php quill "},{"attributes":{"bold":true},"insert":"parser"},{"insert":"!\n"}]',
         '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ybq878PMe_U?showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>' => '[{"insert":{"video":"https://www.youtube.com/embed/Ybq878PMe_U?showinfo=0"}}]',
         '<p><img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" />text</p>' => '[{"insert": {"image": "https://example.com/image.jpg"}},{"insert": "text\n"}]',

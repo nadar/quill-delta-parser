@@ -113,11 +113,19 @@ class Line
         $this->hasNewline = $hasNewline;
     }
 
+    /**
+     * Whether the current line used to have attributes, which are stripped, thus turning it into a text-only insert
+     *
+     * @return bool
+     */
     public function isTextOnly()
     {
         return $this->textOnly;
     }
 
+    /**
+     * Setter method to mark the line as text-only - after stripping the unknown attributes off of it
+     */
     public function setAsTextOnly()
     {
         $this->textOnly = true;

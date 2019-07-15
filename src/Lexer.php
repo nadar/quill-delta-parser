@@ -103,6 +103,7 @@ class Lexer
      * @var array The listeners in a flat array
      */
     protected $listenerNames;
+
     /**
      * @var array The listeners grouped by type and priority.
      */
