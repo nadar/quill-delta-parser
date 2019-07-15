@@ -34,6 +34,9 @@ abstract class Listener
      */
     const PRIORITY_GARBAGE_COLLECTOR = 2;
 
+    /** @var string by which matches with the attribute on the ops */
+    const ATTRIBUTE_NAME = null;
+
     /**
      * Undocumented function
      *

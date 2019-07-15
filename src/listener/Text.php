@@ -14,6 +14,8 @@ use nadar\quill\BlockListener;
  */
 class Text extends BlockListener
 {
+    const ATTRIBUTE_NAME = 'text';
+
     const CLOSEP = '</p>';
 
     const OPENP = '<p>';
@@ -48,7 +50,9 @@ class Text extends BlockListener
             if (!$pick->line->isDone() && !$pick->line->hasAttributes() && !$pick->line->isInline()) {
                 $pick->line->setDone();
 
+                /** @var Line $next */
                 $next = $pick->line->next();
+                /** @var Line $prev */
                 $prev = $pick->line->previous();
                 
                 $output = [];
@@ -62,7 +66,7 @@ class Text extends BlockListener
                 $output[] = $pick->line->isEmpty() ? self::LINEBREAK : $pick->line->renderPrepend() . $pick->line->getInput();
 
                 // if its open and we have a next element, and the next element is not an inline, we close!
-                if ($isOpen && ($next && !$next->isInline())) {
+                if ($isOpen && ($next && !$next->isInline() && !$next->isTextOnly() && !$pick->line->isTextOnly())) {
                     $isOpen = $this->output($output, self::CLOSEP, false);
 
                 // if its open and we dont have a next element, its the end of the document! lets close this damn paragraph.

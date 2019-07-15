@@ -100,7 +100,11 @@ class Lexer
     protected $json;
 
     /**
-     * @var array The listeneres grouped by type and priority.
+     * @var array The listeners in a flat array
+     */
+    protected $listenerNames;
+    /**
+     * @var array The listeners grouped by type and priority.
      */
     protected $listeners = [
         Listener::TYPE_INLINE => [
@@ -155,6 +159,7 @@ class Lexer
     public function registerListener(Listener $listener)
     {
         $this->listeners[$listener->type()][$listener->priority()][get_class($listener)] = $listener;
+        $this->listenerNames[] = $listener::ATTRIBUTE_NAME;
     }
 
     /**
@@ -234,7 +239,17 @@ class Lexer
                     if ($hasNewline && $isLast && !$hasEndNewline) {
                         $hasNewline = false;
                     }
-                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline, $hasNewline);
+
+                    $filteredDeltaAttributes = $this->filterUnknownAttributesFromDelta($delta);
+
+                    $newLine = new Line($i, $value, $filteredDeltaAttributes, $this, $hadEndNewline, $hasNewline);
+
+                    // If the line had unregistered attributes it needs to know it is a text-only
+                    if (isset($delta['attributes']) && count($filteredDeltaAttributes) === 0) {
+                        $newLine->setAsTextOnly();
+                    }
+
+                    $lines[$i] = $newLine;
                     $i++;
                 }
             }
@@ -418,5 +433,26 @@ class Lexer
         }
         
         return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double = false);
+    }
+
+    /**
+     * This method filters unrecognised attributes from the delta
+     *
+     * @return array with attributes which are registered
+     */
+    private function filterUnknownAttributesFromDelta($delta)
+    {
+        if(!isset($delta['attributes'])) {
+            return [];
+        }
+
+        $attributes = [];
+        foreach ($delta['attributes'] as $attribute => $value) {
+            if(in_array($attribute, $this->listenerNames, true)) {
+                $attributes[$attribute] = $value;
+            }
+        }
+
+        return $attributes;
     }
 }

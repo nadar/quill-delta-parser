@@ -15,6 +15,8 @@ use nadar\quill\InlineListener;
  */
 class Image extends InlineListener
 {
+    const ATTRIBUTE_NAME = 'image';
+
     public $wrapper = '<img src="{src}" alt="" class="img-responsive img-fluid" />';
     
     /**
@@ -22,7 +24,7 @@ class Image extends InlineListener
      */
     public function process(Line $line)
     {
-        $embedUrl = $line->insertJsonKey('image');
+        $embedUrl = $line->insertJsonKey(self::ATTRIBUTE_NAME);
         if ($embedUrl) {
             $this->updateInput($line, str_replace(['{src}'], [$line->getLexer()->escape($embedUrl)], $this->wrapper));
         }

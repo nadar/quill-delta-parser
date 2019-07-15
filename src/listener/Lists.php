@@ -16,7 +16,7 @@ use nadar\quill\Pick;
  */
 class Lists extends BlockListener
 {
-    const ATTRIBUTE_LIST = 'list';
+    const ATTRIBUTE_NAME = 'list';
 
     const LIST_TYPE_BULLET = 'bullet';
 
@@ -27,7 +27,7 @@ class Lists extends BlockListener
      */
     public function process(Line $line)
     {
-        $listType = $line->getAttribute(self::ATTRIBUTE_LIST);
+        $listType = $line->getAttribute(self::ATTRIBUTE_NAME);
         if ($listType) {
             $this->pick($line, ['type' => $listType]);
             $line->setDone();
@@ -62,7 +62,7 @@ class Lists extends BlockListener
             $hasNextInside = false;
             $pick->line->whileNext(function (Line $line) use (&$hasNextInside) {
                 // we found the next list elemnt, stop thie while loop
-                if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
+                if ($line->getAttribute(self::ATTRIBUTE_NAME)) {
                     return false;
                 }
                 // if one of those new lines contains a endnew line or newline store this information

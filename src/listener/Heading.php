@@ -15,6 +15,8 @@ use nadar\quill\Lexer;
  */
 class Heading extends BlockListener
 {
+    const ATTRIBUTE_NAME = 'header';
+
     /**
      * @var array Supported header levels.
      * @since 1.2.0
@@ -26,7 +28,7 @@ class Heading extends BlockListener
      */
     public function process(Line $line)
     {
-        $heading = $line->getAttribute('header');
+        $heading = $line->getAttribute(self::ATTRIBUTE_NAME);
         if ($heading) {
             $this->pick($line, ['heading' => $heading]);
             $line->setDone();

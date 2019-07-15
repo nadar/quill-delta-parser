@@ -14,12 +14,14 @@ use nadar\quill\Lexer;
  */
 class Link extends InlineListener
 {
+    const ATTRIBUTE_NAME = 'link';
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        $link = $line->getAttribute('link');
+        $link = $line->getAttribute(self::ATTRIBUTE_NAME);
         if ($link) {
             $this->updateInput($line, '<a href="'.$line->getLexer()->escape($link).'" target="_blank">'.$line->getInput().'</a>');
         }

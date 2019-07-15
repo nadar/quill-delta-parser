@@ -13,12 +13,14 @@ use nadar\quill\Line;
  */
 class Strike extends InlineListener
 {
+    const ATTRIBUTE_NAME = 'strike';
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('strike')) {
+        if ($line->getAttribute(self::ATTRIBUTE_NAME)) {
             $this->updateInput($line, '<del>'.$line->getInput().'</del>');
         }
     }

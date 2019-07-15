@@ -90,6 +90,9 @@ class Line
      * @var boolean Whether this line has a newline or not, this information is already provided by the lines to ops method.
      */
     protected $hasNewline;
+
+    /** @var boolean Whether this line used to have attributes but due to filtering now only consists of text */
+    protected $textOnly;
     
     /**
      * Constructor
@@ -109,6 +112,18 @@ class Line
         $this->hadEndNewline = $hadEndNewline;
         $this->hasNewline = $hasNewline;
     }
+
+    public function isTextOnly()
+    {
+        return $this->textOnly;
+    }
+
+    public function setAsTextOnly()
+    {
+        $this->textOnly = true;
+    }
+
+
 
     /**
      * Whether the current line had a new line char or not, this is very important in terms of finding out wether its a block

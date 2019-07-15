@@ -14,12 +14,14 @@ use nadar\quill\Lexer;
  */
 class Italic extends InlineListener
 {
+    const ATTRIBUTE_NAME = 'italic';
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('italic')) {
+        if ($line->getAttribute(self::ATTRIBUTE_NAME)) {
             $this->updateInput($line, '<em>'.$line->getInput().'</em>');
         }
     }

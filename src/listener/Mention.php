@@ -20,12 +20,14 @@ use nadar\quill\Lexer;
  */
 class Mention extends InlineListener
 {
+    const ATTRIBUTE_NAME = 'mention';
+
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        $mention = $line->insertJsonKey('mention');
+        $mention = $line->insertJsonKey(self::ATTRIBUTE_NAME);
 
         if ($mention) {
             $this->updateInput($line, $line->getLexer()->escape($mention['value']));
