@@ -13,7 +13,7 @@ What is Quill? Quill is a free, open source WYSIWYG editor built for the modern 
 
 ## Installation
 
-The package is only available trough composer:
+The package is only available through composer:
 
 ```sh
 composer require nadar/quill-delta-parser
