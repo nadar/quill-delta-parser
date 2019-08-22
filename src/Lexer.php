@@ -14,6 +14,7 @@ use nadar\quill\listener\Underline;
 use nadar\quill\listener\Video;
 use nadar\quill\listener\Image;
 use nadar\quill\listener\Color;
+use nadar\quill\listener\Font;
 
 /**
  * Lexer Delta Parser.
@@ -145,6 +146,7 @@ class Lexer
         $this->registerListener(new Text);
         $this->registerListener(new Lists);
         $this->registerListener(new Blockquote);
+        $this->registerListener(new Font);
     }
 
     /**
