@@ -6,7 +6,7 @@ use nadar\quill\InlineListener;
 use nadar\quill\Line;
 
 /**
- * Fonts attribute
+ * Renders font attribute which will set font-family.
  * 
  * @author Basil Suter <basil@nadar.io>
  * @since 2.1.0
@@ -19,6 +19,9 @@ class Font extends InlineListener
      */
     public $ignore = false;
 
+    /**
+     * {@inheritDoc}
+     */
     public function process(Line $line)
     {
         if (($font = $line->getAttribute('font'))) {
@@ -26,6 +29,13 @@ class Font extends InlineListener
         }
     }
 
+    /**
+     * Wrap the font family span tag if ignore is disabled.
+     *
+     * @param string $font
+     * @param Line $line
+     * @return string
+     */
     public function applyTemplate($font, Line $line)
     {
         if ($this->ignore) {
