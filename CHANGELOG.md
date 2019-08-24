@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0 (24. August 2019)
+
++ [#23](https://github.com/nadar/quill-delta-parser/issues/23) Add inline element to handle font attribute.
+
 ## 2.0.0 (10. July 2019)
 
 > This release contains breaks which might affect your application. Checkout the [upgrade document](UPGRADE.md) for more details.
