@@ -25,7 +25,6 @@ composer require nadar/quill-delta-parser
 use nadar\quill\Lexer;
 
 $lexer = new Lexer($json);
-$lexer->escapeInput = true;
 
 // echoing the html for the given json ops.
 echo $lexer->render();
