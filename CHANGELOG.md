@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.1.1
+## 2.1.1 (2. September 2019)
 
 + [#25](https://github.com/nadar/quill-delta-parser/issues/25) Ensure that empty heading listeneres won't destroy all upcoming elements.
 
