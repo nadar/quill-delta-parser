@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.1
+
++ [#25](https://github.com/nadar/quill-delta-parser/issues/25) Ensure that empty heading listeneres won't destroy all upcoming elements.
+
 ## 2.1.0 (24. August 2019)
 
 + [#23](https://github.com/nadar/quill-delta-parser/issues/23) Add inline element to handle font attribute.
