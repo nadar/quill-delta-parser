@@ -55,6 +55,7 @@ class ParserTest extends TestCase
         '<ul><li>A</li><li>B</li></ul><p>Paragraph with <strong>bold</strong></p><ol><li>Y1 <em>Y2</em> Y3</li><li>X1 X2 <strong>X3</strong></li></ol><p>morre <strong>text</strong></p>' => '[{"insert":"A"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"B"},{"attributes":{"list":"bullet"},"insert":"\n"},{"insert":"Paragraph with "},{"attributes":{"bold":true},"insert":"bold"},{"insert":"\nY1 "},{"attributes":{"italic":true},"insert":"Y2"},{"insert":" Y3"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"X1 X2 "},{"attributes":{"bold":true},"insert":"X3"},{"attributes":{"list":"ordered"},"insert":"\n"},{"insert":"morre "},{"attributes":{"bold":true},"insert":"text"},{"insert":"\n"}]',
         '<p>Lorem <span style="font-family: serif;">Ipsum</span> Dolor. <span style="font-family: monospace;">Sit</span> Amet.</p>' => '{"ops":[{"insert":"Lorem "},{"attributes":{"font":"serif"},"insert":"Ipsum"},{"insert":" Dolor. "},{"attributes":{"font":"monospace"},"insert":"Sit"},{"insert":" Amet.\n"}]}',
         '<h2></h2><h2>title</h2><p>text</p>' => '{"ops":[{"attributes":{"header":2},"insert":"\n"},{"insert":"title"},{"attributes":{"header":2},"insert":"\n"},{"insert":"text\n"}]}',
+        '<p>lorem <sub>ipsum</sub> dolor <sup>sit</sup> amet</p>' => '{"ops":[{"insert":"lorem "},{"attributes":{"script":"sub"},"insert":"ipsum"},{"insert":" dolor "},{"attributes":{"script":"super"},"insert":"sit"},{"insert":" amet\n"}]}',
     ];
 
     public function testHtmlIsEqual()
