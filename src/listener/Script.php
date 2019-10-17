@@ -2,6 +2,7 @@
 
 namespace nadar\quill\listener;
 
+use Exception;
 use nadar\quill\InlineListener;
 use nadar\quill\Line;
 
@@ -9,7 +10,7 @@ use nadar\quill\Line;
  * Renders script attribute which will generate sup/sub tags.
  * 
  * @author Gaëtan Faugère <gaetan@fauge.re>
- * @since 2.1.2
+ * @since 2.2.0
  */
 class Script extends InlineListener
 {
@@ -31,6 +32,7 @@ class Script extends InlineListener
      *
      * @param string $script
      * @param Line $line
+     * @throws Exception for unknown script tag
      * @return string
      */
     public function applyTemplate($script, Line $line)
@@ -40,10 +42,9 @@ class Script extends InlineListener
             throw new Exception('An unknown script tag "' . $script . '" has been detected.');
         }
         if ($script === 'super') {
-          $tag = 'sup';
-        } else if ($script === 'sub') {
-          $tag = 'sub';
+          $script = 'sup';
         }
-        return '<'.$tag.'>'. $line->input . '</'.$tag.'>';
+
+        return '<'.$script.'>'. $line->input . '</'.$script.'>';
     }
 }
