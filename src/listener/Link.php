@@ -14,6 +14,9 @@ use nadar\quill\Lexer;
  */
 class Link extends InlineListener
 {
+
+    public $wrapper = '<a href="{link}" target="_blank">{text}</a>';
+
     /**
      * {@inheritDoc}
      */
@@ -21,7 +24,7 @@ class Link extends InlineListener
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, '<a href="'.$line->getLexer()->escape($link).'" target="_blank">'.$line->getInput().'</a>');
+            $this->updateInput($line, str_replace(['{link}', '{text}'], [$line->getLexer()->escape($link), $line->getInput()], $this->wrapper));
         }
     }
 }
