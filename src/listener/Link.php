@@ -15,6 +15,7 @@ use nadar\quill\Lexer;
 class Link extends InlineListener
 {
     /**
+     * @var string The wrapper template which is used to generate the link tag
      * @since 2.3.0
      */
     public $wrapper = '<a href="{link}" target="_blank">{text}</a>';
