@@ -45,23 +45,10 @@ class Heading extends BlockListener
                 // prevent html injection in case the attribute is user input
                 throw new Exception('An unknown heading level "' . $pick->heading . '" has been detected.');
             }
-
-            $first = $this->getFirstLine($pick);
-
-            // while from first to the pick line and store content in buffer
-            $buffer = null;
-            $first->while(function (&$index, Line $line) use (&$buffer, $pick, $first) {
-                $index++;
-                $buffer .= $line->getInput();
-                $line->setDone();
-                // if the index of the picked lines is reached or the first element is the picked index.
-                if ($index == $pick->line->getIndex() || $first->getIndex() == $pick->line->getIndex()) {
-                    return false;
-                }
-            });
-
-            $pick->line->output = '<h' . $pick->heading . '>' . $buffer . '</h' . $pick->heading . '>';
-            $pick->line->setDone();
         }
+        
+        $wrapper = '<h{heading}>{_buffer}</h{heading}>';
+        $options = ['{heading}'];
+        parent::renderAllLines($wrapper, $options);
     }
 }

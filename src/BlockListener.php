@@ -19,6 +19,33 @@ abstract class BlockListener extends Listener
     {
         return self::TYPE_BLOCK;
     }
+    
+    protected function renderAllLines($wrapper, array $options=[])
+    {
+        foreach ($this->picks() as $pick) {
+            $first = $this->getFirstLine($pick);
+
+            // while from first to the pick line and store content in buffer
+            $buffer = null;
+            $first->while(function (&$index, Line $line) use (&$buffer, $pick, $first) {
+                $index++;
+                $buffer .= $line->getInput();
+                $line->setDone();
+                // if the index of the picked lines is reached or the first element is the picked index.
+                if ($index == $pick->line->getIndex() || $first->getIndex() == $pick->line->getIndex()) {
+                    return false;
+                }
+            });
+
+            $search    = $options;
+            $replace   = $pick->getOptions();
+            $search[]  = '{_buffer}';
+            $replace[] = $buffer;
+            
+            $pick->line->output = str_replace($search, $replace, $wrapper);
+            $pick->line->setDone();
+        }
+    }
 
     /**
      * Returns the first Line from a Pick. If the Pick is the first Line, it will return it's own pick

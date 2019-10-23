@@ -53,6 +53,11 @@ class Pick
     {
         return $this->options[$name];
     }
+    
+    public function getOptions()
+    {
+        return $this->options;
+    }
 
     /**
      * Whether current pick is the first pick inside the list of picks.
