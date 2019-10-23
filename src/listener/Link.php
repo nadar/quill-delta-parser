@@ -14,7 +14,9 @@ use nadar\quill\Lexer;
  */
 class Link extends InlineListener
 {
-
+    /**
+     * @since 2.3.0
+     */
     public $wrapper = '<a href="{link}" target="_blank">{text}</a>';
 
     /**
