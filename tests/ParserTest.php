@@ -56,6 +56,7 @@ class ParserTest extends TestCase
         '<p>Lorem <span style="font-family: serif;">Ipsum</span> Dolor. <span style="font-family: monospace;">Sit</span> Amet.</p>' => '{"ops":[{"insert":"Lorem "},{"attributes":{"font":"serif"},"insert":"Ipsum"},{"insert":" Dolor. "},{"attributes":{"font":"monospace"},"insert":"Sit"},{"insert":" Amet.\n"}]}',
         '<h2></h2><h2>title</h2><p>text</p>' => '{"ops":[{"attributes":{"header":2},"insert":"\n"},{"insert":"title"},{"attributes":{"header":2},"insert":"\n"},{"insert":"text\n"}]}',
         '<p>lorem <sub>ipsum</sub> dolor <sup>sit</sup> amet</p>' => '{"ops":[{"insert":"lorem "},{"attributes":{"script":"sub"},"insert":"ipsum"},{"insert":" dolor "},{"attributes":{"script":"super"},"insert":"sit"},{"insert":" amet\n"}]}',
+        '<p>Lorem</p><p style="text-align: center;">Ipsum</p><p style="text-align: right;">Dolor</p><p style="text-align: justify;">Sit Amet</p>' => '{"ops":[{"insert":"Lorem\nIpsum"},{"attributes":{"align":"center"},"insert":"\n"},{"insert":"Dolor"},{"attributes":{"align":"right"},"insert":"\n"},{"insert":"Sit Amet"},{"attributes":{"align":"justify"},"insert":"\n"}]}',
     ];
 
     public function testHtmlIsEqual()
