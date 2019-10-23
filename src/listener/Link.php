@@ -15,13 +15,19 @@ use nadar\quill\Lexer;
 class Link extends InlineListener
 {
     /**
+     * @var string The wrapper template which is used to generate the link tag
+     * @since 2.3.0
+     */
+    public $wrapper = '<a href="{link}" target="_blank">{text}</a>';
+
+    /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, '<a href="'.$line->getLexer()->escape($link).'" target="_blank">'.$line->getInput().'</a>');
+            $this->updateInput($line, str_replace(['{link}', '{text}'], [$line->getLexer()->escape($link), $line->getInput()], $this->wrapper));
         }
     }
 }
