@@ -4,56 +4,56 @@ namespace nadar\quill\tests;
 
 class ListSingleBullets extends DeltaTestCase
 {
-	public $json = <<<'JSON'
+    public $json = <<<'JSON'
 [
-	{
-		"insert": "line 1\nbullet 1 - 1"
-	},
-	{
-		"attributes": {
-			"list": "bullet"
-		},
-		"insert": "\n"
-	},
-	{
-		"insert": "line 2\nbullet 2 - 1"
-	},
-	{
-		"attributes": {
-			"list": "bullet"
-		},
-		"insert": "\n"
-	},
-	{
-		"insert": "line 3\nbullet 3 - 1"
-	},
-	{
-		"attributes": {
-			"list": "bullet"
-		},
-		"insert": "\n"
-	},
-	{
-		"insert": "line 4\nbullet 4 - 1"
-	},
-	{
-		"attributes": {
-			"list": "bullet"
-		},
-		"insert": "\n"
-	},
-	{
-		"insert": "bullet 4 - 2"
-	},
-	{
-		"attributes": {
-			"list": "bullet"
-		},
-		"insert": "\n"
-	},
-	{
-		"insert": "line 5\n"
-	}
+    {
+        "insert": "line 1\nbullet 1 - 1"
+    },
+    {
+        "attributes": {
+            "list": "bullet"
+        },
+        "insert": "\n"
+    },
+    {
+        "insert": "line 2\nbullet 2 - 1"
+    },
+    {
+        "attributes": {
+            "list": "bullet"
+        },
+        "insert": "\n"
+    },
+    {
+        "insert": "line 3\nbullet 3 - 1"
+    },
+    {
+        "attributes": {
+            "list": "bullet"
+        },
+        "insert": "\n"
+    },
+    {
+        "insert": "line 4\nbullet 4 - 1"
+    },
+    {
+        "attributes": {
+            "list": "bullet"
+        },
+        "insert": "\n"
+    },
+    {
+        "insert": "bullet 4 - 2"
+    },
+    {
+        "attributes": {
+            "list": "bullet"
+        },
+        "insert": "\n"
+    },
+    {
+        "insert": "line 5\n"
+    }
 ]
 JSON;
 

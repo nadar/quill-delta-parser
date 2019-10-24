@@ -85,7 +85,7 @@ class Lists extends BlockListener
                 $isOpen = false;
             }
 
-            // create the opining OL/UL tag
+            // create the opening OL/UL tag
             if (!$isOpen) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
