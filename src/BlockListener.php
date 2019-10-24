@@ -24,12 +24,17 @@ abstract class BlockListener extends Listener
      * render all lines using a single outer wrapper
      * 
      * @param  string $wrapper html snippet using `{_buffer}` for the placement of the lines
-     * @param  array  $options optional, pass the search patterns for options from the lines
-     *                         note pass them in the same order they are applied on the Pick object
+     * @param  array  $options optional, pass the names of options from the lines you want to search & replace
+     *                         e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key
      * @since 2.4.0
      */
     protected function renderWithSimpleWarpper($wrapper, array $options=[])
     {
+        $search = ['{_buffer}'];
+        foreach ($options as $name) {
+            $search[] = '{'.$name.'}';
+        }
+        
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);
 
@@ -45,10 +50,10 @@ abstract class BlockListener extends Listener
                 }
             });
 
-            $search    = $options;
-            $replace   = $pick->getOptions();
-            $search[]  = '{_buffer}';
-            $replace[] = $buffer;
+            $replace = [$buffer];
+            foreach ($options as $name) {
+                $replace[] = $pick->$name;
+            }
             
             $pick->line->output = str_replace($search, $replace, $wrapper);
             $pick->line->setDone();

@@ -55,15 +55,6 @@ class Pick
     }
     
     /**
-     * @return array
-     * @since 2.4.0
-     */
-    public function getOptions(): array
-    {
-        return $this->options;
-    }
-
-    /**
      * Whether current pick is the first pick inside the list of picks.
      *
      * @return boolean
