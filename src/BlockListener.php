@@ -21,14 +21,38 @@ abstract class BlockListener extends Listener
     }
     
     /**
-     * render all lines using a single outer wrapper
+     * Generate a rendered output from the current picks with a custom Wrapper Template.
+     *
+     * The main purpose of this method is so simplify the process of working with block elements. The method
+     * will take the `picks()` of the current Listener Object to generate the first and list line of the block
+     * and render its content inbetween.
+     *
+     * Example:
+     *
+     * ```php
+     * public function render(Lexer $lexer)
+     * {
+     *     $this->renderWithSimpleWarpper('<blockquote>{_buffer}</blockquote>');
+     * }
+     * ```
+     *
+     * The above method will no take the picked element and render a `blockquote` tag with its content stored in `{_buffer}`.
      * 
+     * Assuming you pass options to the picked element during the `process()` stage you might use those options as variable
+     * in brackes and passed to `$options` param:
+     * 
+     * ```php
+     * $this->renderWithSimpleWarpper('<h{heading}>{_buffer}</h{heading}>', ['heading']);
+     * ```
+     *
+     * The above example assumes the heading option is stored during the process stage: `$this->pick($line, ['heading' => $heading]);`
+     *
      * @param string $wrapper html snippet using `{_buffer}` for the placement of the lines
      * @param array $options optional, pass the names of options from the lines you want to search & replace
      * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
      * @since 2.4.0
      */
-    protected function renderWithSimpleWarpper($wrapper, array $options=[])
+    protected function renderWithSimpleWarpper($wrapper, array $options = [])
     {
         $search = ['{_buffer}'];
         foreach ($options as $name) {
