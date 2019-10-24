@@ -75,7 +75,7 @@ class Lists extends BlockListener
             if ($hasNextInside) {
                 $isLast = true;
             }
-            
+
             $output = null;
 
             // this makes sure that when two list types are after each other (OL and UL)
@@ -85,17 +85,15 @@ class Lists extends BlockListener
                 $isOpen = false;
             }
 
-            // create the opining OL/UL tag if:
-            //  a. its not already open AND $isLast is false (which means not the last element)
-            //  b. or its the first the pick inside the picked elements list https://github.com/nadar/quill-delta-parser/issues/8
-            if ((!$isOpen && !$isLast) || (!$isOpen && $pick->isFirst())) {
+            // create the opining OL/UL tag
+            if (!$isOpen) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
             }
 
             // write the li element.
             $output.= '<li>' . $buffer .'</li>';
-            
+
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
@@ -128,7 +126,7 @@ class Lists extends BlockListener
         if ($pick->type == self::LIST_TYPE_BULLET) {
             return 'ul';
         }
-        
+
         // prevent html injection in case the attribute is user input
         throw new Exception('The provided list type "'.$pick->type.'" is not a known list type (ordered or bullet).');
     }
