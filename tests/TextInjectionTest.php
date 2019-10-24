@@ -19,7 +19,8 @@ class TextInjectionTest extends DeltaTestCase
     {"insert": "<script>", "attributes": {"italic": true}},
     {"insert": "<script>", "attributes": {"link": "<script>"}},
     {"insert": {"mention": {"id": "1", "value": "<script>", "denotationChar": "@"}}},
-    {"insert": "\n"},
+    {"insert": "\n<script>"},
+    {"insert": "\n", "attributes": {"blockquote": true}},
     {"insert": "<script>", "attributes": {"strike": true}},
     {"insert": "\n"},
     {"insert": "<script>"},
@@ -42,6 +43,7 @@ JSON;
 <a href="&lt;script&gt;" target="_blank">&lt;script&gt;</a>
 &lt;script&gt;
 </p>
+<blockquote>&lt;script&gt;</blockquote>
 <p><del>&lt;script&gt;</del></p>
 <p>
 &lt;script&gt;

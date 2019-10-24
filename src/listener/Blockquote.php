@@ -31,21 +31,6 @@ class Blockquote extends BlockListener
      */
     public function render(Lexer $lexer)
     {
-        foreach ($this->picks() as $pick) {
-            // get all
-            $prev = $pick->line->previous(function (Line $line) {
-                if (!$line->isInline()) {
-                    return true;
-                }
-            });
-
-            // if there is no previous element, we take the same line element.
-            if (!$prev) {
-                $prev = $pick->line;
-            }
-
-            $pick->line->output = '<blockquote>'.$prev->getInput() . $pick->line->renderPrepend() . '</blockquote>';
-            $prev->setDone();
-        }
+        $this->renderWithSimpleWarpper('<blockquote>{_buffer}</blockquote>');
     }
 }
