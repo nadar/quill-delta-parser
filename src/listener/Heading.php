@@ -49,6 +49,6 @@ class Heading extends BlockListener
         
         $wrapper = '<h{heading}>{_buffer}</h{heading}>';
         $options = ['{heading}'];
-        parent::renderAllLines($wrapper, $options);
+        parent::renderWithSimpleWarpper($wrapper, $options);
     }
 }

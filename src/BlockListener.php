@@ -20,7 +20,15 @@ abstract class BlockListener extends Listener
         return self::TYPE_BLOCK;
     }
     
-    protected function renderAllLines($wrapper, array $options=[])
+    /**
+     * render all lines using a single outer wrapper
+     * 
+     * @param  string $wrapper html snippet using `{_buffer}` for the placement of the lines
+     * @param  array  $options optional, pass the search patterns for options from the lines
+     *                         note pass them in the same order they are applied on the Pick object
+     * @since 2.4.0
+     */
+    protected function renderWithSimpleWarpper($wrapper, array $options=[])
     {
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);

@@ -54,7 +54,11 @@ class Pick
         return $this->options[$name];
     }
     
-    public function getOptions()
+    /**
+     * @return array
+     * @since 2.4.0
+     */
+    public function getOptions(): array
     {
         return $this->options;
     }
