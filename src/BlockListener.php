@@ -23,9 +23,9 @@ abstract class BlockListener extends Listener
     /**
      * render all lines using a single outer wrapper
      * 
-     * @param  string $wrapper html snippet using `{_buffer}` for the placement of the lines
-     * @param  array  $options optional, pass the names of options from the lines you want to search & replace
-     *                         e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key
+     * @param string $wrapper html snippet using `{_buffer}` for the placement of the lines
+     * @param array $options optional, pass the names of options from the lines you want to search & replace
+     * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
      * @since 2.4.0
      */
     protected function renderWithSimpleWarpper($wrapper, array $options=[])
