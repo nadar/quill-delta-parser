@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.4.0
+
++ [#30](https://github.com/nadar/quill-delta-parser/issues/30) List opening tag process has been simplified in order to support single bullet lists.
+
 ## 2.3.0 (23. October 2019)
 
 + Add override functionality to links, allowing to customise their wrapper.
