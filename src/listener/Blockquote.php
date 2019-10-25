@@ -31,6 +31,6 @@ class Blockquote extends BlockListener
      */
     public function render(Lexer $lexer)
     {
-        $this->renderWithSimpleWarpper('<blockquote>{__buffer__}</blockquote>');
+        $this->renderWithSimpleWrapper('<blockquote>{__buffer__}</blockquote>');
     }
 }

@@ -32,7 +32,7 @@ abstract class BlockListener extends Listener
      * ```php
      * public function render(Lexer $lexer)
      * {
-     *     $this->renderWithSimpleWarpper('<blockquote>{_buffer}</blockquote>');
+     *     $this->renderWithSimpleWrapper('<blockquote>{_buffer}</blockquote>');
      * }
      * ```
      *
@@ -42,7 +42,7 @@ abstract class BlockListener extends Listener
      * in brackes and passed to `$options` param:
      * 
      * ```php
-     * $this->renderWithSimpleWarpper('<h{heading}>{_buffer}</h{heading}>', ['heading']);
+     * $this->renderWithSimpleWrapper('<h{heading}>{_buffer}</h{heading}>', ['heading']);
      * ```
      *
      * The above example assumes the heading option is stored during the process stage: `$this->pick($line, ['heading' => $heading]);`
@@ -52,7 +52,7 @@ abstract class BlockListener extends Listener
      * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
      * @since 2.4.0
      */
-    protected function renderWithSimpleWarpper($wrapper, array $options = [])
+    protected function renderWithSimpleWrapper($wrapper, array $options = [])
     {
         $search = ['{__buffer__}'];
         foreach ($options as $name) {
