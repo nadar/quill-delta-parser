@@ -47,14 +47,14 @@ abstract class BlockListener extends Listener
      *
      * The above example assumes the heading option is stored during the process stage: `$this->pick($line, ['heading' => $heading]);`
      *
-     * @param string $wrapper html snippet using `{_buffer}` for the placement of the lines
+     * @param string $wrapper html snippet using `{__buffer__}` for the placement of the lines
      * @param array $options optional, pass the names of options from the lines you want to search & replace
      * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
      * @since 2.4.0
      */
     protected function renderWithSimpleWarpper($wrapper, array $options = [])
     {
-        $search = ['{_buffer}'];
+        $search = ['{__buffer__}'];
         foreach ($options as $name) {
             $search[] = '{'.$name.'}';
         }
