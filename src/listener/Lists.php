@@ -86,6 +86,8 @@ class Lists extends BlockListener
             }
 
             // create the opening OL/UL tag
+            // opening tag process has been simplified, see https://github.com/nadar/quill-delta-parser/pull/33
+            // and https://github.com/nadar/quill-delta-parser/issues/30
             if (!$isOpen) {
                 $output .= '<'.$this->getListAttribute($pick).'>';
                 $isOpen = true;
