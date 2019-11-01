@@ -47,6 +47,6 @@ class Heading extends BlockListener
             }
         }
         
-        $this->renderWithSimpleWrapper('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
+        $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
     }
 }
