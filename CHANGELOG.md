@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.4.0
+
++ [#32](https://github.com/nadar/quill-delta-parser/pull/32) Added new `wrapElement` method to simplify building block listeners.
+
 ## 2.3.0 (23. October 2019)
 
 + Add override functionality to links, allowing to customise their wrapper.
