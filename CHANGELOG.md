@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.4.0
+## 2.4.0 (2. November 2019)
 
 + [#32](https://github.com/nadar/quill-delta-parser/pull/32) Added new `wrapElement` method to simplify building block listeners.
 + [#30](https://github.com/nadar/quill-delta-parser/issues/30) List opening tag process has been simplified in order to support single bullet lists.
++ [#31](https://github.com/nadar/quill-delta-parser/pull/31) Add support for align attribute.
 
 ## 2.3.0 (23. October 2019)
 
