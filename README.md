@@ -1,6 +1,6 @@
 # Quill Delta to HTML Parser
 
-A PHP library to parse [Quill WYSIWYG](https://quilljs.com/) [Deltas](https://github.com/quilljs/delta) into HTML - Flexibel and extendible for custom elements. Every element is parsed by the same mechanism, this makes it easy to extend and understand.
+A PHP library to parse [Quill WYSIWYG](https://quilljs.com/) editor [deltas](https://github.com/quilljs/delta) into HTML - flexibel and extendible for custom elements. Every element is parsed by the same mechanism, this makes it easy to extend and understand.
 
 [![Build Status](https://travis-ci.org/nadar/quill-delta-parser.svg?branch=master)](https://travis-ci.org/nadar/quill-delta-parser)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fdf80e7b61e4505bc421/maintainability)](https://codeclimate.com/github/nadar/quill-delta-parser/maintainability)
