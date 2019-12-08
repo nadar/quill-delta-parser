@@ -119,7 +119,7 @@ class Lexer
     /**
      * Initializer
      *
-     * @param string $json The delta ops json as string or as already parsed array.
+     * @param string|array $json The delta ops json as string or as already parsed array.
      * @param boolean $loadBuiltinListeneres Whether the built in listeneres should be loaded or not.
      */
     public function __construct($json, $loadBuiltinListeneres = true)
