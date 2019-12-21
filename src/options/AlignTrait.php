@@ -7,6 +7,11 @@ use nadar\quill\Pick;
 
 trait AlignTrait
 {
+    /**
+     * @var array Supported alignments.
+     */
+    public $alignments = ['center', 'right', 'justify'];
+
     public function getAlignOption(Line $line)
     {
         return $line->getAttribute('align');
@@ -21,9 +26,19 @@ trait AlignTrait
         }
 
         if ($name == 'alignClose') {
-            return "</{$v}>";
+            return $this->alignClose();
         }
 
-        return "<$v>";
+        return $this->alignOpen($v);
+    }
+
+    public function alignOpen($name)
+    {
+        return "<span style=\"text-align: {$name};\">";
+    }
+
+    public function alignClose()
+    {
+        return '</span>';
     }
 }
