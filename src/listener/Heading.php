@@ -6,6 +6,7 @@ use Exception;
 use nadar\quill\Line;
 use nadar\quill\BlockListener;
 use nadar\quill\Lexer;
+use nadar\quill\options\AlignTrait;
 
 /**
  * Convert header into heading elements.
@@ -15,6 +16,8 @@ use nadar\quill\Lexer;
  */
 class Heading extends BlockListener
 {
+    use AlignTrait;
+
     /**
      * @var array Supported header levels.
      * @since 1.2.0
@@ -28,7 +31,7 @@ class Heading extends BlockListener
     {
         $heading = $line->getAttribute('header');
         if ($heading) {
-            $this->pick($line, ['heading' => $heading]);
+            $this->pick($line, ['heading' => $heading, 'align' => $this->getAlignOption($line)]);
             $line->setDone();
         }
     }
@@ -47,6 +50,6 @@ class Heading extends BlockListener
             }
         }
         
-        $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
+        $this->wrapElement('<h{heading}>{align}{__buffer__}{align}</h{heading}>', ['heading', 'align' => [$this, 'alignValue']]);
     }
 }

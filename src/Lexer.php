@@ -150,7 +150,7 @@ class Lexer
         $this->registerListener(new Blockquote);
         $this->registerListener(new Font);
         $this->registerListener(new Script);
-        $this->registerListener(new Align);
+        //$this->registerListener(new Align);
     }
 
     /**
