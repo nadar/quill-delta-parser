@@ -3,6 +3,7 @@
 namespace nadar\quill\options;
 
 use nadar\quill\Line;
+use nadar\quill\Pick;
 
 trait AlignTrait
 {
@@ -11,10 +12,18 @@ trait AlignTrait
         return $line->getAttribute('align');
     }
 
-    public function alignValue($value)
+    public function alignValue($value, Pick $pick, $name)
     {
-        // @TODO: How to close the attribute afterwards?
-        // @TODO use inline span for certain attributes like justify
-        return '<'.$value.'>';
+        $v = $pick->align;
+
+        if (empty($v)) {
+            return '';
+        }
+
+        if ($name == 'alignClose') {
+            return "</{$v}>";
+        }
+
+        return "<$v>";
     }
 }

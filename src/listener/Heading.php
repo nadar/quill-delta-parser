@@ -50,6 +50,10 @@ class Heading extends BlockListener
             }
         }
         
-        $this->wrapElement('<h{heading}>{align}{__buffer__}{align}</h{heading}>', ['heading', 'align' => [$this, 'alignValue']]);
+        $this->wrapElement('<h{heading}>{alignOpen}{__buffer__}{alignClose}</h{heading}>', [
+            'heading',
+            'alignOpen' => [$this, 'alignValue'],
+            'alignClose' => [$this, 'alignValue'],
+            ]);
     }
 }

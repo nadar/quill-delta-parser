@@ -51,7 +51,7 @@ class Pick
      */
     public function __get($name)
     {
-        return $this->options[$name];
+        return isset($this->options[$name]) ? $this->options[$name] : false;
     }
 
     /**
