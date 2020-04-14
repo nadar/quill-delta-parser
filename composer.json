@@ -13,7 +13,9 @@
         }
     ],
     "config": {
-        "platform": {"php": "7.1.0"
+        "platform": {
+            "php": "7.1.0"
+        }
     },
     "autoload": {
         "psr-4": {
