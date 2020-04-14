@@ -32,17 +32,17 @@ abstract class BlockListener extends Listener
      * ```php
      * public function render(Lexer $lexer)
      * {
-     *     $this->wrapElement('<blockquote>{_buffer}</blockquote>');
+     *     $this->wrapElement('<blockquote>{__buffer__}</blockquote>');
      * }
      * ```
      *
-     * The above method will no take the picked element and render a `blockquote` tag with its content stored in `{_buffer}`.
+     * The above method will no take the picked element and render a `blockquote` tag with its content stored in `{__buffer__}`.
      * 
      * Assuming you pass options to the picked element during the `process()` stage you might use those options as variable
      * in brackes and passed to `$options` param:
      * 
      * ```php
-     * $this->wrapElement('<h{heading}>{_buffer}</h{heading}>', ['heading']);
+     * $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
      * ```
      *
      * The above example assumes the heading option is stored during the process stage: `$this->pick($line, ['heading' => $heading]);`
@@ -50,13 +50,19 @@ abstract class BlockListener extends Listener
      * @param string $wrapper html snippet using `{__buffer__}` for the placement of the lines
      * @param array $options optional, pass the names of options from the lines you want to search & replace
      * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
+     * With version 2.5.0 its allowed to provide the element as key and a callable as value which will be evaluted on request.
+     * ```php
+     * 'key' => function($value) {
+     *     return '<p>'.$value.'</p>';
+     * }
+     * ```
      * @since 2.4.0
      */
     protected function wrapElement($wrapper, array $options = [])
     {
         $search = ['{__buffer__}'];
-        foreach ($options as $name) {
-            $search[] = '{'.$name.'}';
+        foreach ($options as $key => $value) {
+            $search[] = is_integer($key) ? '{'.$value.'}' : '{'.$key.'}';
         }
         
         foreach ($this->picks() as $pick) {
@@ -75,8 +81,11 @@ abstract class BlockListener extends Listener
             });
 
             $replace = [$buffer];
-            foreach ($options as $name) {
-                $replace[] = $pick->$name;
+            foreach ($options as $key => $value) {
+                $name = is_integer($key) ? $value : $key;
+                $content = $pick->$name;
+                $value = is_callable($value) ? call_user_func($value, $content, $pick, $name) : $content;
+                $replace[] = $value;
             }
             
             $pick->line->output = str_replace($search, $replace, $wrapper);
