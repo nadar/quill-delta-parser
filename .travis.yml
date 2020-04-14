@@ -17,7 +17,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - composer install --prefer-dist --no-interaction
+  - composer install --prefer-dist --no-interaction --ignore-platform-reqs
   - vendor/bin/phpunit --verbose $PHPUNIT_FLAGS --configuration travis.phpunit.xml
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == "7.1" ]]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi
