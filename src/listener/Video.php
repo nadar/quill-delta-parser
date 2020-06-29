@@ -15,9 +15,15 @@ use nadar\quill\BlockListener;
 class Video extends BlockListener
 {
     /**
+     * @var array Allow options for iframe allow param
+     * @since 2.5.0
+     */
+    public $allow = ['accelerometer', 'autoplay', 'encrypted-media', 'gyroscope', 'picture-in-picture'];
+
+    /**
      * @var string The wrapper template which is taken to generate the video element.
      */
-    public $wrapper = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{url}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+    public $wrapper = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{url}" frameborder="0" allow="{allow}" allowfullscreen></iframe></div>';
 
     /**
      * {@inheritDoc}
@@ -26,7 +32,7 @@ class Video extends BlockListener
     {
         $embedUrl = $line->insertJsonKey('video');
         if ($embedUrl) {
-            $line->output = str_replace(['{url}'], [$line->getLexer()->escape($embedUrl)], $this->wrapper);
+            $line->output = str_replace(['{url}', '{allow}'], [$line->getLexer()->escape($embedUrl), implode("; ", $this->allow)], $this->wrapper);
             $line->setDone();
         }
     }
