@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.0
+
++ [#42](https://github.com/nadar/quill-delta-parser/pull/42) Moved away from Travis to GitHub Actions. Added PHP8 support in Test Scenario.
+
 ## 2.5.0 (29. June 2020)
 
 + [#41](https://github.com/nadar/quill-delta-parser/pull/41) Add option to configure Embed Video `allow` option.
