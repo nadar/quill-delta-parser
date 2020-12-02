@@ -38,7 +38,7 @@ class Pick
      * @param array $options
      * @param integer $index Index of picks, starts with 0
      */
-    public function __construct(Listener $listener, Line $line, array $options = [], $index)
+    public function __construct(Listener $listener, Line $line, array $options, $index)
     {
         $this->listener = $listener;
         $this->line = $line;
