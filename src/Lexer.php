@@ -261,14 +261,14 @@ class Lexer
     }
 
     /**
-     * Undocumented function
+     * Replace new lines with an internal representation that aids debugging
      *
-     * @param [type] $string
-     * @return void
+     * @param array|string $string
+     * @return array|string
      */
-    protected function replaceNewlineWithExpression($string)
+    protected function replaceNewlineWithExpression($input)
     {
-        return str_replace(self::DELTA_EOL, self::NEWLINE_EXPRESSION, $string);
+        return is_array($input) ? $input : str_replace(self::DELTA_EOL, self::NEWLINE_EXPRESSION, $input);
     }
 
     /**
