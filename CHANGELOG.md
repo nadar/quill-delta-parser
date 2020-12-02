@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.6.0
+## 2.6.0 (2. December 2020)
 
-+ [#42](https://github.com/nadar/quill-delta-parser/pull/42) Ensure PHP8 support.
-+ [#43](https://github.com/nadar/quill-delta-parser/pull/42) Moved away from Travis to GitHub Actions. Added PHP8 support in Test Scenario.
++ [#42](https://github.com/nadar/quill-delta-parser/pull/42) Added PHP 8 Support.
++ [#43](https://github.com/nadar/quill-delta-parser/pull/42) Moved CI from Travis to GitHub Actions. Added PHP 8 support in Test Scenario.
 
 ## 2.5.0 (29. June 2020)
 
