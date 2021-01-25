@@ -24,6 +24,9 @@ composer require nadar/quill-delta-parser
 ```php
 use nadar\quill\Lexer;
 
+// ensure to load the autoload file from composer
+require __DIR__ . '/vendor/autoload.php';
+
 $lexer = new Lexer($json);
 
 // echoing the html for the given json ops.
