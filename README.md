@@ -22,12 +22,11 @@ composer require nadar/quill-delta-parser
 ## Usage
 
 ```php
-use nadar\quill\Lexer;
-
-// ensure to load the autoload file from composer
+// ensure to load the autoload file from composer somehwere in your application
 require __DIR__ . '/vendor/autoload.php';
 
-$lexer = new Lexer($json);
+// create the lexer object with your given quill json delta code (either an array or string)
+$lexer = new \nadar\quill\Lexer($json);
 
 // echoing the html for the given json ops.
 echo $lexer->render();
