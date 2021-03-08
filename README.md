@@ -73,7 +73,7 @@ This would render the following HTML:
 
 ## Extend the Parser
 
-In order to extend the Parser by adding your own listeneres (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether its:
+In order to extend the Parser by adding your own listeneres (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether it's an:
 
 + inline element: Replaces content with new parsed content, this is mostly the case when working with quill extensions.
 + block element: Block elements which encloses the whole input with a tag, for example heading.
@@ -89,12 +89,12 @@ class Mention extends InlineListener
     public function process(Line $line)
     {
       // check if input is json, decodes to an array and checks if the key "mention" 
-      // exsts, if yes return the value for this key.
+      // exists, if yes return the value for this key.
       $mention = $line->insertJsonKey('mention');
       if ($mention) {
-            // use default inline behavior, updates the content and append to next "block" element.
-            // the value in this example would be "<mention>Basil</mention>".
-            $this->updateInput($line, '<mention>'.$mention['value'].'</mention>');
+            // apply the inline behavior, updates the content and append to next "block" element.
+            // the value in this example would be "<strong>Basil</strong>".
+            $this->updateInput($line, '<strong>'.$mention['value'].'</strong>');
     }
 }
 ```
@@ -107,9 +107,9 @@ $lexer->registerListener(new Mention);
 echo $lexer->render();
 ```
 
-## Overide built-in Listeners
+## Override built-in Listeners
 
-Certain listeners (image, video, color) produce a HTML output which maybe not suit your use case, so you have the option to override the properties of those plugins and re-register the Listener, example with image tags:
+Certain listeners (image, video, color) produce a HTML output which maybe not suit your use case, so you have the option to override the properties of those plugins and re-register the Listener, here an example with the image tag:
 
 ```php
 $image = new Image();
@@ -133,7 +133,7 @@ $debug = new Debug($lexer);
 echo $debug->debugPrint();
 ```
 
-There is also a built in docker compose file which provides access to the output.php file. The output.php helps to directly write content with the quill editor while displaying what is rendered including all debug informations. In order to run this docker webserver execute the following command in the root directory of your clone:
+There is also a built in docker compose file which provides access to the output.php file. The output.php helps to directly write content with the quill editor while displaying what is rendered including all debug informations. In order to run this docker webserver execute the following command in the root directory of your git repository clone:
 
 ```sh
 docker-compose up
