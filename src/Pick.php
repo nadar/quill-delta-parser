@@ -29,7 +29,7 @@ class Pick
      * @var Listener The listener object the picke was made from.
      */
     protected $listener;
-    
+
     /**
      * Create new line pick
      *
@@ -51,7 +51,7 @@ class Pick
      */
     public function __get($name)
     {
-        return $this->options[$name];
+        return array_key_exists($name, $this->options) ? $this->options[$name] : null;
     }
 
     /**
