@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.1 (1. June 2021)
+
++ [#48](https://github.com/nadar/quill-delta-parser/pull/48) PHP 8 compatibility.
+
 ## 2.6.0 (2. December 2020)
 
 + [#42](https://github.com/nadar/quill-delta-parser/pull/42) Added PHP 8 Support.
