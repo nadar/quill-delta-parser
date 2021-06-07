@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.7.0
 
-+ [#]() Added Code Block Listener
++ [#49](https://github.com/nadar/quill-delta-parser/issues/49) Added Code Block Listener
 
 ## 2.6.1 (1. June 2021)
 
