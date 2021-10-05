@@ -137,12 +137,12 @@ class Lexer
      */
     public function loadBuiltinListeneres()
     {
+        $this->registerListener(new Image);
         $this->registerListener(new Bold);
         $this->registerListener(new Italic);
         $this->registerListener(new Color);
         $this->registerListener(new Link);
         $this->registerListener(new Video);
-        $this->registerListener(new Image);
         $this->registerListener(new Strike);
         $this->registerListener(new Underline);
         $this->registerListener(new Heading);
