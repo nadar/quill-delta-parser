@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 2.7.1 (5. October 2021)
 
-+ [#52](https://github.com/nadar/quill-delta-parser/issues/51) Fixed issue where images wrapped in italics renders as text instead of showing the image.
++ [#51](https://github.com/nadar/quill-delta-parser/issues/51) Fixed issue where images wrapped in italics renders as text instead of showing the image.
 
 ## 2.7.0 (7. June 2021)
 
