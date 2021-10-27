@@ -121,15 +121,17 @@ class Lists extends BlockListener
      */
     protected function getListAttribute(Pick $pick)
     {
-        if ($pick->type == self::LIST_TYPE_ORDERED) {
+        $type = is_array($pick->type) ? $pick->type['type'] : $pick->type;
+        
+        if ($type === self::LIST_TYPE_ORDERED) {
             return 'ol';
         }
 
-        if ($pick->type == self::LIST_TYPE_BULLET) {
+        if ($type === self::LIST_TYPE_BULLET) {
             return 'ul';
         }
 
         // prevent html injection in case the attribute is user input
-        throw new Exception('The provided list type "'.$pick->type.'" is not a known list type (ordered or bullet).');
+        throw new Exception('The provided list type "'.$type.'" is not a known list type (ordered or bullet).');
     }
 }
