@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.7.2 (27. October 2021)
+
++ [#53](https://github.com/nadar/quill-delta-parser/pull/53) Lists listener, check for type being an array for compatibility with [Vanilla Forums](https://vanillaforums.com/).
+
 ## 2.7.1 (5. October 2021)
 
 + [#51](https://github.com/nadar/quill-delta-parser/issues/51) Fixed issue where images wrapped in italics renders as text instead of showing the image.
