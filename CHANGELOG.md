@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.8.0 (8. March 2022)
+
++ [#56](https://github.com/nadar/quill-delta-parser/pull/56) Provide new method to override existing listeneres with `overwriteListener()`.
+
 ## 2.7.2 (27. October 2021)
 
 + [#53](https://github.com/nadar/quill-delta-parser/pull/53) Lists listener, check for type being an array for compatibility with [Vanilla Forums](https://vanillaforums.com/).
