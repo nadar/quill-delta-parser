@@ -120,6 +120,27 @@ $lexer->registerListener($image);
 echo $lexer->render();
 ```
 
+If the class name has changed by our own image class, you can use `overwriteListener` to achieve the same result, but with your total custom class. The reason is that the listeners are registered by its class names.
+
+```php
+$mySuperClass = new class() extends Image {
+  // here is the custom class code ...
+}
+
+$lexer->overwriteListener(new Image, $mySuperClass);
+```
+
+Or of yourse if you have a seperate file for your class
+
+```php
+class MySuperDuperImageClass extends Image
+{
+    // here is the custom class code ...
+}
+
+$lexer->overwriteListener(new Image, new MySuperDuperImageClass);
+```
+
 ## Debuging
 
 Sometimes the handling of delta and how the data is parsed is very hard to debug and understand. Therefore you can use the debugger class which will print a table with informations about how the data is parsed.

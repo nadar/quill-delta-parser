@@ -166,6 +166,28 @@ class Lexer
     }
 
     /**
+     * Overrite an existing listener with a new object
+     *
+     * An example could when you like to provide more options or access other elements which are not covered by the base class
+     * so you can extend from the built in listeneres and overrite them. This keeps also the hyrarchical level of the elements.
+     * 
+     * ```php
+     * $lexer->overwriteListener(new Image, new MyOwnImage);
+     * ```
+     * 
+     * As the `new Image` listener is already registered, it will just replace the object with `new MyOwnImage`.
+     * 
+     * @param Listener $listener The already registered listenere object
+     * @param Listener $new The new listener object
+     * @see https://github.com/nadar/quill-delta-parser/issues/55
+     * @since 2.8.0
+     */
+    public function overwriteListener(Listener $listener, Listener $new)
+    {
+        $this->listeners[$listener->type()][$listener->priority()][get_class($listener)] = $new;
+    }
+
+    /**
      * Get the input json as array.
      *
      * @return array The json as array formated.
