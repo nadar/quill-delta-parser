@@ -6,7 +6,7 @@ use nadar\quill\Lexer;
 use nadar\quill\Line;
 use nadar\quill\listener\Image;
 
-class Issue53Test extends DeltaTestCase
+class Issue55Test extends DeltaTestCase
 {
     public $json = <<<'JSON'
 {
