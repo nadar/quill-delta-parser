@@ -128,14 +128,14 @@ class Lexer
         $this->json = $json;
 
         if ($loadBuiltinListeners) {
-            $this->loadBuiltinListeneres();
+            $this->loadBuiltinListeners();
         }
     }
 
     /**
      * Loads the library built in listeners.
      */
-    public function loadBuiltinListeneres()
+    public function loadBuiltinListeners()
     {
         $this->registerListener(new Image);
         $this->registerListener(new Bold);
@@ -153,6 +153,14 @@ class Lexer
         $this->registerListener(new Font);
         $this->registerListener(new Script);
         $this->registerListener(new Align);
+    }
+
+    /**
+     * Alias for loadBuiltinListeners() for compatibility
+     */
+    public function loadBuiltinListeneres()
+    {
+        return $this->loadBuiltinListeners();
     }
 
     /**
@@ -353,13 +361,21 @@ class Lexer
      * @param [type] $type
      * @return void
      */
-    protected function renderListeneres($type)
+    protected function renderListeners($type)
     {
         foreach ($this->listeners[$type] as $prios) {
             foreach ($prios as $listener) {
                 $listener->render($this);
             }
         }
+    }
+
+    /**
+     * Alias for renderListeners() for compatibility
+     */
+    protected function renderListeneres($type)
+    {
+        return $this->renderListeners($type);
     }
 
     /**
@@ -376,8 +392,8 @@ class Lexer
             $this->processListeners($line, Listener::TYPE_BLOCK);
         }
 
-        $this->renderListeneres(Listener::TYPE_INLINE);
-        $this->renderListeneres(Listener::TYPE_BLOCK);
+        $this->renderListeners(Listener::TYPE_INLINE);
+        $this->renderListeners(Listener::TYPE_BLOCK);
 
         $buff = null;
         foreach ($this->_lines as $line) {
