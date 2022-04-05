@@ -157,6 +157,7 @@ class Lexer
 
     /**
      * Alias for loadBuiltinListeners() for compatibility
+     * @deprecated will be removed in 3.0
      */
     public function loadBuiltinListeneres()
     {
@@ -372,6 +373,7 @@ class Lexer
 
     /**
      * Alias for renderListeners() for compatibility
+     * @deprecated will be removed in 3.0
      */
     protected function renderListeneres($type)
     {
