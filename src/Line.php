@@ -18,12 +18,12 @@ class Line
     const STATUS_CLEAN = 1;
 
     /**
-     * @var integer The status of the line if its picked by a listenere.
+     * @var integer The status of the line if its picked by a listener
      */
     const STATUS_PICKED = 2;
 
     /**
-     * @var integer The status of the line if some of the listeneres marked this line as done.
+     * @var integer The status of the line if some of the listener marked this line as done.
      */
     const STATUS_DONE = 3;
     

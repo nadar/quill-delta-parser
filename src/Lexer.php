@@ -24,13 +24,13 @@ use nadar\quill\listener\CodeBlock;
  *
  * The lexer class represents the main thread in how delta input is processed and rendered.
  *
- * Basically Listeneres can watch every line of delta and interact with the line, which means
- * reading input and writting to output and mark this line as done, so other listeneres won't
+ * Basically listeners can watch every line of delta and interact with the line, which means
+ * reading input and writting to output and mark this line as done, so other listeners won't
  * take care of this line as well.
  *
  * ## Basic concept
  *
- * Listeneres are grouped in 2 types:
+ * Listeners are grouped in 2 types:
  *
  * + inline: For elements which are only inline applied, like writing bold or italic
  * + block: Used when the line represents a full html element like heading or lists
@@ -38,22 +38,22 @@ use nadar\quill\listener\CodeBlock;
  * Inside this group types there are 2 prioirities:
  *
  * + early bird: This is default value, the early bird catches the worm...
- * + garbage collector: This is mainly used for the text listenere which generates the paragraphs and can only be done at the very end of the process.
+ * + garbage collector: This is mainly used for the text listener which generates the paragraphs and can only be done at the very end of the process.
  *
- * Every listenere has two methods a process() and render():
+ * Every listener has two methods a process() and render():
  *
- * + process: is triggered by every line, so the listenere can choose whether he wants to pick this line, interact or not.
- * + render: after all lines are processed, every listenered triggers the render() method once, so the picked line from process can be "further" processed and rendered.
+ * + process: is triggered by every line, so the listener can choose whether he wants to pick this line, interact or not.
+ * + render: after all lines are processed, every listener triggers the render() method once, so the picked line from process can be "further" processed and rendered.
  *
  * ## Lifecycle
  *
  * 1. lines will be generated
  * 2. lines foreached and inline early bird listeners run process() method.
- * 3. lines foreached and inline garbage collector listeneres run process() method.
- * 4. lines foreached and block early bird listeneres run process() method.
- * 5. lines foreached and block garbage collector listenere run process() method.
- * 6. inline listeneres foreach and run render() method.
- * 7. block listeneres foreach and run render() method.
+ * 3. lines foreached and inline garbage collector listeners run process() method.
+ * 4. lines foreached and block early bird listeners run process() method.
+ * 5. lines foreached and block garbage collector listener run process() method.
+ * 6. inline listeners foreach and run render() method.
+ * 7. block listeners foreach and run render() method.
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
@@ -104,7 +104,7 @@ class Lexer
     protected $json;
 
     /**
-     * @var array The listeneres grouped by type and priority.
+     * @var array The listeners grouped by type and priority.
      */
     protected $listeners = [
         Listener::TYPE_INLINE => [
@@ -121,7 +121,7 @@ class Lexer
      * Initializer
      *
      * @param string|array $json The delta ops json as string or as already parsed array.
-     * @param boolean $loadBuiltinListeneres Whether the built in listeneres should be loaded or not.
+     * @param boolean $loadBuiltinlisteners Whether the built in listeners should be loaded or not.
      */
     public function __construct($json, $loadBuiltinListeneres = true)
     {
@@ -133,7 +133,7 @@ class Lexer
     }
 
     /**
-     * Loads the library built in listeneres.
+     * Loads the library built in listeners.
      */
     public function loadBuiltinListeneres()
     {
@@ -156,7 +156,7 @@ class Lexer
     }
 
     /**
-     * Register a new listenere.
+     * Register a new listener.
      *
      * @param Listener $listener
      */
@@ -169,7 +169,7 @@ class Lexer
      * Overrite an existing listener with a new object
      *
      * An example could when you like to provide more options or access other elements which are not covered by the base class
-     * so you can extend from the built in listeneres and overrite them. This keeps also the hyrarchical level of the elements.
+     * so you can extend from the built in listeners and overrite them. This keeps also the hyrarchical level of the elements.
      * 
      * ```php
      * $lexer->overwriteListener(new Image, new MyOwnImage);
@@ -177,7 +177,7 @@ class Lexer
      * 
      * As the `new Image` listener is already registered, it will just replace the object with `new MyOwnImage`.
      * 
-     * @param Listener $listener The already registered listenere object
+     * @param Listener $listener The already registered listener object
      * @param Listener $new The new listener object
      * @see https://github.com/nadar/quill-delta-parser/issues/55
      * @since 2.8.0

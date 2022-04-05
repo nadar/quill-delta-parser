@@ -5,7 +5,7 @@ namespace nadar\quill;
 /**
  * Listener Object.
  *
- * Every type of element is a listenere. Listeneres are "listening" to every line of delta code and can
+ * Every type of element is a listener. Listeners are "listening" to every line of delta code and can
  * pick and process this line.
  *
  * @author Basil Suter <basil@nadar.io>
@@ -30,7 +30,7 @@ abstract class Listener
 
     /**
      * @var integer Second priority listener within the given type. This is currently only used
-     * for TEXT listeneres - as they need to be the very last entry.
+     * for TEXT listeners - as they need to be the very last entry.
      */
     const PRIORITY_GARBAGE_COLLECTOR = 2;
 
