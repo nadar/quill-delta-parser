@@ -157,10 +157,11 @@ class Lexer
 
     /**
      * Alias for loadBuiltinListeners() for compatibility
-     * @deprecated will be removed in 3.0
+     * @deprecated will be removed in 3.0, use loadBuiltinListeners() instead.
      */
     public function loadBuiltinListeneres()
     {
+        trigger_error("loadBuiltinListeneres() is deprecated, use loadBuiltinListeners() instead.", E_USER_NOTICE);
         return $this->loadBuiltinListeners();
     }
 
@@ -323,10 +324,10 @@ class Lexer
     }
 
     /**
-     * Undocumented function
+     * Remove the last newline expression from a string
      *
-     * @param [type] $insert
-     * @return void
+     * @param string $insert
+     * @return string
      */
     protected function removeLastNewline($insert)
     {
@@ -344,7 +345,7 @@ class Lexer
      * Undocumented function
      *
      * @param Line $line
-     * @param [type] $type
+     * @param string $type
      * @return void
      */
     protected function processListeners(Line $line, $type)
@@ -373,10 +374,11 @@ class Lexer
 
     /**
      * Alias for renderListeners() for compatibility
-     * @deprecated will be removed in 3.0
+     * @deprecated will be removed in 3.0, used renderListeners() instead.
      */
     protected function renderListeneres($type)
     {
+        trigger_error("renderListeneres() is deprecated, use renderListeners() instead.", E_USER_NOTICE);
         return $this->renderListeners($type);
     }
 

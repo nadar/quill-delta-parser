@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.9.0 (5. April 2022)
+
++ [#58](https://github.com/nadar/quill-delta-parser/pull/58/files) Renamed misspelled method `loadBuiltinListeneres()` to `loadBuiltinListeners()` and `renderListeneres()` to `renderListeners()`. The old methods are still available for backwards compatibility, but deprecated and will be removed in 3.0.
+
 ## 2.8.0 (8. March 2022)
 
 + [#56](https://github.com/nadar/quill-delta-parser/pull/56) Provide new method to override existing listeners with `overwriteListener()`.
