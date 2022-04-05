@@ -123,11 +123,11 @@ class Lexer
      * @param string|array $json The delta ops json as string or as already parsed array.
      * @param boolean $loadBuiltinlisteners Whether the built in listeners should be loaded or not.
      */
-    public function __construct($json, $loadBuiltinListeneres = true)
+    public function __construct($json, $loadBuiltinListeners = true)
     {
         $this->json = $json;
 
-        if ($loadBuiltinListeneres) {
+        if ($loadBuiltinListeners) {
             $this->loadBuiltinListeneres();
         }
     }
