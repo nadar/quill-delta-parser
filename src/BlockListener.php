@@ -5,7 +5,7 @@ namespace nadar\quill;
 /**
  * Block Listener
  *
- * Block listeneres writes from $line->input into the $line->output.
+ * Block listener writes from $line->input into the $line->output.
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0

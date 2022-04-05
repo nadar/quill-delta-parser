@@ -5,9 +5,9 @@ namespace nadar\quill;
 use Exception;
 
 /**
- * Inline Listenere.
+ * Inline listener.
  *
- * Inline listeneres changes the $line->input value!
+ * Inline listeners changes the $line->input value!
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0

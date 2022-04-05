@@ -72,7 +72,7 @@ This would render the following HTML:
 
 ## Extend the Parser
 
-In order to extend the Parser by adding your own listeneres (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether it's an:
+In order to extend the Parser by adding your own listeners (this can be the case if you are using quill plugins which generates custom delta code), you have to decide whether it's an:
 
 + inline element: Replaces content with new parsed content, this is mostly the case when working with quill extensions.
 + block element: Block elements which encloses the whole input with a tag, for example heading.
@@ -98,7 +98,7 @@ class Mention extends InlineListener
 }
 ```
 
-Now register the listenere:
+Now register the listener:
 
 ```php
 $lexer = new Lexer($json);
