@@ -1,11 +1,6 @@
 <?php
 namespace nadar\quill\tests;
 
-use nadar\quill\InlineListener;
-use nadar\quill\Lexer;
-use nadar\quill\Line;
-use nadar\quill\listener\Image;
-
 class Issue59Test extends DeltaTestCase
 {
     public $json = <<<'JSON'
