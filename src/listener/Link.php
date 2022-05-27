@@ -20,22 +20,23 @@ class Link extends InlineListener
     /**
      * {@inheritDoc}
      */
-    public function process(Line $line) {
+    public function process(Line $line)
+    {
         $link = $line->getAttribute('link');
         if ($link) {
-            $wrapper         = '';
-            $searchArgument  = [];
+            $wrapper = '';
+            $searchArgument = [];
             $replaceArgument = [];
 
             $previousLineHasSimilarLink = $line->previous() !== false && $line->previous()->getAttribute('link') === $link;
             if ($previousLineHasSimilarLink === false) {
-                $wrapper           .= $this->wrapperOpen;
-                $searchArgument[]  = '{link}';
+                $wrapper .= $this->wrapperOpen;
+                $searchArgument[] = '{link}';
                 $replaceArgument[] = $line->getLexer()->escape($link);
             }
 
-            $wrapper           .= $this->wrapperMiddle;
-            $searchArgument[]  = '{text}';
+            $wrapper .= $this->wrapperMiddle;
+            $searchArgument[] = '{text}';
             $replaceArgument[] = $line->getInput();
 
             $nextLineHasSimilarLink = $line->next() !== false && $line->next()->getAttribute('link') === $link;
