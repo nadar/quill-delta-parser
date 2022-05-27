@@ -27,7 +27,7 @@ class Link extends InlineListener
             $searchArgument  = [];
             $replaceArgument = [];
 
-            if ($line->previous() && $line->previous()->getAttribute('link') === $link) {
+            if (($line->previous() !== false) && $line->previous()->getAttribute('link') === $link) {
                 $wrapper           .= $this->wrapperOpen;
                 $searchArgument[]  = '{link}';
                 $replaceArgument[] = $line->getLexer()->escape($link);
@@ -37,7 +37,7 @@ class Link extends InlineListener
             $searchArgument[]  = '{text}';
             $replaceArgument[] = $line->getInput();
 
-            if ($line->next() && $line->next()->getAttribute('link') === $link) {
+            if (($line->next() !== false) && $line->next()->getAttribute('link') === $link) {
                 $wrapper .= $this->wrapperClose;
             }
 
