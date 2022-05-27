@@ -13,7 +13,7 @@ class LinkWrapperOverrideTest extends DeltaTestCase
     public function listeners(\nadar\quill\Lexer $lexer)
     {
         $link = new Link();
-        $link->wrapper = '<a href="{link}">{text}</a>';
+        $link->wrapperOpen = '<a href="{link}">';
         $lexer->registerListener($link);
     }
 }
