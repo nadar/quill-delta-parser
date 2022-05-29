@@ -1,4 +1,5 @@
 <?php
+
 namespace nadar\quill\tests;
 
 class Issue59Test extends DeltaTestCase
@@ -14,7 +15,7 @@ class Issue59Test extends DeltaTestCase
       },
       {
         "attributes":{
-            "link":"https://example.com"
+            "link":"https://example.com",
             "italic":true
         },
         "insert":"world"
