@@ -13,6 +13,10 @@ use nadar\quill\InlineListener;
  */
 class Link extends InlineListener
 {
+    /**
+     * @var string The wrapper template which is used to generate the link tag
+     * @since 2.3.0
+     */
     public $wrapperOpen = '<a href="{link}" target="_blank">';
     public $wrapperMiddle = '{text}';
     public $wrapperClose = '</a>';
