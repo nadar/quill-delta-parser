@@ -4,7 +4,6 @@ namespace nadar\quill\listener;
 
 use nadar\quill\Line;
 use nadar\quill\InlineListener;
-use nadar\quill\Lexer;
 
 /**
  * Convert links into a inline elements.
@@ -16,9 +15,21 @@ class Link extends InlineListener
 {
     /**
      * @var string The wrapper template which is used to generate the link tag
-     * @since 2.3.0
+     * @since 3.0
      */
-    public $wrapper = '<a href="{link}" target="_blank">{text}</a>';
+    public $wrapperOpen = '<a href="{link}" target="_blank">';
+    
+    /**
+     * @var string The content element in between
+     * @since 3.0
+     */
+    public $wrapperMiddle = '{text}';
+    
+    /**
+     * @var string Closing Tag
+     * @since 3.0
+     */
+    public $wrapperClose = '</a>';
 
     /**
      * {@inheritDoc}
@@ -27,7 +38,27 @@ class Link extends InlineListener
     {
         $link = $line->getAttribute('link');
         if ($link) {
-            $this->updateInput($line, str_replace(['{link}', '{text}'], [$line->getLexer()->escape($link), $line->getInput()], $this->wrapper));
+            $wrapper = '';
+            $searchArgument = [];
+            $replaceArgument = [];
+
+            $previousLineHasSimilarLink = $line->previous() !== false && $line->previous()->getAttribute('link') === $link;
+            if ($previousLineHasSimilarLink === false) {
+                $wrapper .= $this->wrapperOpen;
+                $searchArgument[] = '{link}';
+                $replaceArgument[] = $line->getLexer()->escape($link);
+            }
+
+            $wrapper .= $this->wrapperMiddle;
+            $searchArgument[] = '{text}';
+            $replaceArgument[] = $line->getInput();
+
+            $nextLineHasSimilarLink = $line->next() !== false && $line->next()->getAttribute('link') === $link;
+            if ($nextLineHasSimilarLink === false) {
+                $wrapper .= $this->wrapperClose;
+            }
+
+            $this->updateInput($line, str_replace($searchArgument, $replaceArgument, $wrapper));
         }
     }
 }
