@@ -15,10 +15,20 @@ class Link extends InlineListener
 {
     /**
      * @var string The wrapper template which is used to generate the link tag
-     * @since 2.3.0
+     * @since 3.0
      */
     public $wrapperOpen = '<a href="{link}" target="_blank">';
+    
+    /**
+     * @var string The content element in between
+     * @since 3.0
+     */
     public $wrapperMiddle = '{text}';
+    
+    /**
+     * @var string Closing Tag
+     * @since 3.0
+     */
     public $wrapperClose = '</a>';
 
     /**
