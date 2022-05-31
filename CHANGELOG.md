@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.0 ()
+
++ [#60](https://github.com/nadar/quill-delta-parser/pull/60) Changed the behavior of `nadar\quill\listener\Link`. Property `$wrapper` has been removed and replaced by `$wrapperOpen`, `$wrapperMiddle` and `$wrapperClose`. If you are not overrding or have setup the `Link` listenere, upgrading to version 3.0 is safe!
+
 ## 2.9.0 (5. April 2022)
 
 + [#58](https://github.com/nadar/quill-delta-parser/pull/58/files) Renamed misspelled method `loadBuiltinListeneres()` to `loadBuiltinListeners()` and `renderListeneres()` to `renderListeners()`. The old methods are still available for backwards compatibility, but deprecated and will be removed in 3.0.
