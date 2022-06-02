@@ -3,7 +3,7 @@
     "description": "A PHP library to parse Quill Deltas into HTML",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^8.0"
     },
     "license": "MIT",
     "authors": [
