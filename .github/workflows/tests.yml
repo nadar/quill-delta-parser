@@ -33,7 +33,7 @@ jobs:
 
       ## install composer
       - name: Install dependencies
-        run: composer install --prefer-dist
+        run: composer clearcache && composer install --prefer-dist
 
       ## run unit tests
       - name: PHP Unit tests for PHP 
