@@ -27,7 +27,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, mbstring, mcrypt, zip
           ini-values: date.timezone='UTC'
-          tools: composer:v2
+          tools: composer:v1
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
