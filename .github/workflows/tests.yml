@@ -3,8 +3,7 @@ name: Tests
 on: [push, pull_request]
 
 env:
-  DEFAULT_COMPOSER_FLAGS: "--prefer-dist --no-interaction --ignore-platform-reqs"
-  PHPUNIT_EXCLUDE_GROUP: mssql,oci,wincache,xcache,zenddata,cubrid
+  DEFAULT_COMPOSER_FLAGS: "--no-interaction"
   CC_TEST_REPORTER_ID: 69cbfa73f14104ba64b475240faca52ae05f3cd2f72942c9c62eba324cf4a351
 jobs:
   phpunit:
@@ -14,34 +13,38 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        php: ['7.1', '7.2', '7.3', '7.4', '8.0']
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1']
 
     steps:
       ## checkout the repoistory 
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       ## Install(?) php
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: apc, curl, dom, imagick, intl, mbstring, mcrypt, memcached, mysql, pdo, pdo_mysql, pdo_pgsql, pdo_sqlite, pgsql, sqlite
+          extensions: dom, mbstring, mcrypt, zip
           ini-values: date.timezone='UTC'
+          tools: composer:v1
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       ## install composer
+      ## clear cache issue: https://github.com/composer/composer/issues/5982
       - name: Install dependencies
-        run: composer install $DEFAULT_COMPOSER_FLAGS
+        run: composer clearcache && composer install --prefer-dist
 
       ## run unit tests
       - name: PHP Unit tests for PHP 
         run: vendor/bin/phpunit --verbose --configuration actions.phpunit.xml
-        if: matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2' || matrix.php == '7.0'
+        if: matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2'
 
       ## unit test with coverage
-      - name: PHP Unit tests for PHP 7.1
+      - name: PHP Unit tests for PHP 7.2
         run: vendor/bin/phpunit --verbose --coverage-clover=clover.xml --configuration actions.phpunit.xml
-        if: matrix.php == '7.1'
+        if: matrix.php == '7.2'
 
       ## coverage
       - name: Code coverage
@@ -49,5 +52,5 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter after-build -t clover
-        if: matrix.php == '7.1'
+        if: matrix.php == '7.2'
         continue-on-error: true # if is fork
