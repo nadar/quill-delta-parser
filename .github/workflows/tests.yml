@@ -3,7 +3,7 @@ name: Tests
 on: [push, pull_request]
 
 env:
-  DEFAULT_COMPOSER_FLAGS: "--no-interactio"
+  DEFAULT_COMPOSER_FLAGS: "--no-interaction"
   CC_TEST_REPORTER_ID: 69cbfa73f14104ba64b475240faca52ae05f3cd2f72942c9c62eba324cf4a351
 jobs:
   phpunit:

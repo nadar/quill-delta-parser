@@ -1,6 +1,6 @@
 {
     "name": "nadar/quill-delta-parser",
-    "description": "A PHP library to parse Quill Deltas into HTML",
+    "description": "A PHP library to parse Quill WYSIWYG editor deltas into HTML - flexible and extendible for custom elements.",
     "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^8.0"
