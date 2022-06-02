@@ -25,13 +25,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, mbstring, mcrypt
+          extensions: dom, mbstring, mcrypt, zip
           ini-values: date.timezone='UTC'
           tools: composer:v2
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       ## install composer
+      ## clear cache issue: https://github.com/composer/composer/issues/5982
       - name: Install dependencies
         run: composer clearcache && composer install --prefer-dist
 
