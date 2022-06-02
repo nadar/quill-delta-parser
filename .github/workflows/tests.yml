@@ -18,19 +18,22 @@ jobs:
     steps:
       ## checkout the repoistory 
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       ## Install(?) php
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: apc, curl, dom, imagick, intl, mbstring, mcrypt, memcached, mysql, pdo, pdo_mysql, pdo_pgsql, pdo_sqlite, pgsql, sqlite
+          extensions: dom, mbstring, mcrypt
           ini-values: date.timezone='UTC'
+          tools: composer:v2
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       ## install composer
       - name: Install dependencies
-        run: composer install $DEFAULT_COMPOSER_FLAGS
+        run: composer install --prefer-dist
 
       ## run unit tests
       - name: PHP Unit tests for PHP 
@@ -48,5 +51,5 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter after-build -t clover
-        if: matrix.php == '7.1'
+        if: matrix.php == '7.2'
         continue-on-error: true # if is fork
