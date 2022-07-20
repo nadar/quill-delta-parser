@@ -17,7 +17,8 @@ class TextInjectionEnabledTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-<p>normal text</p><p><script type='text/javascript'>alert("html injection");</script><strong>bold text</strong></p>
+<p>normal text</p>
+<p><script type='text/javascript'>alert("html injection");</script><strong>bold text</strong></p>
 EOT;
 
     public function getLexer()

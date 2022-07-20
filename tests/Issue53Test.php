@@ -20,6 +20,8 @@ class Issue53Test extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-    <ul><li>Bullet point content</li></ul>
+    <ul>
+<li>Bullet point content</li>
+</ul>
 EOT;
 }

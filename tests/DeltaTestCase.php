@@ -27,6 +27,6 @@ class DeltaTestCase extends TestCase
     {
         $parser = $this->getLexer();
         $this->listeners($parser);
-        $this->assertSame(trim(str_replace(PHP_EOL, '', $this->html)), trim($parser->render()));
+        $this->assertSame(trim($this->html), trim($parser->render()));
     }
 }

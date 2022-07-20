@@ -9,6 +9,12 @@ class BoldContentTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-<p><strong>Formatted</strong></p><h1><strong>Heading 1</strong></h1><ul><li>list</li><li>list</li></ul><h2>Heading 2</h2>
+<p><strong>Formatted</strong></p>
+<h1><strong>Heading 1</strong></h1>
+<ul>
+<li>list</li>
+<li>list</li>
+</ul>
+<h2>Heading 2</h2>
 EOT;
 }

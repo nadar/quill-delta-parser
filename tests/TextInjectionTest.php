@@ -32,23 +32,13 @@ JSON;
 
     public $html = <<<'EOT'
 <blockquote>&lt;script&gt;</blockquote>
-<p>
-<strong>&lt;script&gt;</strong>
-<span style="color:&lt;script&gt;">&lt;script&gt;</span>
-</p>
+<p><strong>&lt;script&gt;</strong><span style="color:&lt;script&gt;">&lt;script&gt;</span></p>
 <h1>&lt;script&gt;</h1>
 <p><img src="&lt;script&gt;" alt="" class="img-responsive img-fluid" /></p>
-<p>
-<em>&lt;script&gt;</em>
-<a href="&lt;script&gt;" target="_blank">&lt;script&gt;</a>
-&lt;script&gt;
-</p>
+<p><em>&lt;script&gt;</em><a href="&lt;script&gt;" target="_blank">&lt;script&gt;</a>&lt;script&gt;</p>
 <blockquote>&lt;script&gt;</blockquote>
 <p><del>&lt;script&gt;</del></p>
-<p>
-&lt;script&gt;
-<u>&lt;script&gt;</u>
-</p>
+<p>&lt;script&gt;<u>&lt;script&gt;</u></p>
 <div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="&lt;script&gt;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 EOT;
 

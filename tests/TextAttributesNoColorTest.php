@@ -59,7 +59,9 @@ class TextAttributesNoColorTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-    <p><strong>Was: </strong>Mi</p><p><strong>Wann:</strong> März</p><p><strong>Wo:</strong> Aarau</p>
+    <p><strong>Was: </strong>Mi</p>
+<p><strong>Wann:</strong> März</p>
+<p><strong>Wo:</strong> Aarau</p>
 EOT;
 
     public function listeners(\nadar\quill\Lexer $lexer)

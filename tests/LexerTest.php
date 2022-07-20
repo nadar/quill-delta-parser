@@ -22,7 +22,7 @@ class LexerTest extends TestCase
         $lexer = new Lexer('[{"insert": {"image": "https://example.com/image.jpg"}},{"insert": "text\n"}]');
         $lexer->registerListener($imageListener);
 
-        $this->assertSame('<p><img src="https://example.com/image.jpg" bar="foo" />text</p>', $lexer->render());
+        $this->assertSame('<p><img src="https://example.com/image.jpg" bar="foo" />text</p>'.PHP_EOL, $lexer->render());
     }
 
     public function testLinesAndNewlines()

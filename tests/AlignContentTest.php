@@ -40,6 +40,8 @@ class AlignContentTest extends DeltaTestCase
 JSON;
 
 	public $html = <<<'EOT'
-<p style="text-align: center;">Lorem <strong>Ipsum</strong> Dolor <u><em>Sit</em></u> Amet</p><p style="text-align: right;">This images is right aligned : <img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" /></p><p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer <strong>Lorem</strong> nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla <strong>cursus</strong> quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus <strong>sagittis</strong> sed augue semper porta. Mauris massa. Vestibulum <em>quis</em> lacinia arcu <em>sem</em> eget <strong>augue</strong> nulla. Class aptent taciti sociosqu <strong>massa.</strong> ad litora torquent per conubia nostra, per <em>porta.</em> inceptos himenaeos. Curabitur <strong>taciti</strong> sodales ligula in <strong>conubia</strong> libero.</p>
+<p style="text-align: center;">Lorem <strong>Ipsum</strong> Dolor <u><em>Sit</em></u> Amet</p>
+<p style="text-align: right;">This images is right aligned : <img src="https://example.com/image.jpg" alt="" class="img-responsive img-fluid" /></p>
+<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer <strong>Lorem</strong> nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla <strong>cursus</strong> quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus <strong>sagittis</strong> sed augue semper porta. Mauris massa. Vestibulum <em>quis</em> lacinia arcu <em>sem</em> eget <strong>augue</strong> nulla. Class aptent taciti sociosqu <strong>massa.</strong> ad litora torquent per conubia nostra, per <em>porta.</em> inceptos himenaeos. Curabitur <strong>taciti</strong> sodales ligula in <strong>conubia</strong> libero.</p>
 EOT;
 }
