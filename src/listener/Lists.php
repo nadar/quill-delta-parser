@@ -89,7 +89,7 @@ class Lists extends BlockListener
             // opening tag process has been simplified, see https://github.com/nadar/quill-delta-parser/pull/33
             // and https://github.com/nadar/quill-delta-parser/issues/30
             if (!$isOpen) {
-                $output .= '<'.$this->getListAttribute($pick).'>';
+                $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
                 $isOpen = true;
             }
 
