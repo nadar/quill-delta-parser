@@ -14,7 +14,7 @@ use nadar\quill\BlockListener;
  */
 class Text extends BlockListener
 {
-    const CLOSEP = '</p>';
+    const CLOSEP = '</p>'.PHP_EOL;
 
     const OPENP = '<p>';
 
