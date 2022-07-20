@@ -81,7 +81,7 @@ class Lists extends BlockListener
             // this makes sure that when two list types are after each other (OL and UL)
             // the previous will be closed so the new one will open
             if ($isOpen && $listTag && $listTag !== $this->getListAttribute($pick)) {
-                $output .= '</'.$listTag.'>';
+                $output .= '</'.$listTag.'>'.PHP_EOL;
                 $isOpen = false;
             }
 
@@ -94,13 +94,13 @@ class Lists extends BlockListener
             }
 
             // write the li element.
-            $output.= '<li>' . $buffer .'</li>';
+            $output.= '<li>' . $buffer .'</li>'.PHP_EOL;
 
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
             if (($isOpen && $isLast) || ($isOpen && $pick->isLast())) {
-                $output .= '</'.$this->getListAttribute($pick).'>';
+                $output .= '</'.$this->getListAttribute($pick).'>'.PHP_EOL;
                 $isOpen = false;
             }
 

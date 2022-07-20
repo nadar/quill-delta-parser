@@ -23,7 +23,7 @@ class Video extends BlockListener
     /**
      * @var string The wrapper template which is taken to generate the video element.
      */
-    public $wrapper = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{url}" frameborder="0" allow="{allow}" allowfullscreen></iframe></div>';
+    public $wrapper = '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="{url}" frameborder="0" allow="{allow}" allowfullscreen></iframe></div>'.PHP_EOL;
 
     /**
      * {@inheritDoc}
