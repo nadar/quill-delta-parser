@@ -431,7 +431,6 @@ class Line
      *
      * @since 3.x.x
      * @param string $newInput
-     * @return string
      */
     public function setInput($newInput) {
         $this->input = $newInput;
