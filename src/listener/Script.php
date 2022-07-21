@@ -45,6 +45,6 @@ class Script extends InlineListener
           $script = 'sup';
         }
 
-        return '<'.$script.'>'. $line->getUnsafeInput() . '</'.$script.'>';
+        return '<'.$script.'>'. $line->getInput() . '</'.$script.'>';
     }
 }
