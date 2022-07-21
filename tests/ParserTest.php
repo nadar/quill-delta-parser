@@ -66,7 +66,7 @@ class ParserTest extends TestCase
             $parser = new Lexer($j);
 
             $this->assertTrue(is_array($parser->getJsonArray()));
-            $this->assertSame($e, $parser->render());
+            $this->assertSame(str_replace(PHP_EOL, '', $e), str_replace(PHP_EOL, '', $parser->render()));
 
             unset($parser);
         }
@@ -75,7 +75,7 @@ class ParserTest extends TestCase
     public function testDebugPrint()
     {
         $lexer = new Lexer([["attributes" => ['none' => true], "insert" => "not"], ["insert" => "f\nfoo\n"]]);
-        $this->assertSame('<p>f</p><p>foo</p>', $lexer->render());
+        $this->assertSame('<p>f</p><p>foo</p>', str_replace(PHP_EOL, '', $lexer->render()));
         
         $debug = new Debug($lexer);
         $this->assertNotNull($debug->debugPrint());
