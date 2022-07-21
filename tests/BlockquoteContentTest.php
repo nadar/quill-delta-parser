@@ -17,8 +17,6 @@ class BlockquoteContentTest extends DeltaTestCase
 JSON;
 	
 	public $html = <<<'EOT'
-<p><strong>xyz</strong></p>
-<blockquote>regular<strong>bold</strong><em>italic</em></blockquote>
-<p>xyz</p>
+<p><strong>xyz</strong></p><blockquote>regular<strong>bold</strong><em>italic</em></blockquote><p>xyz</p>
 EOT;
 }

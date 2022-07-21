@@ -12,6 +12,9 @@ class PrependInlineIndexTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-<p><em>italic</em><a href="https://nadar.io" target="_blank"><strong>link</strong></a></p>
+<p>
+<em>italic</em>
+<a href="https://nadar.io" target="_blank"><strong>link</strong></a>
+</p>
 EOT;
 }

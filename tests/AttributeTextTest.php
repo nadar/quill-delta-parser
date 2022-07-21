@@ -30,7 +30,6 @@ class AttributeTextTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-<p><span style="color:#000000">xyz</span></p>
-<p><span style="color:#fff">xyz</span></p>
+<p><span style="color:#000000">xyz</span></p><p><span style="color:#fff">xyz</span></p>
 EOT;
 }

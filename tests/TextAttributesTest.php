@@ -57,8 +57,6 @@ class TextAttributesTest extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-    <p><span style="color:#27333a"><strong>Was: </strong></span><span style="color:#27333a">Mi</span></p>
-<p><span style="color:#27333a"><strong>Wann:</strong></span><span style="color:#27333a"> März</span></p>
-<p><span style="color:#27333a"><strong>Wo:</strong></span><span style="color:#27333a"> Aarau</span></p>
+    <p><span style="color:#27333a"><strong>Was: </strong></span><span style="color:#27333a">Mi</span></p><p><span style="color:#27333a"><strong>Wann:</strong></span><span style="color:#27333a"> März</span></p><p><span style="color:#27333a"><strong>Wo:</strong></span><span style="color:#27333a"> Aarau</span></p>
 EOT;
 }

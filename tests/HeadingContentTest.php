@@ -17,8 +17,6 @@ class HeadingContentTest extends DeltaTestCase
 JSON;
 	
 	public $html = <<<'EOT'
-<p><strong>xyz</strong></p>
-<h1>regular<strong>bold</strong><em>italic</em></h1>
-<p>xyz</p>
+<p><strong>xyz</strong></p><h1>regular<strong>bold</strong><em>italic</em></h1><p>xyz</p>
 EOT;
 }
