@@ -36,7 +36,7 @@ abstract class InlineListener extends Listener
     public function updateInput(Line $line, $value)
     {
         // we override the current element, and mark as done and mark as inline
-        $line->input = $value;
+        $line->setInput($value);
         $line->setDone();
         $line->setAsInline();
         $line->setAsEscaped();

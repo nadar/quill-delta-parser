@@ -426,6 +426,19 @@ class Line
     }
 
     /**
+     * Adjust the line's input.
+     * 
+     * The new input is assumed to be escaped.
+     *
+     * @since 3.x.x
+     * @param string $newInput
+     * @return string
+     */
+    public function setInput($newInput) {
+        $this->input = $newInput;
+    }
+
+    /**
      * Setter method whether the current element is inline or not.
      */
     public function setAsInline()
