@@ -50,7 +50,7 @@ class LineTest extends TestCase
 
         $line0 = $lexer->getLine(0);
 
-        $this->assertSame('line 1', $line0->input);
+        $this->assertSame('line 1', $line0->getInput());
 
         $this->assertTrue($line0->isFirst());
 
@@ -63,7 +63,7 @@ class LineTest extends TestCase
 
         $this->assertFalse($line1->isFirst());
 
-        $this->assertSame('line 2', $line1->input);
+        $this->assertSame('line 2', $line1->getInput());
         
         $prevLine = null;
         $line1->whilePrevious(function ($line) use (&$prevLine) {
@@ -71,7 +71,7 @@ class LineTest extends TestCase
             return false;
         });
 
-        $this->assertSame('line 1', $prevLine->input);
+        $this->assertSame('line 1', $prevLine->getInput());
 
         $value = false;
         $lineNoPrevious = $line0->whilePrevious(function ($line) use (&$value) {

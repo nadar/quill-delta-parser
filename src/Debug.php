@@ -100,7 +100,7 @@ class Debug
         foreach ($lines as $line) {
             $_lines[] = [
                 $line->getIndex(),
-                htmlentities($line->input, ENT_QUOTES),
+                $line->getInput(),
                 htmlentities($line->output, ENT_QUOTES),
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
                 implode(", ", $line->getDebugInfo()),
