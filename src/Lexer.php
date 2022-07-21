@@ -156,16 +156,6 @@ class Lexer
     }
 
     /**
-     * Alias for loadBuiltinListeners() for compatibility
-     * @deprecated will be removed in 3.0, use loadBuiltinListeners() instead.
-     */
-    public function loadBuiltinListeneres()
-    {
-        trigger_error("loadBuiltinListeneres() is deprecated, use loadBuiltinListeners() instead.", E_USER_NOTICE);
-        return $this->loadBuiltinListeners();
-    }
-
-    /**
      * Register a new listener.
      *
      * @param Listener $listener
@@ -370,16 +360,6 @@ class Lexer
                 $listener->render($this);
             }
         }
-    }
-
-    /**
-     * Alias for renderListeners() for compatibility
-     * @deprecated will be removed in 3.0, used renderListeners() instead.
-     */
-    protected function renderListeneres($type)
-    {
-        trigger_error("renderListeneres() is deprecated, use renderListeners() instead.", E_USER_NOTICE);
-        return $this->renderListeners($type);
     }
 
     /**

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.x
+
++ [#63](https://github.com/nadar/quill-delta-parser/pull/63/) Removed deprecated methods `loadBuiltinListeneres()` and `renderListeneres()`.
+
 ## 3.0.0 (2. June 2022)
 
 > This release contains breaks which might affect your application. Checkout the [upgrade document](UPGRADE.md) for more details.

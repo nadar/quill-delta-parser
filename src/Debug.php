@@ -129,6 +129,8 @@ class Debug
         } elseif ($line->isPicked()) {
             return 'Picked';
         }
+
+        return '';
     }
 
     /**
