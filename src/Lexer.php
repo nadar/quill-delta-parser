@@ -211,7 +211,7 @@ class Lexer
      * Get the line object for a given id/row/index.
      *
      * @param integer $index The index of the line.
-     * @return Line
+     * @return Line|boolean
      */
     public function getLine($index)
     {
