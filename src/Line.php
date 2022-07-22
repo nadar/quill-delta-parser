@@ -387,7 +387,7 @@ class Line
      * if true is returned this line will be assigned.
      *
      * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
-     * @return Line
+     * @return Line|boolean
      */
     public function next($fn = null)
     {
@@ -414,7 +414,7 @@ class Line
      * if true is returned this line will be assigned.
      *
      * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
-     * @return Line
+     * @return Line|boolean
      */
     public function previous($fn = null)
     {

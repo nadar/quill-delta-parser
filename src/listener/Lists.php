@@ -99,7 +99,7 @@ class Lists extends BlockListener
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.
             //   b. or its the last element in the picked list.
-            if (($isOpen && $isLast) || ($isOpen && $pick->isLast())) {
+            if ($isLast || $pick->isLast()) {
                 $output .= '</'.$this->getListAttribute($pick).'>'.PHP_EOL;
                 $isOpen = false;
             }
