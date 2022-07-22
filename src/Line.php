@@ -41,6 +41,7 @@ class Line
 
     /**
      * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
+     * @since 3.1.0
      */
     protected $input;
 
