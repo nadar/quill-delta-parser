@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.1
+## 3.1.0
 
 + [#68](https://github.com/nadar/quill-delta-parser/pull/68) Deprecated the magical getter `$pick->$name` use `$pick->optionValue($name)` instead.
 + [#64](https://github.com/nadar/quill-delta-parser/pull/64) Replaced deprectated public $input property in `Line` with getter and setter methods.

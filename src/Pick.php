@@ -62,7 +62,7 @@ class Pick
      * @param string $name
      * @param mixed $defaultValue
      * @return mixed
-     * @since 3.1
+     * @since 3.1.0
      */
     public function optionValue($name, $defaultValue = null)
     {
