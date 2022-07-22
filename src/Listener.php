@@ -79,7 +79,7 @@ abstract class Listener
     /**
      * Returns an array with all picked lineds.
      *
-     * @return Line An array with Line objects, for IDE purposes we return the Line object as phpdoc
+     * @return Pick[] An array with Line objects, for IDE purposes we return the Line object as phpdoc
      */
     public function picks(): array
     {

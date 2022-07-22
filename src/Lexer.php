@@ -82,13 +82,13 @@ class Lexer
     public $escapeInput = true;
 
     /**
-     * @var boolean These flags are used for escaping values for mixing with a html context.
+     * @var int These flags are used for escaping values for mixing with a html context.
      * @since 1.2.0
      */
     public $escapeFlags = ENT_QUOTES|ENT_HTML5;
 
     /**
-     * @var boolean The encoding is used for escaping values for mixing with a html context.
+     * @var string The encoding is used for escaping values for mixing with a html context.
      * @since 1.2.0
      */
     public $escapeEncoding = 'UTF-8';
@@ -121,7 +121,7 @@ class Lexer
      * Initializer
      *
      * @param string|array $json The delta ops json as string or as already parsed array.
-     * @param boolean $loadBuiltinlisteners Whether the built in listeners should be loaded or not.
+     * @param boolean $loadBuiltinListeners Whether the built in listeners should be loaded or not.
      */
     public function __construct($json, $loadBuiltinListeners = true)
     {
@@ -277,7 +277,7 @@ class Lexer
      * Whether the current line as a newline char.
      *
      * @param string $input
-     * @return string
+     * @return boolean
      */
     protected function lineHasNewline($input)
     {
@@ -287,7 +287,7 @@ class Lexer
     /**
      * Replace new lines with an internal representation that aids debugging
      *
-     * @param array|string $string
+     * @param array|string $input
      * @return array|string
      */
     protected function replaceNewlineWithExpression($input)
@@ -350,7 +350,7 @@ class Lexer
     /**
      * Undocumented function
      *
-     * @param [type] $type
+     * @param string $type
      * @return void
      */
     protected function renderListeners($type)

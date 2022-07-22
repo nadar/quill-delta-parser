@@ -40,9 +40,9 @@ class Align extends BlockListener
     public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-            if (!in_array($pick->alignment, $this->alignments)) {
+            if (!in_array($pick->optionValue('alignment'), $this->alignments)) {
                 // prevent html injection in case the attribute is user input
-                throw new Exception('An unknown alignment "' . $pick->alignment . '" has been detected.');
+                throw new Exception('An unknown alignment "' . $pick->optionValue('alignment') . '" has been detected.');
             }
         }
 
