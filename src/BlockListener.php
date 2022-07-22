@@ -83,7 +83,7 @@ abstract class BlockListener extends Listener
             $replace = [$buffer];
             foreach ($options as $key => $value) {
                 $name = is_integer($key) ? $value : $key;
-                $content = $pick->$name;
+                $content = $pick->optionValue($name);
                 $value = is_callable($value) ? call_user_func($value, $content, $pick, $name) : $content;
                 $replace[] = $value;
             }
