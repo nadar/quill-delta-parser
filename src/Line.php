@@ -429,10 +429,11 @@ class Line
      * 
      * The new input is assumed to be escaped.
      *
-     * @since 3.x.x
+     * @since 3.1.0
      * @param string $newInput
      */
-    public function setInput($newInput) {
+    public function setInput($newInput)
+    {
         $this->input = $newInput;
     }
 
