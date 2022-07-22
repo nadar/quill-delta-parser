@@ -13,16 +13,14 @@ namespace nadar\quill\tests;
  */
 class BlockquoteListenerTest extends DeltaTestCase
 {
-    public $json = <<<'JSON'
-[
-    {
-        "insert" : "blockquote",
-      "attributes": {
-        "blockquote": true
-      }
-    }
-]
-JSON;
+    public $json = [
+        [
+            'insert' => 'blockquote',
+            'attributes' => [
+                'blockquote' => true,
+            ],
+        ],
+    ];
 
     public $html = '<blockquote>blockquote</blockquote>';
 }
