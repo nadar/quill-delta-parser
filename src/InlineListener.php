@@ -36,7 +36,7 @@ abstract class InlineListener extends Listener
     public function updateInput(Line $line, $value)
     {
         // we override the current element, and mark as done and mark as inline
-        $line->input = $value;
+        $line->setInput($value);
         $line->setDone();
         $line->setAsInline();
         $line->setAsEscaped();
@@ -54,9 +54,9 @@ abstract class InlineListener extends Listener
             });
 
             if (!$next) {
-                throw new Exception("Unable to find a next element. Invalid DELTA on '{$pick->line->input}'. Maybe your delta code does not end with a newline?");
+                throw new Exception("Unable to find a next element. Invalid DELTA on '{$pick->line->getInput()}'. Maybe your delta code does not end with a newline?");
             }
-            $next->addPrepend($pick->line->input, $pick->line);
+            $next->addPrepend($pick->line->getInput(), $pick->line);
         }
     }
 }

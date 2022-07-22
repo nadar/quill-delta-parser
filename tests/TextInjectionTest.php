@@ -12,11 +12,14 @@ class TextInjectionTest extends DeltaTestCase
     {"insert": "<script>", "attributes": {"blockquote": true}},
     {"insert": "<script>", "attributes": {"bold": true}},
     {"insert": "<script>", "attributes": {"color": "<script>"}},
+    {"insert": "<script>", "attributes": {"font": "<script>"}},
     {"insert": "\n<script>"},
     {"insert": "\n", "attributes": {"header": 1}},
     {"insert": {"image": "<script>"}},
     {"insert": "\n"},
     {"insert": "<script>", "attributes": {"italic": true}},
+    {"insert": "<script>", "attributes": {"script": "super"}},
+    {"insert": "<script>", "attributes": {"script": "sub"}},
     {"insert": "<script>", "attributes": {"link": "<script>"}},
     {"insert": {"mention": {"id": "1", "value": "<script>", "denotationChar": "@"}}},
     {"insert": "\n<script>"},
@@ -35,11 +38,14 @@ JSON;
 <p>
 <strong>&lt;script&gt;</strong>
 <span style="color:&lt;script&gt;">&lt;script&gt;</span>
+<span style="font-family: &lt;script&gt;;">&lt;script&gt;</span>
 </p>
 <h1>&lt;script&gt;</h1>
 <p><img src="&lt;script&gt;" alt="" class="img-responsive img-fluid" /></p>
 <p>
 <em>&lt;script&gt;</em>
+<sup>&lt;script&gt;</sup>
+<sub>&lt;script&gt;</sub>
 <a href="&lt;script&gt;" target="_blank">&lt;script&gt;</a>
 &lt;script&gt;
 </p>

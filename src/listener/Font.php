@@ -39,9 +39,9 @@ class Font extends InlineListener
     public function applyTemplate($font, Line $line)
     {
         if ($this->ignore) {
-            return $line->input;
+            return $line->getInput();
         }
 
-        return '<span style="font-family: '.$line->getLexer()->escape($font).';">'. $line->input . '</span>';
+        return '<span style="font-family: '.$line->getLexer()->escape($font).';">'. $line->getInput() . '</span>';
     }
 }

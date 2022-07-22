@@ -34,16 +34,16 @@ class Line
     public $prepend = [];
 
     /**
-     * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
-     * @deprecated Deprecated since 1.2.0 will be removed in 2.0 use getInput() instead.
-     */
-    public $input;
-
-    /**
      * @var string The output is the value which will actually rendered by the lexer. So lines which directly write to the output
      * buffer needs to fill in this variable.
      */
     public $output;
+
+    /**
+     * @var string The input string which is assigned from the line parser. This is the actual content of the line itself!
+     * @since 3.1.0
+     */
+    protected $input;
 
     /**
      * @var integer Holds the current status of the line.
@@ -423,6 +423,19 @@ class Line
         return $this->iterate($this, function ($i) {
             return $i-1;
         }, $fn);
+    }
+
+    /**
+     * Adjust the line's input.
+     * 
+     * The new input is assumed to be escaped.
+     *
+     * @since 3.1.0
+     * @param string $newInput
+     */
+    public function setInput($newInput)
+    {
+        $this->input = $newInput;
     }
 
     /**
