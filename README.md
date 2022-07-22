@@ -25,7 +25,7 @@ composer require nadar/quill-delta-parser
 // ensure to load the autoload file from composer somewhere in your application
 require __DIR__ . '/vendor/autoload.php';
 
-// create the lexer object with your given quill json delta code (either an array or string)
+// create the lexer object with your given quill json delta code (either PHP array or JSON string)
 $lexer = new \nadar\quill\Lexer($json);
 
 // echoing the html for the given json ops.
@@ -130,7 +130,7 @@ $mySuperClass = new class() extends Image {
 $lexer->overwriteListener(new Image, $mySuperClass);
 ```
 
-Or of yourse if you have a seperate file for your class
+Or, of course when you have a seperate file for your class
 
 ```php
 class MySuperDuperImageClass extends Image
