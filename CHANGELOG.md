@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.x
+## 3.1
 
 + [#64](https://github.com/nadar/quill-delta-parser/pull/64) Replaced deprectated public $input property in `Line` with getter and setter methods.
 + [#63](https://github.com/nadar/quill-delta-parser/pull/63/) Removed deprecated methods `loadBuiltinListeneres()` and `renderListeneres()`.
