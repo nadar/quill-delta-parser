@@ -2,8 +2,8 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
 use nadar\quill\InlineListener;
+use nadar\quill\Line;
 
 /**
  * Convert color attributes into span tag.
@@ -18,7 +18,7 @@ class Color extends InlineListener
      * but people copy past content from somewhere else which will then generate the color attribute.
      */
     public $ignore = false;
-    
+
     /**
      * {@inheritDoc}
      */

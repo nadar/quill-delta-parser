@@ -3,9 +3,9 @@
 namespace nadar\quill\listener;
 
 use Exception;
-use nadar\quill\Line;
-use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
+use nadar\quill\Lexer;
+use nadar\quill\Line;
 use nadar\quill\Pick;
 
 /**
@@ -16,11 +16,11 @@ use nadar\quill\Pick;
  */
 class Lists extends BlockListener
 {
-    const ATTRIBUTE_LIST = 'list';
+    public const ATTRIBUTE_LIST = 'list';
 
-    const LIST_TYPE_BULLET = 'bullet';
+    public const LIST_TYPE_BULLET = 'bullet';
 
-    const LIST_TYPE_ORDERED = 'ordered';
+    public const LIST_TYPE_ORDERED = 'ordered';
 
     /**
      * {@inheritDoc}
@@ -122,7 +122,7 @@ class Lists extends BlockListener
     protected function getListAttribute(Pick $pick)
     {
         $type = is_array($pick->type) ? $pick->type['type'] : $pick->type;
-        
+
         if ($type === self::LIST_TYPE_ORDERED) {
             return 'ol';
         }

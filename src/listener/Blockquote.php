@@ -2,9 +2,9 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
 use nadar\quill\BlockListener;
 use nadar\quill\Lexer;
+use nadar\quill\Line;
 
 /**
  * Convert Blockquote Elements
@@ -14,7 +14,6 @@ use nadar\quill\Lexer;
  */
 class Blockquote extends BlockListener
 {
-
     /**
      * {@inheritDoc}
      */

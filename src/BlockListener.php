@@ -19,7 +19,7 @@ abstract class BlockListener extends Listener
     {
         return self::TYPE_BLOCK;
     }
-    
+
     /**
      * Generate a rendered output from the current picks with a custom Wrapper Template.
      *
@@ -37,10 +37,10 @@ abstract class BlockListener extends Listener
      * ```
      *
      * The above method will no take the picked element and render a `blockquote` tag with its content stored in `{__buffer__}`.
-     * 
+     *
      * Assuming you pass options to the picked element during the `process()` stage you might use those options as variable
      * in brackes and passed to `$options` param:
-     * 
+     *
      * ```php
      * $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
      * ```
@@ -64,7 +64,7 @@ abstract class BlockListener extends Listener
         foreach ($options as $key => $value) {
             $search[] = is_integer($key) ? '{'.$value.'}' : '{'.$key.'}';
         }
-        
+
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);
 
@@ -87,7 +87,7 @@ abstract class BlockListener extends Listener
                 $value = is_callable($value) ? call_user_func($value, $content, $pick, $name) : $content;
                 $replace[] = $value;
             }
-            
+
             $pick->line->output = str_replace($search, $replace, $wrapper).PHP_EOL;
             $pick->line->setDone();
         }
@@ -101,7 +101,7 @@ abstract class BlockListener extends Listener
      * @return Line
      * @since 1.3.2
      */
-    protected function getFirstLine(Pick $pick) : Line
+    protected function getFirstLine(Pick $pick): Line
     {
         $first = $pick->line;
 

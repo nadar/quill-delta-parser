@@ -2,9 +2,9 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
-use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
+use nadar\quill\Lexer;
+use nadar\quill\Line;
 
 /**
  * Convert all the not done elements into paragraphs.
@@ -14,11 +14,11 @@ use nadar\quill\BlockListener;
  */
 class Text extends BlockListener
 {
-    const CLOSEP = '</p>'.PHP_EOL;
+    public const CLOSEP = '</p>'.PHP_EOL;
 
-    const OPENP = '<p>';
+    public const OPENP = '<p>';
 
-    const LINEBREAK = '<br>';
+    public const LINEBREAK = '<br>';
 
     /**
      * {@inheritDoc}
@@ -50,9 +50,9 @@ class Text extends BlockListener
 
                 $next = $pick->line->next();
                 $prev = $pick->line->previous();
-                
+
                 $output = [];
-                
+
                 // if its close - we just open tag paragraph as we have a line here!
                 if (!$isOpen) {
                     $isOpen = $this->output($output, self::OPENP, true);
@@ -74,17 +74,17 @@ class Text extends BlockListener
                 // repeated inline elements will close
                 } elseif ($isOpen && ($prev && $prev->isInline()) && $pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, self::CLOSEP, false);
-            
+
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
                 } elseif ($pick->line->isEmpty() && $next) {
                     $isOpen = $this->output($output, self::CLOSEP.self::OPENP, true);
-                
+
                 // if its open, and it had an end newline, lets close
                 } elseif ($isOpen && $pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, self::CLOSEP, false);
                 }
-                
+
                 // we have a next element and the next elmenet is inline and its not open, and the current elemnt is not an endNewline element
                 if ($next && $next->isInline() && !$isOpen && !$pick->line->hasEndNewline()) {
                     $isOpen = $this->output($output, self::OPENP, true);

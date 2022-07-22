@@ -2,10 +2,8 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
-use nadar\quill\Lexer;
-use nadar\quill\BlockListener;
 use nadar\quill\InlineListener;
+use nadar\quill\Line;
 
 /**
  * Convert Image attributes into image element.
@@ -16,7 +14,7 @@ use nadar\quill\InlineListener;
 class Image extends InlineListener
 {
     public $wrapper = '<img src="{src}" alt="" class="img-responsive img-fluid" />';
-    
+
     /**
      * {@inheritDoc}
      */

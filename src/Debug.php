@@ -81,10 +81,10 @@ class Debug
 
         $d.= "<p><b>NOT DONE LINES</b></p>";
         $d.= $this->getLinesTable($this->getNotDoneLines());
-        
+
         $d.= "<p><b>LINE BY LINE</b></p>";
         $d.= $this->getLinesTable($this->lexer->getLines());
-        
+
         return nl2br($d);
     }
 
@@ -143,7 +143,7 @@ class Debug
     protected function renderTable(array $rows, array $head = [])
     {
         $buffer = '<table class="table table-bordered table-striped table-hover table-sm small" border="1" width="100%" cellpadding="3" cellspacing="0">';
-        
+
         if (!empty($head)) {
             $buffer.= '<thead><tr>';
             foreach ($head as $col) {

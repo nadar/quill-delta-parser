@@ -2,9 +2,8 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
-use nadar\quill\Lexer;
 use nadar\quill\BlockListener;
+use nadar\quill\Line;
 
 /**
  * Convert Video attributes into tags.

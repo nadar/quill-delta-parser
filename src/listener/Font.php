@@ -7,7 +7,7 @@ use nadar\quill\Line;
 
 /**
  * Renders font attribute which will set font-family.
- * 
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 2.1.0
  */

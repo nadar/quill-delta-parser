@@ -15,18 +15,18 @@ class Line
     /**
      * @var integer The status of a line which is not picked or done, which is default.
      */
-    const STATUS_CLEAN = 1;
+    public const STATUS_CLEAN = 1;
 
     /**
      * @var integer The status of the line if its picked by a listener
      */
-    const STATUS_PICKED = 2;
+    public const STATUS_PICKED = 2;
 
     /**
      * @var integer The status of the line if some of the listener marked this line as done.
      */
-    const STATUS_DONE = 3;
-    
+    public const STATUS_DONE = 3;
+
     /**
      * @var array An array with values which can be prependend to the actuall input string. This is mainly used if inline
      * elements are passed to the next "not" inline element.
@@ -54,7 +54,7 @@ class Line
      * @var integer The ID/Index/Row of the line
      */
     protected $index;
-    
+
     /**
      * @var array An array with all attributes which are assigned to this lines. attribute can be inline markers like
      * bold, italic, links and so on.
@@ -90,7 +90,7 @@ class Line
      * @var boolean Whether this line has a newline or not, this information is already provided by the lines to ops method.
      */
     protected $hasNewline;
-    
+
     /**
      * Constructor
      *
@@ -167,7 +167,7 @@ class Line
         if ($this->isEscaped()) {
             return $this->input;
         }
-        
+
         return $this->lexer->escape($this->getUnsafeInput());
     }
 
@@ -218,9 +218,9 @@ class Line
     /**
      * Add a new value to the prepend array.
      *
-     * Certain elements needs to prepend values into the next element. The Line argument is required in order to 
+     * Certain elements needs to prepend values into the next element. The Line argument is required in order to
      * ensure the correct index for the prepend element.
-     * 
+     *
      * @param string $value The value to prepend.
      * @param Line $line The line which does the prepend, this is used to ensure the correctly order index of the elements. {@since 1.3.2}
      * @return void
@@ -308,7 +308,7 @@ class Line
             });
         }
     }
-    
+
     /**
      * While loop up (to the previous elements) until false is returend.
      *
@@ -427,7 +427,7 @@ class Line
 
     /**
      * Adjust the line's input.
-     * 
+     *
      * The new input is assumed to be escaped.
      *
      * @since 3.1.0
@@ -486,7 +486,7 @@ class Line
     {
         return $this->index;
     }
-    
+
     /**
      * Set this line as picked.
      */
@@ -596,7 +596,7 @@ class Line
      * @return array
      * @since 1.3.0
      */
-    public function getDebugInfo() : array
+    public function getDebugInfo(): array
     {
         return $this->_debug;
     }

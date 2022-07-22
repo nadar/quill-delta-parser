@@ -2,22 +2,22 @@
 
 namespace nadar\quill;
 
-use nadar\quill\listener\Heading;
-use nadar\quill\listener\Text;
-use nadar\quill\listener\Lists;
-use nadar\quill\listener\Bold;
+use nadar\quill\listener\Align;
 use nadar\quill\listener\Blockquote;
-use nadar\quill\listener\Link;
-use nadar\quill\listener\Italic;
-use nadar\quill\listener\Strike;
-use nadar\quill\listener\Underline;
-use nadar\quill\listener\Video;
-use nadar\quill\listener\Image;
+use nadar\quill\listener\Bold;
+use nadar\quill\listener\CodeBlock;
 use nadar\quill\listener\Color;
 use nadar\quill\listener\Font;
+use nadar\quill\listener\Heading;
+use nadar\quill\listener\Image;
+use nadar\quill\listener\Italic;
+use nadar\quill\listener\Link;
+use nadar\quill\listener\Lists;
 use nadar\quill\listener\Script;
-use nadar\quill\listener\Align;
-use nadar\quill\listener\CodeBlock;
+use nadar\quill\listener\Strike;
+use nadar\quill\listener\Text;
+use nadar\quill\listener\Underline;
+use nadar\quill\listener\Video;
 
 /**
  * Lexer Delta Parser.
@@ -66,12 +66,12 @@ class Lexer
      * @see https://github.com/nadar/quill-delta-parser/issues/12
      * @since 1.3.1
      */
-    const DELTA_EOL = "\n";
+    public const DELTA_EOL = "\n";
 
     /**
      * @var string An internal string for newlines, this makes it more easy to debug instead of using \n (newlines).
      */
-    const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
+    public const NEWLINE_EXPRESSION = '<!-- <![CDATA[NEWLINE]]> -->';
 
     /**
      * @var boolean Whether input should be escaped by listeners when mixed with html elements.
@@ -137,22 +137,22 @@ class Lexer
      */
     public function loadBuiltinListeners()
     {
-        $this->registerListener(new Image);
-        $this->registerListener(new Bold);
-        $this->registerListener(new Italic);
-        $this->registerListener(new Color);
-        $this->registerListener(new Link);
-        $this->registerListener(new Video);
-        $this->registerListener(new Strike);
-        $this->registerListener(new Underline);
-        $this->registerListener(new Heading);
-        $this->registerListener(new CodeBlock);
-        $this->registerListener(new Text);
-        $this->registerListener(new Lists);
-        $this->registerListener(new Blockquote);
-        $this->registerListener(new Font);
-        $this->registerListener(new Script);
-        $this->registerListener(new Align);
+        $this->registerListener(new Image());
+        $this->registerListener(new Bold());
+        $this->registerListener(new Italic());
+        $this->registerListener(new Color());
+        $this->registerListener(new Link());
+        $this->registerListener(new Video());
+        $this->registerListener(new Strike());
+        $this->registerListener(new Underline());
+        $this->registerListener(new Heading());
+        $this->registerListener(new CodeBlock());
+        $this->registerListener(new Text());
+        $this->registerListener(new Lists());
+        $this->registerListener(new Blockquote());
+        $this->registerListener(new Font());
+        $this->registerListener(new Script());
+        $this->registerListener(new Align());
     }
 
     /**
@@ -170,13 +170,13 @@ class Lexer
      *
      * An example could when you like to provide more options or access other elements which are not covered by the base class
      * so you can extend from the built in listeners and overrite them. This keeps also the hyrarchical level of the elements.
-     * 
+     *
      * ```php
      * $lexer->overwriteListener(new Image, new MyOwnImage);
      * ```
-     * 
+     *
      * As the `new Image` listener is already registered, it will just replace the object with `new MyOwnImage`.
-     * 
+     *
      * @param Listener $listener The already registered listener object
      * @param Listener $new The new listener object
      * @see https://github.com/nadar/quill-delta-parser/issues/55
@@ -192,7 +192,7 @@ class Lexer
      *
      * @return array The json as array formated.
      */
-    public function getJsonArray() : array
+    public function getJsonArray(): array
     {
         return is_array($this->json) ? $this->json : self::decodeJson($this->json);
     }
@@ -202,7 +202,7 @@ class Lexer
      *
      * @return array
      */
-    public function getOps() : array
+    public function getOps(): array
     {
         return isset($this->getJsonArray()['ops']) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
     }
@@ -221,7 +221,7 @@ class Lexer
     /**
      * @return array Returns an array with all line objects.
      */
-    public function getLines() : array
+    public function getLines(): array
     {
         return $this->_lines;
     }
@@ -407,15 +407,15 @@ class Lexer
         if (!is_scalar($value)) {
             return false;
         }
-        
+
         $firstChar = substr($value, 0, 1);
-        
+
         if ($firstChar !== '{' && $firstChar !== '[') {
             return false;
         }
-        
+
         $json_check = json_decode($value);
-        
+
         return json_last_error() === JSON_ERROR_NONE;
     }
 
@@ -446,7 +446,7 @@ class Lexer
         if (!$this->escapeInput) {
             return $value;
         }
-        
+
         return htmlspecialchars($value, $this->escapeFlags, $this->escapeEncoding, $double = false);
     }
 }

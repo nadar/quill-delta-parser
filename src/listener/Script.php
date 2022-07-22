@@ -8,13 +8,12 @@ use nadar\quill\Line;
 
 /**
  * Renders script attribute which will generate sup/sub tags.
- * 
+ *
  * @author Gaëtan Faugère <gaetan@fauge.re>
  * @since 2.2.0
  */
 class Script extends InlineListener
 {
-
     public $scriptTags = ['super', 'sub'];
 
     /**
@@ -42,7 +41,7 @@ class Script extends InlineListener
             throw new Exception('An unknown script tag "' . $script . '" has been detected.');
         }
         if ($script === 'super') {
-          $script = 'sup';
+            $script = 'sup';
         }
 
         return '<'.$script.'>'. $line->getInput() . '</'.$script.'>';

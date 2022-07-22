@@ -3,9 +3,9 @@
 namespace nadar\quill\listener;
 
 use Exception;
-use nadar\quill\Line;
 use nadar\quill\BlockListener;
 use nadar\quill\Lexer;
+use nadar\quill\Line;
 
 /**
  * Convert header into heading elements.
@@ -46,7 +46,7 @@ class Heading extends BlockListener
                 throw new Exception('An unknown heading level "' . $pick->heading . '" has been detected.');
             }
         }
-        
+
         $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
     }
 }

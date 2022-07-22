@@ -2,9 +2,8 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
 use nadar\quill\InlineListener;
-use nadar\quill\Lexer;
+use nadar\quill\Line;
 
 /**
  * Convert Italic Inline elements.

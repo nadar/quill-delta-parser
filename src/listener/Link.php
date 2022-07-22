@@ -2,8 +2,8 @@
 
 namespace nadar\quill\listener;
 
-use nadar\quill\Line;
 use nadar\quill\InlineListener;
+use nadar\quill\Line;
 
 /**
  * Convert links into a inline elements.
@@ -18,13 +18,13 @@ class Link extends InlineListener
      * @since 3.0
      */
     public $wrapperOpen = '<a href="{link}" target="_blank">';
-    
+
     /**
      * @var string The content element in between
      * @since 3.0
      */
     public $wrapperMiddle = '{text}';
-    
+
     /**
      * @var string Closing Tag
      * @since 3.0
