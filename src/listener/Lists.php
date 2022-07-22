@@ -121,7 +121,8 @@ class Lists extends BlockListener
      */
     protected function getListAttribute(Pick $pick)
     {
-        $type = is_array($pick->type) ? $pick->type['type'] : $pick->type;
+        $optionValueType = $pick->optionValue('type');
+        $type = is_array($optionValueType) ? $optionValueType['type'] : $optionValueType;
 
         if ($type === self::LIST_TYPE_ORDERED) {
             return 'ol';

@@ -98,7 +98,7 @@ class Line
      * @param string $input The input value from the line parser for the current line.
      * @param array $attributes
      * @param Lexer $lexer
-     * @param boolean $hadNedNewline Whether this element orignali had an newline at the end.
+     * @param boolean $hadEndNewline Whether this element orignali had an newline at the end.
      */
     public function __construct($index, $input, array $attributes, Lexer $lexer, $hadEndNewline, $hasNewline)
     {
@@ -280,7 +280,7 @@ class Line
 
             if (!$line) {
                 $iterate = false;
-                return;
+                break;
             }
             $iterate = call_user_func_array($condition, [&$i, $line]);
 
@@ -293,16 +293,17 @@ class Line
     /**
      * While loop down (to the next elements) until false is returend.
      *
-     * > This metod wont return the line.
+     * > This method wont return the line.
      *
      * @param callable $condition The while condition until false is returned.
      * @since 1.3.0
+     * @return void
      */
     public function whileNext(callable $condition)
     {
         $next = $this->next();
         if ($next) {
-            return $next->while(function (&$index, Line $line) use ($condition) {
+            $next->while(function (&$index, Line $line) use ($condition) {
                 $index++;
                 return call_user_func($condition, $line);
             });
@@ -312,16 +313,17 @@ class Line
     /**
      * While loop up (to the previous elements) until false is returend.
      *
-     * > This metod wont return the line.
+     * > This method wont return the line.
      *
      * @param callable $condition The while condition until false is returned.
      * @since 1.3.0
+     * @return void
      */
     public function whilePrevious(callable $condition)
     {
         $previous = $this->previous();
         if ($previous) {
-            return $previous->while(function (&$index, Line $line) use ($condition) {
+            $previous->while(function (&$index, Line $line) use ($condition) {
                 $index--;
 
                 return call_user_func($condition, $line);

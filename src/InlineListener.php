@@ -30,7 +30,7 @@ abstract class InlineListener extends Listener
      * 3. Add to pick list, in order to process in render method
      *
      * @param Line $line
-     * @param [type] $value
+     * @param mixed $value
      * @return void
      */
     public function updateInput(Line $line, $value)

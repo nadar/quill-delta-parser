@@ -48,10 +48,24 @@ class Pick
 
     /**
      * @param mixed $name
+     * @deprecated Deprecated in 3.1 will be removed in 4.0 use `optionValue($name)` instead
      */
     public function __get($name)
     {
         return array_key_exists($name, $this->options) ? $this->options[$name] : null;
+    }
+
+    /**
+     * Return the value of an option if available
+     *
+     * @param string $name
+     * @param mixed $defaultValue
+     * @return mixed
+     * @since 3.1
+     */
+    public function optionValue($name, $defaultValue = null)
+    {
+        return array_key_exists($name, $this->options) ? $this->options[$name] : $defaultValue;
     }
 
     /**

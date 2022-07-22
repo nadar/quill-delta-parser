@@ -41,9 +41,9 @@ class Heading extends BlockListener
     public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-            if (!in_array($pick->heading, $this->levels)) {
+            if (!in_array($pick->optionValue('heading'), $this->levels)) {
                 // prevent html injection in case the attribute is user input
-                throw new Exception('An unknown heading level "' . $pick->heading . '" has been detected.');
+                throw new Exception('An unknown heading level "' . $pick->optionValue('heading') . '" has been detected.');
             }
         }
 
