@@ -332,10 +332,10 @@ class Lexer
     }
 
     /**
-     * Undocumented function
+     * Process all listeneres for a given type
      *
      * @param Line $line
-     * @param string $type
+     * @param int $type
      * @return void
      */
     protected function processListeners(Line $line, $type)
@@ -348,9 +348,9 @@ class Lexer
     }
 
     /**
-     * Undocumented function
+     * Render all listeners for a given type
      *
-     * @param string $type
+     * @param int $type
      * @return void
      */
     protected function renderListeners($type)
