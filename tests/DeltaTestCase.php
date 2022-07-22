@@ -16,10 +16,6 @@ class DeltaTestCase extends TestCase
 
     public function getLexer()
     {
-        if (is_string($this->json) === false) {
-            $this->json = json_encode($this->json);
-        }
-        
         return new Lexer($this->json);
     }
 
