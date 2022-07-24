@@ -7,8 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 3.1.0 (24. July 2022)
 
 + [#68](https://github.com/nadar/quill-delta-parser/pull/68) Deprecated the magical getter `$pick->$name` in `nadar\quill\Pick` class, use `$pick->optionValue($name)` instead.
-+ [#64](https://github.com/nadar/quill-delta-parser/pull/64) Replaced deprectated public $input property in `Line` with getter and setter methods.
-+ [#63](https://github.com/nadar/quill-delta-parser/pull/63/) Removed deprectated methods `loadBuiltinListeneres()` and `renderListeneres()`.
++ [#64](https://github.com/nadar/quill-delta-parser/pull/64) Replaced deprecated public $input property in `Line` with getter and setter methods `getLine()` and `setLine($input)`.
++ [#63](https://github.com/nadar/quill-delta-parser/pull/63/) Removed deprecated methods `loadBuiltinListeneres()` and `renderListeneres()`.
 + [#62](https://github.com/nadar/quill-delta-parser/pull/62/) Prettify the html output a little by adding newlines after every block level element. If you have custom listeners which call `BlockListener->wrapElement()` this will be added for your custom listeners as well, otherwise you'll need to add the newlines yourself.
 
 ## 3.0.0 (2. June 2022)
