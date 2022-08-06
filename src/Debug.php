@@ -39,7 +39,7 @@ class Debug
     /**
      * Get an array of lines which does not have status done.
      *
-     * @return array
+     * @return array<Line>
      */
     protected function getNotDoneLines()
     {
@@ -55,7 +55,7 @@ class Debug
     /**
      * Get an array of lines which does not have the status picked
      *
-     * @return array
+     * @return array<Line>
      */
     protected function getNotPickedLines()
     {
@@ -91,7 +91,7 @@ class Debug
     /**
      * Get an array with alles lines rendered a string
      *
-     * @param array $lines
+     * @param array<Line> $lines
      * @return string
      */
     public function getLinesTable(array $lines)
@@ -136,8 +136,8 @@ class Debug
     /**
      * Render the given table line by line
      *
-     * @param array $rows
-     * @param array $head
+     * @param array<mixed> $rows
+     * @param array<string> $head
      * @return string
      */
     protected function renderTable(array $rows, array $head = [])

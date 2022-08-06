@@ -28,7 +28,7 @@ class Line
     public const STATUS_DONE = 3;
 
     /**
-     * @var array An array with values which can be prependend to the actuall input string. This is mainly used if inline
+     * @var array<string> An array with values which can be prependend to the actuall input string. This is mainly used if inline
      * elements are passed to the next "not" inline element.
      */
     public $prepend = [];
@@ -56,7 +56,7 @@ class Line
     protected $index;
 
     /**
-     * @var array An array with all attributes which are assigned to this lines. attribute can be inline markers like
+     * @var array<mixed> An array with all attributes which are assigned to this lines. attribute can be inline markers like
      * bold, italic, links and so on.
      */
     protected $attributes = [];
@@ -92,13 +92,19 @@ class Line
     protected $hasNewline;
 
     /**
+     * @var array<string>
+     */
+    private $_debug = [];
+
+    /**
      * Constructor
      *
      * @param integer $index The numberic index of the row within all the lines.
      * @param string $input The input value from the line parser for the current line.
-     * @param array $attributes
+     * @param array<mixed> $attributes
      * @param Lexer $lexer
      * @param boolean $hadEndNewline Whether this element orignali had an newline at the end.
+     * @param boolean $hasNewline
      */
     public function __construct($index, $input, array $attributes, Lexer $lexer, $hadEndNewline, $hasNewline)
     {
@@ -187,7 +193,7 @@ class Line
     /**
      * Get the array with attributes, if any.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function getAttributes()
     {
@@ -434,6 +440,7 @@ class Line
      *
      * @since 3.1.0
      * @param string $newInput
+     * @return void
      */
     public function setInput($newInput)
     {
@@ -442,6 +449,8 @@ class Line
 
     /**
      * Setter method whether the current element is inline or not.
+     *
+     * @return void
      */
     public function setAsInline()
     {
@@ -462,6 +471,7 @@ class Line
      * Setter method whether the current line is escaped or not.
      *
      * @since 1.2.0
+     * @return void
      */
     public function setAsEscaped()
     {
@@ -491,6 +501,8 @@ class Line
 
     /**
      * Set this line as picked.
+     *
+     * @return void
      */
     public function setPicked()
     {
@@ -510,6 +522,8 @@ class Line
 
     /**
      * Mark this line as done.
+     * 
+     * @return void
      */
     public function setDone()
     {
@@ -553,7 +567,7 @@ class Line
     /**
      * Returns the insert json as array.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function getArrayInsert()
     {
@@ -577,13 +591,12 @@ class Line
         return array_key_exists($key, $insert) ? $insert[$key] : false;
     }
 
-    private $_debug = [];
-
     /**
      * Add debug message for this line if {{Lexer::$debug}} is enabled.
      *
      * @param string $message The message which should be logged.
      * @since 1.3.0
+     * @return void
      */
     public function debugInfo($message)
     {
@@ -595,7 +608,7 @@ class Line
     /**
      * Return an array with all debug informations
      *
-     * @return array
+     * @return array<string>
      * @since 1.3.0
      */
     public function getDebugInfo(): array

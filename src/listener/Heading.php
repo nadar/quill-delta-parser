@@ -16,7 +16,7 @@ use nadar\quill\Line;
 class Heading extends BlockListener
 {
     /**
-     * @var array Supported header levels.
+     * @var array<int> Supported header levels.
      * @since 1.2.0
      */
     public $levels = [1, 2, 3, 4, 5, 6];
