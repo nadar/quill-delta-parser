@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 3.2.0
 
-+ [#71]() Added image width and height attributes if available.
++ [#71](https://github.com/nadar/quill-delta-parser/pull/71) Added image width and height attributes to the image tag if available.
 
 ## 3.1.0 (24. July 2022)
 
