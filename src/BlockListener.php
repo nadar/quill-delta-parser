@@ -48,7 +48,7 @@ abstract class BlockListener extends Listener
      * The above example assumes the heading option is stored during the process stage: `$this->pick($line, ['heading' => $heading]);`
      *
      * @param string $wrapper html snippet using `{__buffer__}` for the placement of the lines
-     * @param array $options optional, pass the names of options from the lines you want to search & replace
+     * @param array<string> $options optional, pass the names of options from the lines you want to search & replace
      * e.g. using ['key'] will replace `{key}` in the $wrapper with Pick->$key.
      * With version 2.5.0 its allowed to provide the element as key and a callable as value which will be evaluted on request.
      * ```php
@@ -57,6 +57,7 @@ abstract class BlockListener extends Listener
      * }
      * ```
      * @since 2.4.0
+     * @return void
      */
     protected function wrapElement($wrapper, array $options = [])
     {

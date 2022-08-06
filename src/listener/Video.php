@@ -14,7 +14,7 @@ use nadar\quill\Line;
 class Video extends BlockListener
 {
     /**
-     * @var array Allow options for iframe allow param
+     * @var array<string> Allow options for iframe allow param
      * @since 2.5.0
      */
     public $allow = ['accelerometer', 'autoplay', 'encrypted-media', 'gyroscope', 'picture-in-picture'];

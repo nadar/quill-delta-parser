@@ -59,6 +59,9 @@ abstract class Listener
         return self::PRIORITY_EARLY_BIRD;
     }
 
+    /**
+     * @var array<mixed>
+     */
     private $_picks = [];
 
     /**
@@ -67,7 +70,8 @@ abstract class Listener
      * If a line is picked, the status of the line switches to picked.
      *
      * @param Line $line
-     * @param array $options
+     * @param array<mixed> $options
+     * @return void
      */
     public function pick(Line $line, array $options = [])
     {
@@ -87,12 +91,13 @@ abstract class Listener
     }
 
     /**
-     * The render metho is processed after the process() method is done.
+     * The render method is processed after the process() method is done.
      *
      * Its the right place to go forward and backward in lines if you need to, as at the point all lines
      * are allready processed trough process() method.
      *
      * @param Lexer $lexer
+     * @return void
      */
     public function render(Lexer $lexer)
     {

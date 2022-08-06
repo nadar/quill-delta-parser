@@ -13,6 +13,9 @@ use nadar\quill\Line;
  */
 class Image extends InlineListener
 {
+    /**
+     * @var string
+     */
     public $wrapper = '<img src="{src}" {width} {height} alt="" class="img-responsive img-fluid" />';
 
     /**

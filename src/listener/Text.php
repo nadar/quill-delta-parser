@@ -98,7 +98,7 @@ class Text extends BlockListener
     /**
      * Helper method simplify output writer.
      *
-     * @param array $output
+     * @param array<string> $output
      * @param string $tag
      * @param boolean $openState
      * @return boolean
