@@ -16,7 +16,7 @@ class Image extends InlineListener
     /**
      * @var string
      */
-    public $wrapper = '<img src="{src}" alt="" class="img-responsive img-fluid" />';
+    public $wrapper = '<img src="{src}" {width} {height} alt="" class="img-responsive img-fluid" />';
 
     /**
      * {@inheritDoc}
@@ -25,7 +25,23 @@ class Image extends InlineListener
     {
         $embedUrl = $line->insertJsonKey('image');
         if ($embedUrl) {
-            $this->updateInput($line, str_replace(['{src}'], [$line->getLexer()->escape($embedUrl)], $this->wrapper));
+            if ($width = $line->getAttribute('width')) {
+                $width = 'width="'.$line->getLexer()->escape($width).'"';
+            }
+
+            if ($height = $line->getAttribute('height')) {
+                $height = 'height="'.$line->getLexer()->escape($height).'"';
+            }
+
+            $this->updateInput($line, preg_replace('/\s+/', ' ', str_replace([
+                '{src}',
+                '{width}',
+                '{height}'
+            ], [
+                $line->getLexer()->escape($embedUrl),
+                $width,
+                $height
+            ], $this->wrapper)));
         }
     }
 }

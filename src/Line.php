@@ -214,11 +214,12 @@ class Line
      * Get the value for a given attribute name, if not exists return false.
      *
      * @param string $name
+     * @param mixed $defaultValue (@since 3.2.0)
      * @return mixed
      */
-    public function getAttribute($name)
+    public function getAttribute($name, $defaultValue = false)
     {
-        return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : false;
+        return array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $defaultValue;
     }
 
     /**
