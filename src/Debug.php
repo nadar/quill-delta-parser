@@ -136,7 +136,7 @@ class Debug
     /**
      * Render the given table line by line
      *
-     * @param array<array> $rows
+     * @param array<mixed> $rows
      * @param array<string> $head
      * @return string
      */

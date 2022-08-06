@@ -59,6 +59,9 @@ abstract class Listener
         return self::PRIORITY_EARLY_BIRD;
     }
 
+    /**
+     * @var array<mixed>
+     */
     private $_picks = [];
 
     /**
@@ -67,7 +70,8 @@ abstract class Listener
      * If a line is picked, the status of the line switches to picked.
      *
      * @param Line $line
-     * @param array $options
+     * @param array<mixed> $options
+     * @return void
      */
     public function pick(Line $line, array $options = [])
     {

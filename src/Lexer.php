@@ -99,12 +99,17 @@ class Lexer
     public $debug = false;
 
     /**
-     * @var array|string The delta ops json as string or as already parsed array
+     * @var array<mixed>|string The delta ops json as string or as already parsed array
      */
     protected $json;
 
     /**
-     * @var array The listeners grouped by type and priority.
+     * @var array<Line>
+     */
+    private $_lines = [];
+
+    /**
+     * @var array<mixed> The listeners grouped by type and priority.
      */
     protected $listeners = [
         Listener::TYPE_INLINE => [
@@ -120,7 +125,7 @@ class Lexer
     /**
      * Initializer
      *
-     * @param string|array $json The delta ops json as string or as already parsed array.
+     * @param string|array<mixed> $json The delta ops json as string or as already parsed array.
      * @param boolean $loadBuiltinListeners Whether the built in listeners should be loaded or not.
      */
     public function __construct($json, $loadBuiltinListeners = true)
@@ -134,6 +139,8 @@ class Lexer
 
     /**
      * Loads the library built in listeners.
+     * 
+     * @return void
      */
     public function loadBuiltinListeners()
     {
@@ -159,6 +166,7 @@ class Lexer
      * Register a new listener.
      *
      * @param Listener $listener
+     * @return void
      */
     public function registerListener(Listener $listener)
     {
@@ -181,6 +189,7 @@ class Lexer
      * @param Listener $new The new listener object
      * @see https://github.com/nadar/quill-delta-parser/issues/55
      * @since 2.8.0
+     * @return void
      */
     public function overwriteListener(Listener $listener, Listener $new)
     {
@@ -190,7 +199,7 @@ class Lexer
     /**
      * Get the input json as array.
      *
-     * @return array The json as array formated.
+     * @return array<mixed> The json as array formated.
      */
     public function getJsonArray(): array
     {
@@ -200,7 +209,7 @@ class Lexer
     /**
      * Get the ops section from the json otherwise json array.
      *
-     * @return array
+     * @return array<mixed>
      */
     public function getOps(): array
     {
@@ -219,20 +228,18 @@ class Lexer
     }
 
     /**
-     * @return array Returns an array with all line objects.
+     * @return array<Line> Returns an array with all line objects.
      */
     public function getLines(): array
     {
         return $this->_lines;
     }
 
-    private $_lines = [];
-
     /**
      * Convert the arrray operations array into lines
      *
-     * @param array $ops An array from json with ops data in delta format.
-     * @return array An array with Line objects
+     * @param array<mixed> $ops An array from json with ops data in delta format.
+     * @return array<Line> An array with Line objects
      */
     protected function opsToLines(array $ops)
     {
@@ -287,8 +294,8 @@ class Lexer
     /**
      * Replace new lines with an internal representation that aids debugging
      *
-     * @param array|string $input
-     * @return array|string
+     * @param array<mixed>|string $input
+     * @return array<mixed>|string
      */
     protected function replaceNewlineWithExpression($input)
     {
@@ -298,7 +305,7 @@ class Lexer
     /**
      * Normamlize the insert values into json
      *
-     * @param array|string $insert
+     * @param array<mixed>|string $insert
      * @return string
      * @since 1.2.2
      */
@@ -423,7 +430,7 @@ class Lexer
      * Decode a given json string into a php array.
      *
      * @param string $json Input json
-     * @return array
+     * @return array<mixed>
      */
     public static function decodeJson($json)
     {
