@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.2.0
+
++ [#71]() Added image width and height attributes if available.
+
 ## 3.1.0 (24. July 2022)
 
 + [#68](https://github.com/nadar/quill-delta-parser/pull/68) Deprecated the magical getter `$pick->$name` in `nadar\quill\Pick` class, use `$pick->optionValue($name)` instead.
