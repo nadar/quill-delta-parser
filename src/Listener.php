@@ -87,12 +87,13 @@ abstract class Listener
     }
 
     /**
-     * The render metho is processed after the process() method is done.
+     * The render method is processed after the process() method is done.
      *
      * Its the right place to go forward and backward in lines if you need to, as at the point all lines
      * are allready processed trough process() method.
      *
      * @param Lexer $lexer
+     * @return void
      */
     public function render(Lexer $lexer)
     {

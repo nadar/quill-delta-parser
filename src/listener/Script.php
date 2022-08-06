@@ -14,6 +14,9 @@ use nadar\quill\Line;
  */
 class Script extends InlineListener
 {
+    /**
+     * @var array<string>
+     */
     public $scriptTags = ['super', 'sub'];
 
     /**

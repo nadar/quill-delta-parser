@@ -16,7 +16,7 @@ use nadar\quill\Line;
 class Align extends BlockListener
 {
     /**
-     * @var array Supported alignments.
+     * @var array<string> Supported alignments.
      */
     public $alignments = ['center', 'right', 'justify'];
 

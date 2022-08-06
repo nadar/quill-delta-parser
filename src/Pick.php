@@ -16,7 +16,7 @@ class Pick
     public $line;
 
     /**
-     * @var array An array with options which can be read trough magical getter
+     * @var array<mixed> An array with options which can be read trough magical getter
      */
     protected $options = [];
 
@@ -35,7 +35,7 @@ class Pick
      *
      * @param Listener $listener
      * @param Line $line
-     * @param array $options
+     * @param array<mixed> $options
      * @param integer $index Index of picks, starts with 0
      */
     public function __construct(Listener $listener, Line $line, array $options, $index)
@@ -49,6 +49,7 @@ class Pick
     /**
      * @param mixed $name
      * @deprecated Deprecated in 3.1 will be removed in 4.0 use `optionValue($name)` instead.
+     * @return mixed
      */
     public function __get($name)
     {
