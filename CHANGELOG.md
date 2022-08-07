@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.2.0
+## 3.2.0 (7. August 2022)
 
 + [#71](https://github.com/nadar/quill-delta-parser/pull/71) Added image width and height attributes to the image tag if available.
 + [#72](https://github.com/nadar/quill-delta-parser/pull/72) Raised from phpstan level 5 to 6
