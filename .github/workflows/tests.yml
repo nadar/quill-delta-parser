@@ -28,7 +28,50 @@ jobs:
 
       - name: PHPStan tests
         run: composer phpstan
+
+  ## Rector
+  rector:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.21.0
+        with:
+          php-version: '8.0'
+          extensions: mbstring, intl
+          coverage: none
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          update: true
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Rector tests
+        run: composer rector
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply rector changes
         
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Install
+          run: composer install
+
+        - name: Run php-cs-fixer
+          run: composer phpcsfixer
+
+        - uses: stefanzweifel/git-auto-commit-action@v4
+          with:
+              commit_message: Apply php-cs-fixer changes
+
   ## PHPUNIT
   phpunit:
     name: PHP ${{ matrix.php }} on ${{ matrix.os }}
