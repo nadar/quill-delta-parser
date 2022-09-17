@@ -213,7 +213,7 @@ class Lexer
      */
     public function getOps(): array
     {
-        return isset($this->getJsonArray()['ops']) ? $this->getJsonArray()['ops'] : $this->getJsonArray();
+        return $this->getJsonArray()['ops'] ?? $this->getJsonArray();
     }
 
     /**
@@ -224,7 +224,7 @@ class Lexer
      */
     public function getLine($index)
     {
-        return isset($this->_lines[$index]) ? $this->_lines[$index] : false;
+        return $this->_lines[$index] ?? false;
     }
 
     /**
@@ -250,7 +250,7 @@ class Lexer
             $insert = $this->replaceNewlineWithExpression($delta['insert']);
             // if its an empty "newline-line"
             if ($insert == self::NEWLINE_EXPRESSION) {
-                $lines[$i] = new Line($i, '', isset($delta['attributes']) ? $delta['attributes'] : [], $this, true, true);
+                $lines[$i] = new Line($i, '', $delta['attributes'] ?? [], $this, true, true);
                 $i++;
             } else {
                 $insert = $this->normalizeInsert($insert);
@@ -271,7 +271,7 @@ class Lexer
                     if ($hasNewline && $isLast && !$hasEndNewline) {
                         $hasNewline = false;
                     }
-                    $lines[$i] = new Line($i, $value, isset($delta['attributes']) ? $delta['attributes'] : [], $this, $hadEndNewline, $hasNewline);
+                    $lines[$i] = new Line($i, $value, $delta['attributes'] ?? [], $this, $hadEndNewline, $hasNewline);
                     $i++;
                 }
             }
