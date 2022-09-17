@@ -523,7 +523,7 @@ class Line
 
     /**
      * Mark this line as done.
-     * 
+     *
      * @return void
      */
     public function setDone()

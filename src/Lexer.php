@@ -139,7 +139,7 @@ class Lexer
 
     /**
      * Loads the library built in listeners.
-     * 
+     *
      * @return void
      */
     public function loadBuiltinListeners()
