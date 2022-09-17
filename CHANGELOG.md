@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.x
+
++ [#73](https://github.com/nadar/quill-delta-parser/pull/73) More automation and testing with rector and auto commit on PR's for csfixer and rector.
+
 ## 3.2.0 (7. August 2022)
 
 + [#71](https://github.com/nadar/quill-delta-parser/pull/71) Added image width and height attributes to the image tag if available.
