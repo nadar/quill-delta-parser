@@ -125,7 +125,6 @@ class Lists extends BlockListener
     /**
      * Get the html tag for the given value.
      *
-     * @param Pick $pick
      * @return string
      * @throws Exception for unknown list types {@since 1.2.0}
      */

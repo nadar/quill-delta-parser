@@ -33,7 +33,6 @@ class Font extends InlineListener
      * Wrap the font family span tag if ignore is disabled.
      *
      * @param string $font
-     * @param Line $line
      * @return string
      */
     public function applyTemplate($font, Line $line)

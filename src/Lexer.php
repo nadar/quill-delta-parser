@@ -165,7 +165,6 @@ class Lexer
     /**
      * Register a new listener.
      *
-     * @param Listener $listener
      * @return void
      */
     public function registerListener(Listener $listener)
@@ -342,7 +341,6 @@ class Lexer
     /**
      * Process all listeneres for a given type
      *
-     * @param Line $line
      * @param int $type
      * @return void
      */
@@ -422,7 +420,7 @@ class Lexer
             return false;
         }
 
-        $json_check = json_decode($value);
+        json_decode($value);
 
         return json_last_error() === JSON_ERROR_NONE;
     }

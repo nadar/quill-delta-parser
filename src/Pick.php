@@ -33,8 +33,6 @@ class Pick
     /**
      * Create new line pick
      *
-     * @param Listener $listener
-     * @param Line $line
      * @param array<mixed> $options
      * @param integer $index Index of picks, starts with 0
      */

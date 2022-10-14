@@ -35,24 +35,19 @@ abstract class Listener
     public const PRIORITY_GARBAGE_COLLECTOR = 2;
 
     /**
-     * Undocumented function
-     *
-     * @return integer
+     * Get the listener type, either INLINE (1) or BLOCK (2)
      */
     abstract public function type(): int;
 
     /**
-     * Undocumented function
+     * Process the line
      *
-     * @param Line $line
      * @return void
      */
     abstract public function process(Line $line);
 
     /**
-     * Undocumented function
-     *
-     * @return integer
+     * Get the priority either 1 or 2
      */
     public function priority(): int
     {

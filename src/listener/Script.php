@@ -33,7 +33,6 @@ class Script extends InlineListener
      * Wrap in sup/sub tag.
      *
      * @param string $script
-     * @param Line $line
      * @throws Exception for unknown script tag
      * @return string
      */

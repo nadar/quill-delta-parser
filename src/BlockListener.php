@@ -98,8 +98,6 @@ abstract class BlockListener extends Listener
      * Returns the first Line from a Pick. If the Pick is the first Line, it will return it's own pick
      * This is done because blockItems can consist of multiple inline items
      *
-     * @param Pick $pick
-     * @return Line
      * @since 1.3.2
      */
     protected function getFirstLine(Pick $pick): Line

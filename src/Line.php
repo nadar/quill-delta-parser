@@ -102,7 +102,6 @@ class Line
      * @param integer $index The numberic index of the row within all the lines.
      * @param string $input The input value from the line parser for the current line.
      * @param array<mixed> $attributes
-     * @param Lexer $lexer
      * @param boolean $hadEndNewline Whether this element orignali had an newline at the end.
      * @param boolean $hasNewline
      */
@@ -460,8 +459,6 @@ class Line
 
     /**
      * Whether current line is an inline line or not.
-     *
-     * @return boolean
      */
     public function isInline(): bool
     {

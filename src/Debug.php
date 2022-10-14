@@ -28,8 +28,6 @@ class Debug
 
     /**
      * Debug constructor
-     *
-     * @param Lexer $lexer
      */
     public function __construct(Lexer $lexer)
     {
@@ -120,7 +118,6 @@ class Debug
     /**
      * Get the status waterfall of a given line
      *
-     * @param Line $line
      * @return string
      */
     public function lineStatus(Line $line)
