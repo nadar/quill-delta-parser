@@ -16,10 +16,19 @@ use nadar\quill\Pick;
  */
 class Lists extends BlockListener
 {
+    /**
+     * @var string
+     */
     public const ATTRIBUTE_LIST = 'list';
 
+    /**
+     * @var string
+     */
     public const LIST_TYPE_BULLET = 'bullet';
 
+    /**
+     * @var string
+     */
     public const LIST_TYPE_ORDERED = 'ordered';
 
     /**
@@ -46,8 +55,8 @@ class Lists extends BlockListener
 
             // while from first to the pick line and store content in buffer
             $buffer = null;
-            $first->while(function (&$index, Line $line) use (&$buffer, $pick) {
-                $index++;
+            $first->while(static function (&$index, Line $line) use (&$buffer, $pick) {
+                ++$index;
                 $buffer.= $line->getInput();
                 $line->setDone();
                 if ($index == $pick->line->getIndex()) {
@@ -60,11 +69,12 @@ class Lists extends BlockListener
 
             // go to the next element with endlinew and check if it contains a list type until then
             $hasNextInside = false;
-            $pick->line->whileNext(function (Line $line) use (&$hasNextInside) {
+            $pick->line->whileNext(static function (Line $line) use (&$hasNextInside) {
                 // we found the next list elemnt, stop thie while loop
                 if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
                     return false;
                 }
+                
                 // if one of those new lines contains a endnew line or newline or is block level store this information
                 if ($line->hasEndNewline() || $line->hasNewline() || ($line->isJsonInsert() && !$line->isInline())) {
                     $hasNextInside = true;

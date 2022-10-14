@@ -251,7 +251,7 @@ class Lexer
             // if its an empty "newline-line"
             if ($insert == self::NEWLINE_EXPRESSION) {
                 $lines[$i] = new Line($i, '', $delta['attributes'] ?? [], $this, true, true);
-                $i++;
+                ++$i;
             } else {
                 $insert = $this->normalizeInsert($insert);
                 // remove the last newline from the line, as it will be splited into lines anyhow.
@@ -267,12 +267,13 @@ class Lexer
                 foreach ($parts as $index => $value) {
                     // check if this line had the end newline
                     $isLast = ($index + 1) == $count;
-                    $hadEndNewline = $isLast && $hasEndNewline ? true : false;
+                    $hadEndNewline = $isLast && $hasEndNewline;
                     if ($hasNewline && $isLast && !$hasEndNewline) {
                         $hasNewline = false;
                     }
+
                     $lines[$i] = new Line($i, $value, $delta['attributes'] ?? [], $this, $hadEndNewline, $hasNewline);
-                    $i++;
+                    ++$i;
                 }
             }
         }
@@ -288,7 +289,7 @@ class Lexer
      */
     protected function lineHasNewline($input)
     {
-        return (strpos($input, self::NEWLINE_EXPRESSION) !== false) ? true : false;
+        return strpos($input, self::NEWLINE_EXPRESSION) !== false;
     }
 
     /**

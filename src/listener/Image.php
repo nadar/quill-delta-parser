@@ -33,7 +33,7 @@ class Image extends InlineListener
                 $height = 'height="'.$line->getLexer()->escape($height).'"';
             }
 
-            $this->updateInput($line, preg_replace('/\s+/', ' ', str_replace([
+            $this->updateInput($line, preg_replace('#\s+#', ' ', str_replace([
                 '{src}',
                 '{width}',
                 '{height}'

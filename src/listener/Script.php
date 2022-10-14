@@ -43,6 +43,7 @@ class Script extends InlineListener
             // prevent html injection and wrong behaviors
             throw new Exception('An unknown script tag "' . $script . '" has been detected.');
         }
+
         if ($script === 'super') {
             $script = 'sup';
         }

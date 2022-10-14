@@ -14,10 +14,19 @@ use nadar\quill\Line;
  */
 class Text extends BlockListener
 {
+    /**
+     * @var string
+     */
     public const CLOSEP = '</p>'.PHP_EOL;
 
+    /**
+     * @var string
+     */
     public const OPENP = '<p>';
 
+    /**
+     * @var string
+     */
     public const LINEBREAK = '<br>';
 
     /**

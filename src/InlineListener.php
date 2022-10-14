@@ -49,13 +49,14 @@ abstract class InlineListener extends Listener
     public function render(Lexer $lexer)
     {
         foreach ($this->picks() as $pick) {
-            $next = $pick->line->next(function (Line $line) {
+            $next = $pick->line->next(static function (Line $line) {
                 return !$line->isInline();
             });
 
             if (!$next) {
-                throw new Exception("Unable to find a next element. Invalid DELTA on '{$pick->line->getInput()}'. Maybe your delta code does not end with a newline?");
+                throw new Exception(sprintf('Unable to find a next element. Invalid DELTA on \'%s\'. Maybe your delta code does not end with a newline?', $pick->line->getInput()));
             }
+
             $next->addPrepend($pick->line->getInput(), $pick->line);
         }
     }

@@ -289,6 +289,7 @@ class Line
                 $iterate = false;
                 break;
             }
+
             $iterate = call_user_func_array($condition, [&$i, $line]);
 
             if ($iterate !== false) {
@@ -310,8 +311,8 @@ class Line
     {
         $next = $this->next();
         if ($next) {
-            $next->while(function (&$index, Line $line) use ($condition) {
-                $index++;
+            $next->while(static function (&$index, Line $line) use ($condition) {
+                ++$index;
                 return call_user_func($condition, $line);
             });
         }
@@ -330,9 +331,8 @@ class Line
     {
         $previous = $this->previous();
         if ($previous) {
-            $previous->while(function (&$index, Line $line) use ($condition) {
-                $index--;
-
+            $previous->while(static function (&$index, Line $line) use ($condition) {
+                --$index;
                 return call_user_func($condition, $line);
             });
         }
@@ -402,7 +402,7 @@ class Line
             return $this->lexer->getLine($this->index + 1);
         }
 
-        return $this->iterate($this, function ($i) {
+        return $this->iterate($this, static function ($i) {
             return $i+1;
         }, $fn);
     }
@@ -429,7 +429,7 @@ class Line
             return $this->lexer->getLine($this->index - 1);
         }
 
-        return $this->iterate($this, function ($i) {
+        return $this->iterate($this, static function ($i) {
             return $i-1;
         }, $fn);
     }

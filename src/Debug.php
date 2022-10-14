@@ -49,6 +49,7 @@ class Debug
                 $lines[] = $line;
             }
         }
+
         return $lines;
     }
 
@@ -149,6 +150,7 @@ class Debug
             foreach ($head as $col) {
                 $buffer.= '<td><b>'.$col.'</b></td>';
             }
+
             $buffer.= '</tr></thead>';
         }
 
@@ -157,6 +159,7 @@ class Debug
             foreach ($cols as $col) {
                 $buffer .= '<td>'.$col.'</td>';
             }
+
             $buffer .= '</tr>';
         }
 

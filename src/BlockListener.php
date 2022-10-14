@@ -63,7 +63,7 @@ abstract class BlockListener extends Listener
     {
         $search = ['{__buffer__}'];
         foreach ($options as $key => $value) {
-            $search[] = is_integer($key) ? '{'.$value.'}' : '{'.$key.'}';
+            $search[] = is_int($key) ? '{'.$value.'}' : '{'.$key.'}';
         }
 
         foreach ($this->picks() as $pick) {
@@ -71,19 +71,19 @@ abstract class BlockListener extends Listener
 
             // while from first to the pick line and store content in buffer
             $buffer = null;
-            $first->while(function (&$index, Line $line) use (&$buffer, $pick, $first) {
-                $index++;
+            $first->while(static function (&$index, Line $line) use (&$buffer, $pick, $first) {
+                ++$index;
                 $buffer .= $line->getInput();
                 $line->setDone();
                 // if the index of the picked lines is reached or the first element is the picked index.
-                if ($index == $pick->line->getIndex() || $first->getIndex() == $pick->line->getIndex()) {
+                if ($index == $pick->line->getIndex() || $first->getIndex() === $pick->line->getIndex()) {
                     return false;
                 }
             });
 
             $replace = [$buffer];
             foreach ($options as $key => $value) {
-                $name = is_integer($key) ? $value : $key;
+                $name = is_int($key) ? $value : $key;
                 $content = $pick->optionValue($name);
                 $value = is_callable($value) ? call_user_func($value, $content, $pick, $name) : $content;
                 $replace[] = $value;
@@ -107,15 +107,14 @@ abstract class BlockListener extends Listener
         $first = $pick->line;
 
         $pick->line->while(
-            function (&$index, Line $line) use ($pick, &$first) {
-                $index--;
+            static function (&$index, Line $line) use ($pick, &$first) {
+                --$index;
                 // its the same line as the start.. skip this one as its by default included in while operations
                 if ($line === $pick->line) {
                     return true;
                 } elseif (($line->hasEndNewline() || $line->hasNewline() || ($line->isJsonInsert() && !$line->isInline()))) {
                     return false;
                 }
-
                 // assign the line to $first
                 $first = $line;
                 return true;
