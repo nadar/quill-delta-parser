@@ -74,7 +74,7 @@ class Lists extends BlockListener
                 if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
                     return false;
                 }
-                
+
                 // if one of those new lines contains a endnew line or newline or is block level store this information
                 if ($line->hasEndNewline() || $line->hasNewline() || ($line->isJsonInsert() && !$line->isInline())) {
                     $hasNextInside = true;
