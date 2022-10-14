@@ -53,7 +53,7 @@ class Pick
      */
     public function __get($name)
     {
-        trigger_error(sprintf('Deprecated in 3.1 will be removed in 4.0 use `optionValue(\'%s\')` instead.', $name), E_USER_NOTICE);
+        trigger_error(sprintf("Deprecated in 3.1 will be removed in 4.0 use `optionValue('%s')` instead.", $name), E_USER_NOTICE);
         return $this->options[$name] ?? null;
     }
 

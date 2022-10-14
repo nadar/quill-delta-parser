@@ -115,6 +115,7 @@ abstract class BlockListener extends Listener
                 } elseif (($line->hasEndNewline() || $line->hasNewline() || ($line->isJsonInsert() && !$line->isInline()))) {
                     return false;
                 }
+
                 // assign the line to $first
                 $first = $line;
                 return true;
