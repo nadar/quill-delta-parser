@@ -302,7 +302,7 @@ class Line
      *
      * > This method wont return the line.
      *
-     * @param callable $condition The while condition until false is returned. The callable recieves the Line as arguemtn.
+     * @param callable $condition The while condition until false is returned. The callable receives the Line as argument.
      * @since 1.3.0
      * @return void
      */
@@ -322,7 +322,7 @@ class Line
      *
      * > This method wont return the line.
      *
-     * @param callable $condition The while condition until false is returned. The callable recieves the Line as arguemtn.
+     * @param callable $condition The while condition until false is returned. The callable receives the Line as argument.
      * @since 1.3.0
      * @return void
      * @see see while() for better documentation
