@@ -117,12 +117,12 @@ class Lists extends BlockListener
             $output .= $buffer;
 
             if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
-                $output .= '<ul>'.PHP_EOL;
+                $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
             } elseif ($nextIndent < $pick->line->getAttribute('indent', 0)) {
-                $output .= '</li></ul></li>'.PHP_EOL;
+                $output .= '</li></'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
                 $closeGap = $pick->line->getAttribute('indent', 0) - $nextIndent;
                 if ($closeGap > 1) {
-                    $output .= '</ul></li>'.PHP_EOL;
+                    $output .= '</'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
                 }
             } else {
                 $output.= '</li>'.PHP_EOL;
