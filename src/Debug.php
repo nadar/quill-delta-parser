@@ -15,7 +15,7 @@ namespace nadar\quill;
  * $debug = new Debug($lexer);
  * echo $debug->debugPrint();
  * ```
- * 
+ *
  * In order to push informations into the Debug Panel, you can use
  * the `debugInfo($text)` method which is available on all `Line` objects.
  *
