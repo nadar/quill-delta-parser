@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.x
+## 3.2.1
 
++ [#74](https://github.com/nadar/quill-delta-parser/issues/74) Fixed missing support for nested lists
 + [#73](https://github.com/nadar/quill-delta-parser/pull/73) More automation and testing with rector and auto commit on PR's for csfixer and rector.
 
 ## 3.2.0 (7. August 2022)

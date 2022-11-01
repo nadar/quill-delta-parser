@@ -103,8 +103,30 @@ class Lists extends BlockListener
                 $isOpen = true;
             }
 
-            // write the li element.
-            $output.= '<li>' . $buffer .'</li>'.PHP_EOL;
+            // when the next line has a higher intened, add nested list
+            $nextIndent = 0;
+            $pick->line->whileNext(static function (Line $line) use (&$nextIndent) {
+                $indent = $line->getAttribute('indent', 0);
+                if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
+                    $nextIndent = $indent;
+                    return false;
+                }
+            });
+
+            $output .= '<li>';
+            $output .= $buffer;
+
+            if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
+                $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
+            } elseif ($nextIndent < $pick->line->getAttribute('indent', 0)) {
+                $output .= '</li></'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
+                $closeGap = $pick->line->getAttribute('indent', 0) - $nextIndent;
+                if ($closeGap > 1) {
+                    $output .= '</'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
+                }
+            } else {
+                $output.= '</li>'.PHP_EOL;
+            }
 
             // close the opening OL/UL tag if:
             //   a. its the last element and the tag is opened.

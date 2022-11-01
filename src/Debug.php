@@ -16,6 +16,9 @@ namespace nadar\quill;
  * echo $debug->debugPrint();
  * ```
  *
+ * In order to push informations into the Debug Panel, you can use
+ * the `debugInfo($text)` method which is available on all `Line` objects.
+ *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
  */
