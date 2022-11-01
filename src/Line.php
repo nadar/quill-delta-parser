@@ -302,7 +302,7 @@ class Line
      *
      * > This method wont return the line.
      *
-     * @param callable $condition The while condition until false is returned.
+     * @param callable $condition The while condition until false is returned. The callable recieves the Line as arguemtn.
      * @since 1.3.0
      * @return void
      */
@@ -322,9 +322,10 @@ class Line
      *
      * > This method wont return the line.
      *
-     * @param callable $condition The while condition until false is returned.
+     * @param callable $condition The while condition until false is returned. The callable recieves the Line as arguemtn.
      * @since 1.3.0
      * @return void
+     * @see see while() for better documentation
      */
     public function whilePrevious(callable $condition)
     {
@@ -393,7 +394,7 @@ class Line
      * if true is returned this line will be assigned.
      *
      * @param callable $fn A function in order to determined whether this is the next element or not, if not provided the first next element is returned.
-     * @return Line|boolean
+     * @return Line|boolean The method will return either a Line object or false, if there is no next Line.
      */
     public function next($fn = null)
     {
@@ -420,7 +421,7 @@ class Line
      * if true is returned this line will be assigned.
      *
      * @param callable $fn A function in order to determined whether this is the previous element or not, if not provided the first previous element is returned.
-     * @return Line|boolean
+     * @return Line|boolean The method will return either a Line object or false, if there is no next Line.
      */
     public function previous($fn = null)
     {
