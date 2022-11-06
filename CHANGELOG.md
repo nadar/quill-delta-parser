@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.x
+
++ [#76](https://github.com/nadar/quill-delta-parser/pull/76) Addded php 8.2 for unit tests
+
 ## 3.2.1 (1. November 2022)
 
 + [#74](https://github.com/nadar/quill-delta-parser/issues/74) Fixed missing support for nested lists
