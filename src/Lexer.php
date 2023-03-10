@@ -165,11 +165,12 @@ class Lexer
     /**
      * Register a new listener.
      *
-     * @return void
+     * @return Lexer
      */
     public function registerListener(Listener $listener)
     {
         $this->listeners[$listener->type()][$listener->priority()][get_class($listener)] = $listener;
+        return $this;
     }
 
     /**
@@ -188,11 +189,12 @@ class Lexer
      * @param Listener $new The new listener object
      * @see https://github.com/nadar/quill-delta-parser/issues/55
      * @since 2.8.0
-     * @return void
+     * @return Lexer
      */
     public function overwriteListener(Listener $listener, Listener $new)
     {
         $this->listeners[$listener->type()][$listener->priority()][get_class($listener)] = $new;
+        return $this;
     }
 
     /**
@@ -339,7 +341,7 @@ class Lexer
     }
 
     /**
-     * Process all listeneres for a given type
+     * Process all listeners for a given type
      *
      * @param int $type
      * @return void
