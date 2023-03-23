@@ -47,11 +47,6 @@ class Issue78Test extends DeltaTestCase
 JSON;
 
     public $html = <<<'EOT'
-    <p style="text-align: center;"><span style="color:#000000"><strong>JUST A LIST</strong></span></p>
-<ol>
-   <li></li>
-   <li></li>
-</ol>
-<p style="text-align: center;"><span style="color:#000000"><strong>New title</strong></span></p>
+    <p style="text-align: center;"><span style="color:#000000"><strong>JUST A LIST</strong></span></p><ol><li></li><li></li></ol><p><br></p><p><span style="color:#000000"><strong>New title</strong></span></p><p><br></p>
 EOT;
 }

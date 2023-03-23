@@ -49,23 +49,32 @@ class Lists extends BlockListener
     public function render(Lexer $lexer)
     {
         $isOpen = false;
+        $isEmpty = false;
         $listTag = null;
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);
 
-            // while from first to the pick line and store content in buffer
-            $buffer = null;
-            $first->while(static function (&$index, Line $line) use (&$buffer, $pick) {
-                ++$index;
-                $buffer.= $line->getInput();
-                $line->setDone();
-                if ($index == $pick->line->getIndex()) {
-                    return false;
-                }
-            });
-
             // defines whether this attribute list element is the last one of a list serie.
             $isLast = false;
+
+            // if this is an empty line .... the first attribute contains the list information, otherwise
+            // the first line contains content.
+            if ($first->getAttribute(self::ATTRIBUTE_LIST)) {
+                $isEmpty = true;
+            }
+
+            // while from first to the pick line and store content in buffer
+            $buffer = null;
+            if (!$isEmpty) {
+                $first->while(static function (&$index, Line $line) use (&$buffer, $pick) {
+                    ++$index;
+                    $buffer.= $line->getInput();
+                    $line->setDone();
+                    if ($index == $pick->line->getIndex()) {
+                        return false;
+                    }
+                });
+            }
 
             // go to the next element with endlinew and check if it contains a list type until then
             $hasNextInside = false;
@@ -113,19 +122,23 @@ class Lists extends BlockListener
                 }
             });
 
-            $output .= '<li>';
-            $output .= $buffer;
-
-            if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
-                $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
-            } elseif ($nextIndent < $pick->line->getAttribute('indent', 0)) {
-                $output .= '</li></'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
-                $closeGap = $pick->line->getAttribute('indent', 0) - $nextIndent;
-                if ($closeGap > 1) {
-                    $output .= '</'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
-                }
+            if ($isEmpty) {
+                $output .= '<li></li>';
             } else {
-                $output.= '</li>'.PHP_EOL;
+                $output .= '<li>';
+                $output .= $buffer;
+
+                if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
+                    $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
+                } elseif ($nextIndent < $pick->line->getAttribute('indent', 0)) {
+                    $output .= '</li></'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
+                    $closeGap = $pick->line->getAttribute('indent', 0) - $nextIndent;
+                    if ($closeGap > 1) {
+                        $output .= '</'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
+                    }
+                } else {
+                    $output.= '</li>'.PHP_EOL;
+                }
             }
 
             // close the opening OL/UL tag if:

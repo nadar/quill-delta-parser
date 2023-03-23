@@ -1,10 +1,14 @@
 <?php
 namespace nadar\quill\tests;
 
-class Issue53Test extends DeltaTestCase
+class Issue53TestFixedTest extends DeltaTestCase
 {
     public $json = <<<'JSON'
-{"ops":[{
+{"ops":[
+  {
+    "insert": "Bullet point content"
+  },
+  {
     "attributes": {
       "list": {
         "depth": 0,
@@ -12,14 +16,11 @@ class Issue53Test extends DeltaTestCase
       }
     },
     "insert": "\n"
-  },
-  {
-    "insert": "Bullet point content"
   }
 ]}
 JSON;
 
     public $html = <<<'EOT'
-    <ul><li></li></ul><p>Bullet point content</p>
+    <ul><li>Bullet point content</li></ul>
 EOT;
 }
