@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.3.1 (24. March 2023)
+
++ [#78](https://github.com/nadar/quill-delta-parser/issues/78) Fixed a bug where lists with empty contents would break all output.
+
 ## 3.3.0 (10. March 2023)
 
 + [#77](https://github.com/nadar/quill-delta-parser/pull/77) Allow method chaining for `registerListener()` and `overwriteListener()`.
