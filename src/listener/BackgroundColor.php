@@ -9,7 +9,7 @@ use nadar\quill\Line;
  * Convert background color attributes into span tag.
  *
  * @author Basil Suter <basil@nadar.io>
- * @since 1.1.0
+ * @since 3.4.0
  */
 class BackgroundColor extends InlineListener
 {
