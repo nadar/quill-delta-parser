@@ -4,7 +4,7 @@ This document will help you upgrading from a version into another. For more deta
 
 ## from 3.3.x to 3.4
 
-+ [#80](https://github.com/nadar/quill-delta-parser/issues/80) When your Quill code contains background color information within the Quill data, and it is unexpectedly affecting the text color, you can disable this feature by following these steps:
++ [#80](https://github.com/nadar/quill-delta-parser/issues/80) Description: In this update, we have introduced a change where background color information from Quill JSON is now extracted and applied as the background color. This change may result in unexpected behavior if you had background color information present in your documents but it was not rendered correctly in previous versions. To restore the previous behavior and resolve any unexpected issues related to background color rendering, please follow these steps:
 
 ```php
 $backgroundColor = new BackgroundColor();
