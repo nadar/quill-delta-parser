@@ -76,7 +76,6 @@ class Issue55Test extends DeltaTestCase
       {
          "attributes":{
             "color":"#2d5c88",
-            "background":"#ffffff",
             "link":"https://www.eyeartsguild.org.uk/"
          },
          "insert":"Eye Arts Guild"

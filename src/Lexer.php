@@ -3,6 +3,7 @@
 namespace nadar\quill;
 
 use nadar\quill\listener\Align;
+use nadar\quill\listener\BackgroundColor;
 use nadar\quill\listener\Blockquote;
 use nadar\quill\listener\Bold;
 use nadar\quill\listener\CodeBlock;
@@ -148,6 +149,7 @@ class Lexer
         $this->registerListener(new Bold());
         $this->registerListener(new Italic());
         $this->registerListener(new Color());
+        $this->registerListener(new BackgroundColor());
         $this->registerListener(new Link());
         $this->registerListener(new Video());
         $this->registerListener(new Strike());
