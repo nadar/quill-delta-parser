@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 3.4.0 ()
 
+> Please be aware that this release may impact the way Quill data is displayed in your frontend. Checkout the [upgrade document](UPGRADE.md) for more details.
+
 + [#80](https://github.com/nadar/quill-delta-parser/issues/80) Add missing background color listener.
 
 ## 3.3.1 (24. March 2023)
