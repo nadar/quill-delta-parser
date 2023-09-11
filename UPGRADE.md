@@ -4,7 +4,7 @@ This document will help you upgrading from a version into another. For more deta
 
 ## from 3.3.x to 3.4
 
-+ [#80](https://github.com/nadar/quill-delta-parser/issues/80) Description: In this update, we have introduced a change where background color information from Quill JSON is now extracted and applied as the background color. This change may result in unexpected behavior if you had background color information present in your documents but it was not rendered correctly in previous versions. To restore the previous behavior and resolve any unexpected issues related to background color rendering, please follow these steps:
++ [#80](https://github.com/nadar/quill-delta-parser/issues/80) In this update, we have introduced a change where background color information from Quill JSON is now extracted and applied as the background color. This change may result in unexpected behavior if you had background color information present in your documents but it was not rendered correctly in previous versions. To restore the previous behavior and resolve any unexpected issues related to background color rendering, please follow these steps:
 
 ```php
 $backgroundColor = new BackgroundColor();
