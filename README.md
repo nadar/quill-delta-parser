@@ -115,7 +115,7 @@ Certain listeners (image, video, color) produce a HTML output which maybe not su
 $image = new Image();
 $image->wrapper = '<img src="{src}" class="my-image" />';
 
-// override the default plugin from the lexer:
+// override the default listener behavior for image color:
 $lexer = new Lexer($json);
 $lexer->registerListener($image);
 echo $lexer->render();

@@ -12,8 +12,7 @@ class Issue78Test extends DeltaTestCase
             "insert": "JUST A LIST",
             "attributes": {
                 "bold": true,
-                "color": "#000000",
-                "background": "transparent"
+                "color": "#000000"
             }
         },
         {
@@ -35,8 +34,7 @@ class Issue78Test extends DeltaTestCase
             "insert": "New title",
             "attributes": {
                 "bold": true,
-                "color": "#000000",
-                "background": "transparent"
+                "color": "#000000"
             }
         },
         {

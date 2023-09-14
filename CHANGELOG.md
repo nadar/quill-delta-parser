@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.4.0 ()
+
+> Please be aware that this release may impact the way Quill data is displayed in your frontend. Checkout the [upgrade document](UPGRADE.md) for more details.
+
++ [#80](https://github.com/nadar/quill-delta-parser/issues/80) Add missing background color listener (In this update, we have introduced a change where background color information from Quill JSON is now extracted and applied as the background color. This change may result in unexpected behavior if you had background color information present in your documents but it was not rendered correctly in previous versions. see [upgrade document](UPGRADE.md)
+
 ## 3.3.1 (24. March 2023)
 
 + [#78](https://github.com/nadar/quill-delta-parser/issues/78) Fixed a bug where lists with empty contents would break all output.
