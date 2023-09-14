@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.4.0 ()
+## 3.4.0 (14. September 2023)
 
 > Please be aware that this release may impact the way Quill data is displayed in your frontend. Checkout the [upgrade document](UPGRADE.md) for more details.
 
