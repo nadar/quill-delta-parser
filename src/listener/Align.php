@@ -18,7 +18,7 @@ class Align extends BlockListener
     /**
      * @var array<string> Supported alignments.
      */
-    public $alignments = ['center', 'right', 'justify'];
+    public $alignments = ['center', 'right', 'justify', 'left'];
 
     /**
      * {@inheritDoc}
