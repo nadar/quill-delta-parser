@@ -86,7 +86,7 @@ class Text extends BlockListener
 
                 // If this element is empty we should maybe directly close and reopen this paragraph as it could be an empty line with
                 // a next elmenet
-                } elseif ($pick->line->isEmpty() && $next) {
+                } elseif ($pick->line->isEmpty() && $next && !$next->isDone()) {
                     $isOpen = $this->output($output, self::CLOSEP.self::OPENP, true);
 
                 // if its open, and it had an end newline, lets close
