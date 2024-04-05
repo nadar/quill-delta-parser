@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.4.2 (5. April 2024)
+
++ [#87](https://github.com/nadar/quill-delta-parser/issues/87) Fixed a bug where a line break preceding a list containing inline attributes results in improper HTML formatting for next paragraphs.
+
 ## 3.4.1 (13. March 2024)
 
 + [#84](https://github.com/nadar/quill-delta-parser/issues/84) Allow align `left` as possible value.
