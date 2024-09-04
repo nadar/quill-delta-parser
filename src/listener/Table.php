@@ -10,11 +10,9 @@ class Table extends BlockListener
 {
     public function process(Line $line)
     {
-        
     }
 
     public function render(Lexer $lexer)
     {
-        
     }
 }
