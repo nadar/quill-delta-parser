@@ -15,10 +15,6 @@
         </testsuite>
     </testsuites>
     <filter>
-		<blacklist>
-			<directory>./vendor</directory>
-			<directory>./tests</directory>
-		</blacklist>
 		<whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src</directory>
         </whitelist>
