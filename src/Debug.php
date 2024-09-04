@@ -103,7 +103,7 @@ class Debug
             $_lines[] = [
                 $line->getIndex(),
                 $line->getInput(),
-                htmlentities($line->output, ENT_QUOTES),
+                htmlentities((string) $line->output, ENT_QUOTES),
                 htmlentities($line->renderPrepend(), ENT_QUOTES),
                 implode(", ", $line->getDebugInfo()),
                 var_export($line->getAttributes(), true),
