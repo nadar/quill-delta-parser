@@ -42,9 +42,9 @@ class Lists extends BlockListener
     public const LIST_TYPE_UNCHECKED = 'unchecked';
 
     /**
-     * @var string
+     * @var string Class to apply on <ul> for checklists
      */
-    public const CLASS_CHECK_LIST = 'list-unstyled';
+    public $checkListClass = 'list-unstyled';
 
     /**
      * {@inheritDoc}
@@ -128,7 +128,7 @@ class Lists extends BlockListener
             if (!$isOpen) {
                 $output .= '<'.$this->getListAttribute($pick);
                 if ($isCheck) {
-                    $output .= ' class="'.self::CLASS_CHECK_LIST.'"';
+                    $output .= ' class="'.$this->checkListClass.'"';
                 }
 
                 $output .= '>'.PHP_EOL;
