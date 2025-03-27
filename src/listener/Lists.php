@@ -42,6 +42,11 @@ class Lists extends BlockListener
     public const LIST_TYPE_UNCHECKED = 'unchecked';
 
     /**
+     * @var string
+     */
+    public const CLASS_CHECK_LIST = 'list-unstyled';
+
+    /**
      * {@inheritDoc}
      */
     public function process(Line $line)
@@ -123,7 +128,7 @@ class Lists extends BlockListener
             if (!$isOpen) {
                 $output .= '<'.$this->getListAttribute($pick);
                 if ($isCheck) {
-                    $output .= ' class="list-unstyled"';
+                    $output .= ' class="'.self::CLASS_CHECK_LIST.'"';
                 }
 
                 $output .= '>'.PHP_EOL;
