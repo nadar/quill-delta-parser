@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.4.3 (27. March 2025)
+## 3.5.0 (27. March 2025)
 + [#96](https://github.com/nadar/quill-delta-parser/issues/96) Addded HTML rendering for lists with type "checked" and "unchecked".
 
 ## 3.4.2 (5. April 2024)
