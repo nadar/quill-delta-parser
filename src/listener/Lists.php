@@ -32,6 +32,21 @@ class Lists extends BlockListener
     public const LIST_TYPE_ORDERED = 'ordered';
 
     /**
+     * @var string
+     */
+    public const LIST_TYPE_CHECKED = 'checked';
+
+    /**
+     * @var string
+     */
+    public const LIST_TYPE_UNCHECKED = 'unchecked';
+
+    /**
+     * @var string Class to apply on <ul> for checklists
+     */
+    public $checkListClass = 'list-unstyled';
+
+    /**
      * {@inheritDoc}
      */
     public function process(Line $line)
@@ -104,11 +119,19 @@ class Lists extends BlockListener
                 $isOpen = false;
             }
 
+            // defines whether this attribute list element is a checked/unchecked list or not.
+            $isCheck = in_array($this->getPickType($pick), [self::LIST_TYPE_CHECKED, self::LIST_TYPE_UNCHECKED], true);
+
             // create the opening OL/UL tag
             // opening tag process has been simplified, see https://github.com/nadar/quill-delta-parser/pull/33
             // and https://github.com/nadar/quill-delta-parser/issues/30
             if (!$isOpen) {
-                $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
+                $output .= '<'.$this->getListAttribute($pick);
+                if ($isCheck) {
+                    $output .= ' class="'.$this->checkListClass.'"';
+                }
+
+                $output .= '>'.PHP_EOL;
                 $isOpen = true;
             }
 
@@ -126,7 +149,17 @@ class Lists extends BlockListener
                 $output .= '<li></li>';
             } else {
                 $output .= '<li>';
-                $output .= $buffer;
+
+                if ($isCheck) {
+                    $output .= '<input type="checkbox" disabled';
+                    if ($this->getPickType($pick) === self::LIST_TYPE_CHECKED) {
+                        $output .= ' checked';
+                    }
+
+                    $output .= '><label>'.$buffer.'</label>';
+                } else {
+                    $output .= $buffer;
+                }
 
                 if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
                     $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
@@ -165,18 +198,26 @@ class Lists extends BlockListener
      */
     protected function getListAttribute(Pick $pick)
     {
-        $optionValueType = $pick->optionValue('type');
-        $type = is_array($optionValueType) ? $optionValueType['type'] : $optionValueType;
+        $type = $this->getPickType($pick);
 
         if ($type === self::LIST_TYPE_ORDERED) {
             return 'ol';
         }
 
-        if ($type === self::LIST_TYPE_BULLET) {
+        if (in_array($type, [self::LIST_TYPE_BULLET, self::LIST_TYPE_CHECKED, self::LIST_TYPE_UNCHECKED], true)) {
             return 'ul';
         }
 
         // prevent html injection in case the attribute is user input
         throw new Exception('The provided list type "'.$type.'" is not a known list type (ordered or bullet).');
+    }
+
+    /**
+     * Get the list type for the given value.
+     */
+    protected function getPickType(Pick $pick): string
+    {
+        $optionValueType = $pick->optionValue('type');
+        return is_array($optionValueType) ? $optionValueType['type'] : $optionValueType;
     }
 }

@@ -83,7 +83,7 @@ var editor = new Quill('#editor', {
             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
             ['link'],
             [{ 'script': 'sub'}, { 'script': 'super' }],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
             ['image', 'video'],
             ['clean']
         ]
