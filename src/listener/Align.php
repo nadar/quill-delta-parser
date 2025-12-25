@@ -26,7 +26,8 @@ class Align extends BlockListener
     public function process(Line $line)
     {
         $alignment = $line->getAttribute('align');
-        if ($alignment) {
+        // Skip if line has a header attribute - let Heading listener handle it
+        if ($alignment && !$line->getAttribute('header')) {
             $this->pick($line, ['alignment' => $alignment]);
             $line->setDone();
         }
