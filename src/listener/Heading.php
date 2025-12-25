@@ -52,6 +52,7 @@ class Heading extends BlockListener
                 // prevent html injection in case the attribute is user input
                 throw new Exception('An unknown heading level "' . $pick->optionValue('heading') . '" has been detected.');
             }
+
             $alignment = $pick->optionValue('alignment');
             if ($alignment && !in_array($alignment, $this->alignments)) {
                 // prevent html injection in case the attribute is user input
@@ -61,7 +62,7 @@ class Heading extends BlockListener
 
         $this->wrapElement('<h{heading}{style}>{__buffer__}</h{heading}>', [
             'heading',
-            'style' => function ($value, $pick) {
+            'style' => static function ($value, $pick) {
                 $alignment = $pick->optionValue('alignment');
                 return $alignment ? ' style="text-align: ' . $alignment . ';"' : '';
             }
