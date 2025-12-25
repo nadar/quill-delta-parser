@@ -6,8 +6,6 @@ namespace nadar\quill\tests;
  * 
  * This test addresses the issue where headers with alignment attributes
  * were being rendered as <p> tags instead of <h1>-<h6> tags.
- * 
- * @see https://github.com/nadar/quill-delta-parser/issues/XX
  */
 class HeadingAlignmentTest extends DeltaTestCase
 {
