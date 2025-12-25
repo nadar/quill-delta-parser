@@ -22,13 +22,20 @@ class Heading extends BlockListener
     public $levels = [1, 2, 3, 4, 5, 6];
 
     /**
+     * @var array<string> Supported alignments.
+     * @since 3.3.0
+     */
+    public $alignments = ['center', 'right', 'justify', 'left'];
+
+    /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
         $heading = $line->getAttribute('header');
         if ($heading) {
-            $this->pick($line, ['heading' => $heading]);
+            $alignment = $line->getAttribute('align');
+            $this->pick($line, ['heading' => $heading, 'alignment' => $alignment]);
             $line->setDone();
         }
     }
@@ -45,8 +52,19 @@ class Heading extends BlockListener
                 // prevent html injection in case the attribute is user input
                 throw new Exception('An unknown heading level "' . $pick->optionValue('heading') . '" has been detected.');
             }
+            $alignment = $pick->optionValue('alignment');
+            if ($alignment && !in_array($alignment, $this->alignments)) {
+                // prevent html injection in case the attribute is user input
+                throw new Exception('An unknown alignment "' . $alignment . '" has been detected.');
+            }
         }
 
-        $this->wrapElement('<h{heading}>{__buffer__}</h{heading}>', ['heading']);
+        $this->wrapElement('<h{heading}{style}>{__buffer__}</h{heading}>', [
+            'heading',
+            'style' => function ($value, $pick) {
+                $alignment = $pick->optionValue('alignment');
+                return $alignment ? ' style="text-align: ' . $alignment . ';"' : '';
+            }
+        ]);
     }
 }
