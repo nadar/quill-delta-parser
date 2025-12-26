@@ -9,7 +9,7 @@ use nadar\quill\Line;
  * Convert size attributes into span tag with font-size style.
  *
  * @author Basil Suter <basil@nadar.io>
- * @since 3.5.0
+ * @since 3.7.0
  */
 class Size extends InlineListener
 {
