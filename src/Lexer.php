@@ -17,6 +17,7 @@ use nadar\quill\listener\Lists;
 use nadar\quill\listener\Script;
 use nadar\quill\listener\Size;
 use nadar\quill\listener\Strike;
+use nadar\quill\listener\Table;
 use nadar\quill\listener\Text;
 use nadar\quill\listener\Underline;
 use nadar\quill\listener\Video;
@@ -164,6 +165,7 @@ class Lexer
         $this->registerListener(new Script());
         $this->registerListener(new Align());
         $this->registerListener(new Size());
+        $this->registerListener(new Table());
     }
 
     /**
