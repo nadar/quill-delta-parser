@@ -71,7 +71,7 @@ class Table extends BlockListener
         $output = '<table>' . PHP_EOL;
         $output .= '<tbody>' . PHP_EOL;
         
-        foreach ($tables as $rowId => $cells) {
+        foreach ($tables as $cells) {
             $output .= '<tr>' . PHP_EOL;
             
             foreach ($cells as $cellContent) {
