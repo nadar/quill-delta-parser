@@ -47,7 +47,7 @@ class Table extends BlockListener
             $first = $this->getFirstLine($pick);
             
             // Get the cell content
-            $buffer = null;
+            $buffer = '';
             $first->while(static function (&$index, Line $line) use (&$buffer, $pick, $first) {
                 ++$index;
                 $buffer .= $line->getInput();
