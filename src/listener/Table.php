@@ -11,7 +11,7 @@ use nadar\quill\Pick;
  * Convert Table elements into HTML table.
  *
  * Supports Quill table modules including quill-better-table which use
- * the table-cell-line attribute format.
+ * the table attribute format on newlines.
  *
  * @author Basil Suter <basil@nadar.io>
  * @since 1.0.0
@@ -21,16 +21,16 @@ class Table extends BlockListener
     /**
      * @var string
      */
-    public const ATTRIBUTE_TABLE_CELL_LINE = 'table-cell-line';
+    public const ATTRIBUTE_TABLE = 'table';
 
     /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
-        $tableCellLine = $line->getAttribute(self::ATTRIBUTE_TABLE_CELL_LINE);
-        if ($tableCellLine) {
-            $this->pick($line, ['cellData' => $tableCellLine]);
+        $tableRowId = $line->getAttribute(self::ATTRIBUTE_TABLE);
+        if ($tableRowId) {
+            $this->pick($line, ['rowId' => $tableRowId]);
             $line->setDone();
         }
     }
@@ -42,7 +42,7 @@ class Table extends BlockListener
     {
         $tables = [];
         
-        // Group cells by row
+        // Group cells by row ID
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);
             
@@ -57,49 +57,31 @@ class Table extends BlockListener
                 }
             });
             
-            $cellData = $pick->optionValue('cellData');
-            $rowId = $cellData['row'] ?? '';
-            $cellId = $cellData['cell'] ?? '';
-            $rowspan = $cellData['rowspan'] ?? 1;
-            $colspan = $cellData['colspan'] ?? 1;
+            $rowId = $pick->optionValue('rowId');
             
             if (!isset($tables[$rowId])) {
                 $tables[$rowId] = [];
             }
             
-            $tables[$rowId][$cellId] = [
-                'content' => $buffer,
-                'rowspan' => $rowspan,
-                'colspan' => $colspan
-            ];
+            // Add cell to row in order
+            $tables[$rowId][] = $buffer;
         }
         
         // Build the table HTML
         $output = '<table>' . PHP_EOL;
+        $output .= '<tbody>' . PHP_EOL;
         
         foreach ($tables as $rowId => $cells) {
-            $output .= '<tr>';
+            $output .= '<tr>' . PHP_EOL;
             
-            // Sort cells by cell ID to maintain order
-            ksort($cells);
-            
-            foreach ($cells as $cellId => $cellInfo) {
-                $output .= '<td';
-                
-                if ($cellInfo['rowspan'] > 1) {
-                    $output .= ' rowspan="' . $cellInfo['rowspan'] . '"';
-                }
-                
-                if ($cellInfo['colspan'] > 1) {
-                    $output .= ' colspan="' . $cellInfo['colspan'] . '"';
-                }
-                
-                $output .= '>' . $cellInfo['content'] . '</td>';
+            foreach ($cells as $cellContent) {
+                $output .= '<td>' . $cellContent . '</td>' . PHP_EOL;
             }
             
             $output .= '</tr>' . PHP_EOL;
         }
         
+        $output .= '</tbody>' . PHP_EOL;
         $output .= '</table>' . PHP_EOL;
         
         // Set output on the last pick

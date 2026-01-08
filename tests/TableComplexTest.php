@@ -7,110 +7,56 @@ class TableComplexTest extends DeltaTestCase
     public $json = <<<'JSON'
 {
     "ops": [
-        {
-            "attributes": {
-                "bold": true
-            },
-            "insert": "Product"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-1",
-                    "cell": "cell-1",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        },
-        {
-            "attributes": {
-                "bold": true
-            },
-            "insert": "Price"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-1",
-                    "cell": "cell-2",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        },
-        {
-            "attributes": {
-                "bold": true
-            },
-            "insert": "Quantity"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-1",
-                    "cell": "cell-3",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        },
-        {
-            "insert": "Widget "
-        },
-        {
-            "attributes": {
-                "italic": true
-            },
-            "insert": "Pro"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-2",
-                    "cell": "cell-1",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        },
-        {
-            "insert": "$19.99"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-2",
-                    "cell": "cell-2",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        },
-        {
-            "insert": "5"
-        },
-        {
-            "attributes": {
-                "table-cell-line": {
-                    "row": "row-2",
-                    "cell": "cell-3",
-                    "rowspan": 1,
-                    "colspan": 1
-                }
-            },
-            "insert": "\n"
-        }
+        {"insert": "Task Name", "attributes": {"bold": true}},
+        {"insert": "\n", "attributes": {"table": "row-1"}},
+        {"insert": "Owner", "attributes": {"bold": true}},
+        {"insert": "\n", "attributes": {"table": "row-1"}},
+        {"insert": "Status", "attributes": {"bold": true}},
+        {"insert": "\n", "attributes": {"table": "row-1"}},
+        {"insert": "Completion (%)", "attributes": {"bold": true}},
+        {"insert": "\n", "attributes": {"align": "center", "table": "row-1"}},
+        {"insert": "UI Design"},
+        {"insert": "\n", "attributes": {"table": "row-2"}},
+        {"insert": "Jeet Kumar"},
+        {"insert": "\n", "attributes": {"table": "row-2"}},
+        {"insert": "Completed"},
+        {"insert": "\n", "attributes": {"table": "row-2"}},
+        {"insert": "100%", "attributes": {"italic": true}},
+        {"insert": "\n", "attributes": {"align": "center", "table": "row-2"}},
+        {"insert": "Backend API"},
+        {"insert": "\n", "attributes": {"table": "row-3"}},
+        {"insert": "Rahul Sharma"},
+        {"insert": "\n", "attributes": {"table": "row-3"}},
+        {"insert": "In Progress"},
+        {"insert": "\n", "attributes": {"table": "row-3"}},
+        {"insert": "65%", "attributes": {"italic": true}},
+        {"insert": "\n", "attributes": {"align": "center", "table": "row-3"}}
     ]
 }
 JSON;
 
     public $html = <<<'EOT'
-<table><tr><td><strong>Product</strong></td><td><strong>Price</strong></td><td><strong>Quantity</strong></td></tr><tr><td>Widget <em>Pro</em></td><td>$19.99</td><td>5</td></tr></table>
+<table>
+<tbody>
+<tr>
+<td><strong>Task Name</strong></td>
+<td><strong>Owner</strong></td>
+<td><strong>Status</strong></td>
+<td><strong>Completion (%)</strong></td>
+</tr>
+<tr>
+<td>UI Design</td>
+<td>Jeet Kumar</td>
+<td>Completed</td>
+<td><em>100%</em></td>
+</tr>
+<tr>
+<td>Backend API</td>
+<td>Rahul Sharma</td>
+<td>In Progress</td>
+<td><em>65%</em></td>
+</tr>
+</tbody>
+</table>
 EOT;
 }
