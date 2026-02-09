@@ -8,8 +8,6 @@ namespace nadar\quill\tests;
  * This test validates the fix for the issue where Delta ops with both
  * content and newline in a single insert (e.g., {"insert": "Item 1\n", "attributes": {"list": "bullet", "indent": 1}})
  * were not being parsed correctly, resulting in empty list items.
- *
- * @see https://github.com/nadar/quill-delta-parser/issues/XXX
  */
 class IndentAttributeTest extends DeltaTestCase
 {
