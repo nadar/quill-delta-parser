@@ -87,7 +87,7 @@ class Lists extends BlockListener
                     $buffer.= $line->getInput();
                     $line->setDone();
                     // Stop if this line is the pick line (handles both separate and combined ops)
-                    if ($line->getIndex() == $pick->line->getIndex()) {
+                    if ($line->getIndex() === $pick->line->getIndex()) {
                         return false;
                     }
                 });
