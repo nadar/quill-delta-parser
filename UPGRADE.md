@@ -2,7 +2,7 @@
 
 This document will help you upgrading from a version into another. For more detailed informations about the breaking changes **click the issue detail link**, there you can see examples of how to change your code.
 
-## from 3.5.x to 3.6
+## from 3.5.0 to 3.5.1
 
 + [GHSA-q7wv-vg5w-462j](https://github.com/nadar/quill-delta-parser/security/advisories/GHSA-q7wv-vg5w-462j) Fixed a stored XSS vulnerability: URI schemes from delta attributes (`link`, `image`, `video`) are now validated against an allowlist before being written into rendered `href`/`src` attributes. Values with unsafe schemes (like `javascript:`) are neutralized: links point to `#`, images and videos are not rendered. If you relied on rendering custom URI schemes (e.g. `ftp://`), add them to the `$safeSchemes` property of the corresponding listener:
 

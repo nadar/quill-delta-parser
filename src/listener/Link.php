@@ -25,7 +25,7 @@ class Link extends InlineListener
      * scheme which is not part of this allowlist (like `javascript:`) are neutralized and point
      * to `#` instead, otherwise this would allow cross-site scripting (XSS). URIs without any
      * scheme (relative paths, anchors) are always allowed and can not be removed from validation.
-     * @since 3.6.0
+     * @since 3.5.1
      */
     public $safeSchemes = Uri::SAFE_SCHEMES;
 

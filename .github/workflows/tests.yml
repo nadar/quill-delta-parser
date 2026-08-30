@@ -62,6 +62,17 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
+        ## php-cs-fixer only supports php 8.1 and below, therefore the php version
+        ## can not be the default version of the runner image.
+        - name: Install PHP
+          uses: shivammathur/setup-php@2.21.0
+          with:
+            php-version: '8.0'
+            extensions: mbstring, intl
+            coverage: none
+          env:
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         - name: Install
           run: composer install
 
@@ -94,7 +105,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: dom, mbstring, mcrypt, zip
           ini-values: date.timezone='UTC'
-          tools: composer:v1
+          tools: composer:v2
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -106,7 +117,7 @@ jobs:
       ## run unit tests
       - name: PHP Unit tests for PHP 
         run: vendor/bin/phpunit --verbose --configuration actions.phpunit.xml
-        if: matrix.php == '8.4' || matrix.php == '8.3' || matrix.php == '8.2' || matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2'
+        if: matrix.php == '8.5' || matrix.php == '8.4' || matrix.php == '8.3' || matrix.php == '8.2' || matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2'
 
       ## unit test with coverage
       - name: PHP Unit tests for PHP 7.2
