@@ -24,7 +24,7 @@ class Image extends InlineListener
      * scheme which is not part of this allowlist (like `javascript:`) are not rendered at all,
      * otherwise this would allow cross-site scripting (XSS). URIs without any scheme (relative
      * paths) are always allowed and can not be removed from validation.
-     * @since 3.6.0
+     * @since 3.5.1
      */
     public $safeSchemes = ['http', 'https', 'data'];
 
@@ -32,7 +32,7 @@ class Image extends InlineListener
      * @var array<string> When the `data` scheme is allowed (see {@see $safeSchemes}), only data URIs
      * with these media types are rendered (for example `data:image/png;base64,...`). This prevents
      * payloads like `data:text/html,...`.
-     * @since 3.6.0
+     * @since 3.5.1
      */
     public $dataMediaTypes = ['image'];
 

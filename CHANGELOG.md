@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## 3.6.0 (under development)
+## 3.5.1 (under development)
 
 + Fixed a stored cross-site scripting (XSS) vulnerability where `javascript:` (and other unsafe) URI schemes from delta attributes were written verbatim into rendered `href`/`src` attributes ([GHSA-q7wv-vg5w-462j](https://github.com/nadar/quill-delta-parser/security/advisories/GHSA-q7wv-vg5w-462j)):
     + `Link` listener: URI schemes are validated against an allowlist (`Link::$safeSchemes`, defaults to `http`, `https`, `mailto`, `tel`), unsafe values are neutralized to `href="#"`.
