@@ -25,7 +25,7 @@ class Video extends BlockListener
      * scheme which is not part of this allowlist (like `javascript:`) are not rendered at all, otherwise
      * this would allow cross-site scripting (XSS). URIs without any scheme (relative paths) are always
      * allowed and can not be removed from validation.
-     * @since 3.5.1
+     * @since 3.7.1
      */
     public $safeSchemes = ['http', 'https'];
 

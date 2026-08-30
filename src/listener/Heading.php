@@ -23,7 +23,7 @@ class Heading extends BlockListener
 
     /**
      * @var array<string> Supported alignments.
-     * @since 3.5.1
+     * @since 3.6.0
      */
     public $alignments = ['center', 'right', 'justify', 'left'];
 

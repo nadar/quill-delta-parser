@@ -147,7 +147,7 @@ $lexer->overwriteListener(new Image(), new MySuperDuperImageClass());
 ## Security: URI Scheme Validation
 
 Delta attributes like `link`, `image` and `video` are usually attacker controlled (user generated
-content) and end up in rendered `href` or `src` HTML attributes. Since version 3.5.1 the built-in
+content) and end up in rendered `href` or `src` HTML attributes. Since version 3.7.1 the built-in
 listeners validate those values against a scheme allowlist, so payloads like
 `javascript:alert(1)` can no longer be injected into the markup:
 
