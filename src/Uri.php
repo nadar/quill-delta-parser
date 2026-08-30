@@ -17,9 +17,9 @@ namespace nadar\quill;
 class Uri
 {
     /**
-     * @var array<string> The default list of allowed URI schemes. Scheme-less (relative)
-     * URIs are always considered safe and can not be removed from this list.
-     */
+     * @var string[] The default list of allowed URI schemes. Scheme-less (relative)
+    URIs are always considered safe and can not be removed from this list.
+    */
     public const SAFE_SCHEMES = ['http', 'https', 'mailto', 'tel'];
 
     /**
@@ -73,9 +73,9 @@ class Uri
         // strip ASCII control chars, whitespace and DEL from everywhere in the value,
         // this mirrors what browsers do before parsing the scheme but errs on the
         // safe side for characters browsers would only trim at the edges.
-        $normalized = preg_replace('~[\x00-\x20\x7f]+~', '', $uri);
+        $normalized = preg_replace('#[\x00-\x20\x7f]+#', '', $uri);
 
-        if ($normalized === null || !preg_match('~^([a-z][a-z0-9+.\-]*):~i', $normalized, $match)) {
+        if ($normalized === null || !preg_match('#^([a-z][a-z0-9+.\-]*):#i', $normalized, $match)) {
             return false;
         }
 
@@ -97,9 +97,9 @@ class Uri
             return false;
         }
 
-        $normalized = preg_replace('~[\x00-\x20\x7f]+~', '', $uri);
+        $normalized = preg_replace('#[\x00-\x20\x7f]+#', '', $uri);
 
-        if ($normalized === null || !preg_match('~^data:([^;,]+)[;,]~i', $normalized, $match)) {
+        if ($normalized === null || !preg_match('#^data:([^;,]+)[;,]#i', $normalized, $match)) {
             return false;
         }
 
