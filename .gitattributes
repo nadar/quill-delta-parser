@@ -8,7 +8,6 @@ tests               export-ignore
 .gitingore          export-ignore
 .php-cs-fixer.php   export-ignore
 actions.phpunit.xml export-ignore
-CHANGELOG.md        export-ignore
 docker-compose.yml  export-ignore
 output.php          export-ignore
 phpstan.neon        export-ignore

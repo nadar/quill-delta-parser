@@ -2,7 +2,9 @@
 
 This document will help you upgrading from a version into another. For more detailed informations about the breaking changes **click the issue detail link**, there you can see examples of how to change your code.
 
-## from 3.5.0 to 3.5.1
+Only changes which noticeably alter the rendered HTML are listed here. The full list of changes per release is available in the [GitHub releases](https://github.com/nadar/quill-delta-parser/releases).
+
+## from 3.7.0 to 3.7.1
 
 + [GHSA-q7wv-vg5w-462j](https://github.com/nadar/quill-delta-parser/security/advisories/GHSA-q7wv-vg5w-462j) Fixed a stored XSS vulnerability: URI schemes from delta attributes (`link`, `image`, `video`) are now validated against an allowlist before being written into rendered `href`/`src` attributes. Values with unsafe schemes (like `javascript:`) are neutralized: links point to `#`, images and videos are not rendered. If you relied on rendering custom URI schemes (e.g. `ftp://`), add them to the `$safeSchemes` property of the corresponding listener:
 
@@ -12,6 +14,24 @@ $link->safeSchemes = ['http', 'https', 'mailto', 'tel', 'ftp'];
 
 $lexer->overwriteListener(new Link(), $link);
 ```
+
+## from 3.6.0 to 3.7.0
+
++ [#99](https://github.com/nadar/quill-delta-parser/pull/99) The new `Size` listener renders the `size` attribute as `<span style="font-size:...">`. Previously the attribute was ignored and produced no markup, so documents containing size information will now render with font sizes. This is especially relevant if font size is disabled in your Quill editor but users paste content from elsewhere which carries the attribute. To restore the previous behavior:
+
+```php
+$size = new Size();
+$size->ignore = true;
+
+// override the default listener behavior for size:
+$lexer = new Lexer($json);
+$lexer->registerListener($size);
+echo $lexer->render();
+```
+
+## from 3.5.0 to 3.6.0
+
++ [#98](https://github.com/nadar/quill-delta-parser/pull/98) Headings which also carry an `align` attribute are now rendered by the `Heading` listener instead of the `Align` listener. Such lines previously rendered as `<p style="text-align: ...">` and now render as `<h1 style="text-align: ...">` (respectively the matching heading level). Additionally an unknown alignment value now throws an `Exception` instead of being written into the markup. The accepted values can be adjusted through `Heading::$alignments` (defaults to `center`, `right`, `justify`, `left`).
 
 ## from 3.3.x to 3.4
 

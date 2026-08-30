@@ -11,7 +11,7 @@ namespace nadar\quill;
  * considered safe. Otherwise values like `javascript:alert(1)` would be written
  * verbatim into the rendered markup and lead to cross-site scripting (XSS).
  *
- * @since 3.5.1
+ * @since 3.7.1
  */
 class Uri
 {
