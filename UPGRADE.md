@@ -2,6 +2,17 @@
 
 This document will help you upgrading from a version into another. For more detailed informations about the breaking changes **click the issue detail link**, there you can see examples of how to change your code.
 
+## from 3.5.x to 3.6
+
++ [GHSA-q7wv-vg5w-462j](https://github.com/nadar/quill-delta-parser/security/advisories/GHSA-q7wv-vg5w-462j) Fixed a stored XSS vulnerability: URI schemes from delta attributes (`link`, `image`, `video`) are now validated against an allowlist before being written into rendered `href`/`src` attributes. Values with unsafe schemes (like `javascript:`) are neutralized: links point to `#`, images and videos are not rendered. If you relied on rendering custom URI schemes (e.g. `ftp://`), add them to the `$safeSchemes` property of the corresponding listener:
+
+```php
+$link = new Link();
+$link->safeSchemes = ['http', 'https', 'mailto', 'tel', 'ftp'];
+
+$lexer->overwriteListener(new Link(), $link);
+```
+
 ## from 3.3.x to 3.4
 
 + [#80](https://github.com/nadar/quill-delta-parser/issues/80) In this update, we have introduced a change where background color information from Quill JSON is now extracted and applied as the background color. This change may result in unexpected behavior if you had background color information present in your documents but it was not rendered correctly in previous versions. To restore the previous behavior and resolve any unexpected issues related to background color rendering, please follow these steps:

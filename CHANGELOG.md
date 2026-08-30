@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.6.0 (under development)
+
++ Fixed a stored cross-site scripting (XSS) vulnerability where `javascript:` (and other unsafe) URI schemes from delta attributes were written verbatim into rendered `href`/`src` attributes ([GHSA-q7wv-vg5w-462j](https://github.com/nadar/quill-delta-parser/security/advisories/GHSA-q7wv-vg5w-462j)):
+    + `Link` listener: URI schemes are validated against an allowlist (`Link::$safeSchemes`, defaults to `http`, `https`, `mailto`, `tel`), unsafe values are neutralized to `href="#"`.
+    + `Image` listener: URI schemes are validated (`Image::$safeSchemes`, defaults to `http`, `https` and `data` with `image/*` media types only via `Image::$dataMediaTypes`), unsafe values are not rendered.
+    + `Video` listener: URI schemes are validated (`Video::$safeSchemes`, defaults to `http`, `https`), unsafe values are not rendered.
+    + Scheme-less URIs (relative paths, anchors, protocol-relative URLs) remain fully supported, see new `nadar\quill\Uri` helper.
+
 ## 3.5.0 (27. March 2025)
 + [#96](https://github.com/nadar/quill-delta-parser/issues/96) Addded HTML rendering for lists with type "checked" and "unchecked".
 

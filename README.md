@@ -144,6 +144,32 @@ class MySuperDuperImageClass extends Image
 $lexer->overwriteListener(new Image(), new MySuperDuperImageClass());
 ```
 
+## Security: URI Scheme Validation
+
+Delta attributes like `link`, `image` and `video` are usually attacker controlled (user generated
+content) and end up in rendered `href` or `src` HTML attributes. Since version 3.6.0 the built-in
+listeners validate those values against a scheme allowlist, so payloads like
+`javascript:alert(1)` can no longer be injected into the markup:
+
++ **Link**: only `http`, `https`, `mailto` and `tel` schemes are rendered, everything else is neutralized to `href="#"`. Configure via `Link::$safeSchemes`.
++ **Image**: only `http` and `https` as well as `data:` URIs with an `image/*` media type (e.g. pasted base64 images) are rendered, unsafe values are not rendered at all. Configure via `Image::$safeSchemes` and `Image::$dataMediaTypes`.
++ **Video**: only `http` and `https` schemes are rendered, unsafe values are not rendered at all. Configure via `Video::$safeSchemes`.
+
+URIs without any scheme (relative paths, anchors like `#section`, protocol-relative URLs like
+`//example.com`) are always considered safe. The validation is case insensitive and normalizes
+control characters prior to detection, so bypass attempts like `JaVaScRiPt:` or `jav\tascript:`
+are detected as well.
+
+```php
+use nadar\quill\listener\Link;
+
+$link = new Link();
+// adjust the allowed schemes for href attributes to your needs
+$link->safeSchemes = ['https', 'mailto'];
+
+$lexer->overwriteListener(new Link(), $link);
+```
+
 ## Debugging
 
 Sometimes, understanding how delta is handled and parsed can be challenging to debug. Therefore, you can use the debugger class, which will print a table with information about how the data is parsed.

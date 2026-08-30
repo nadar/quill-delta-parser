@@ -4,6 +4,7 @@ namespace nadar\quill\listener;
 
 use nadar\quill\InlineListener;
 use nadar\quill\Line;
+use nadar\quill\Uri;
 
 /**
  * Convert links into a inline elements.
@@ -18,6 +19,15 @@ class Link extends InlineListener
      * @since 3.0.0
      */
     public $wrapperOpen = '<a href="{link}" target="_blank">';
+
+    /**
+     * @var array<string> The list of allowed URI schemes for the `href` attribute. Values with a
+     * scheme which is not part of this allowlist (like `javascript:`) are neutralized and point
+     * to `#` instead, otherwise this would allow cross-site scripting (XSS). URIs without any
+     * scheme (relative paths, anchors) are always allowed and can not be removed from validation.
+     * @since 3.6.0
+     */
+    public $safeSchemes = Uri::SAFE_SCHEMES;
 
     /**
      * @var string The content element in between
@@ -46,7 +56,7 @@ class Link extends InlineListener
             if ($previousLineHasSimilarLink === false) {
                 $wrapper .= $this->wrapperOpen;
                 $searchArgument[] = '{link}';
-                $replaceArgument[] = $line->getLexer()->escape($link);
+                $replaceArgument[] = Uri::isSafe($link, $this->safeSchemes) ? $line->getLexer()->escape($link) : '#';
             }
 
             $wrapper .= $this->wrapperMiddle;
