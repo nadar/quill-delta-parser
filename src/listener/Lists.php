@@ -74,7 +74,8 @@ class Lists extends BlockListener
 
             // if this is an empty line .... the first attribute contains the list information, otherwise
             // the first line contains content.
-            if ($first->getAttribute(self::ATTRIBUTE_LIST)) {
+            // Check both if first line has list attribute AND is actually empty (no content)
+            if ($first->getAttribute(self::ATTRIBUTE_LIST) && $first->getInput() === '') {
                 $isEmpty = true;
             }
 
@@ -85,7 +86,8 @@ class Lists extends BlockListener
                     ++$index;
                     $buffer.= $line->getInput();
                     $line->setDone();
-                    if ($index == $pick->line->getIndex()) {
+                    // Stop if this line is the pick line (handles both separate and combined ops)
+                    if ($line->getIndex() === $pick->line->getIndex()) {
                         return false;
                     }
                 });
