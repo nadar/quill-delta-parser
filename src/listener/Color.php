@@ -24,7 +24,7 @@ class Color extends InlineListener
      */
     public function process(Line $line)
     {
-        if (($color = $line->getAttribute('color'))) {
+        if (($color = $line->getAttribute('color')) && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, $this->ignore ? $line->getInput() : '<span style="color:'.$line->getLexer()->escape($color).'">'.$line->getInput().'</span>');
         }
     }

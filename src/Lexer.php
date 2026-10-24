@@ -357,6 +357,13 @@ class Lexer
                 $listener->process($line);
             }
         }
+
+        // process the listeners again which waited for the embed of this line to be converted
+        if ($type === Listener::TYPE_INLINE) {
+            foreach ($line->takeDeferredListeners() as $listener) {
+                $listener->process($line);
+            }
+        }
     }
 
     /**

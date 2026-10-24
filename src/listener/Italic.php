@@ -18,7 +18,7 @@ class Italic extends InlineListener
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('italic')) {
+        if ($line->getAttribute('italic') && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, '<em>'.$line->getInput().'</em>');
         }
     }

@@ -92,6 +92,16 @@ class Line
     protected $hasNewline;
 
     /**
+     * @var array<Listener> Listeners which postponed their processing until the embed (json insert) of this line is converted.
+     */
+    protected $deferredListeners = [];
+
+    /**
+     * @var boolean Whether the listeners have been given the chance to convert the embed (json insert) of this line.
+     */
+    protected $embedProcessed = false;
+
+    /**
      * @var array<string>
      */
     private $_debug = [];
@@ -588,6 +598,41 @@ class Line
         $insert = $this->getArrayInsert();
 
         return array_key_exists($key, $insert) ? $insert[$key] : false;
+    }
+
+    /**
+     * Postpone the processing of a listener until the embed (json insert) of this line is converted.
+     *
+     * @param Listener $listener The listener which will be processed again for this line.
+     * @return void
+     */
+    public function addDeferredListener(Listener $listener)
+    {
+        $this->deferredListeners[] = $listener;
+    }
+
+    /**
+     * Returns the postponed listeners and marks the embed of this line as processed, so the listeners won't postpone again.
+     *
+     * @return array<Listener>
+     */
+    public function takeDeferredListeners(): array
+    {
+        $listeners = $this->deferredListeners;
+        $this->deferredListeners = [];
+        $this->embedProcessed = true;
+
+        return $listeners;
+    }
+
+    /**
+     * Whether this line contains an embed (json insert) which has not been converted by a listener yet.
+     *
+     * @return boolean
+     */
+    public function hasUnprocessedEmbed()
+    {
+        return !$this->embedProcessed && $this->isJsonInsert();
     }
 
     /**

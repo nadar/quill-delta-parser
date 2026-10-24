@@ -18,7 +18,7 @@ class Bold extends InlineListener
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('bold')) {
+        if ($line->getAttribute('bold') && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, '<strong>'.$line->getInput().'</strong>');
         }
     }

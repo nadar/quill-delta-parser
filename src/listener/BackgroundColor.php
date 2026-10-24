@@ -24,7 +24,7 @@ class BackgroundColor extends InlineListener
      */
     public function process(Line $line)
     {
-        if (($color = $line->getAttribute('background'))) {
+        if (($color = $line->getAttribute('background')) && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, $this->ignore ? $line->getInput() : '<span style="background-color:'.$line->getLexer()->escape($color).'">'.$line->getInput().'</span>');
         }
     }

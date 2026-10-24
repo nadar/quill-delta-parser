@@ -24,7 +24,7 @@ class Font extends InlineListener
      */
     public function process(Line $line)
     {
-        if (($font = $line->getAttribute('font'))) {
+        if (($font = $line->getAttribute('font')) && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, $this->applyTemplate($font, $line));
         }
     }
