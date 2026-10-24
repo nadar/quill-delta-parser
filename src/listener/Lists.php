@@ -47,13 +47,18 @@ class Lists extends BlockListener
     public $checkListClass = 'list-unstyled';
 
     /**
+     * @var array<string> Supported alignments for list items.
+     */
+    public $alignments = ['center', 'right', 'justify', 'left'];
+
+    /**
      * {@inheritDoc}
      */
     public function process(Line $line)
     {
         $listType = $line->getAttribute(self::ATTRIBUTE_LIST);
         if ($listType) {
-            $this->pick($line, ['type' => $listType]);
+            $this->pick($line, ['type' => $listType, 'alignment' => $line->getAttribute('align')]);
             $line->setDone();
         }
     }
@@ -146,9 +151,9 @@ class Lists extends BlockListener
             });
 
             if ($isEmpty) {
-                $output .= '<li></li>';
+                $output .= '<li'.$this->getAlignmentStyle($pick).'></li>';
             } else {
-                $output .= '<li>';
+                $output .= '<li'.$this->getAlignmentStyle($pick).'>';
 
                 if ($isCheck) {
                     $output .= '<input type="checkbox" disabled';
@@ -210,6 +215,27 @@ class Lists extends BlockListener
 
         // prevent html injection in case the attribute is user input
         throw new Exception('The provided list type "'.$type.'" is not a known list type (ordered or bullet).');
+    }
+
+    /**
+     * Get the style attribute for an aligned list item, or an empty string when the item is not aligned.
+     *
+     * @return string
+     * @throws Exception for unknown alignment values
+     */
+    protected function getAlignmentStyle(Pick $pick)
+    {
+        $alignment = $pick->optionValue('alignment');
+        if (!$alignment) {
+            return '';
+        }
+
+        if (!in_array($alignment, $this->alignments, true)) {
+            // prevent html injection in case the attribute is user input
+            throw new Exception('An unknown alignment "' . $alignment . '" has been detected.');
+        }
+
+        return ' style="text-align: ' . $alignment . ';"';
     }
 
     /**
