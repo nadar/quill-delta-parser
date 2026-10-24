@@ -68,7 +68,6 @@ class Lists extends BlockListener
      */
     public function render(Lexer $lexer)
     {
-        $isEmpty = false;
         // the list tags (ol/ul) which are currently open, one entry per indent level
         /** @var array<int, string> $openLists */
         $openLists = [];
@@ -81,10 +80,8 @@ class Lists extends BlockListener
             $isLast = false;
 
             // if this is an empty line .... the first attribute contains the list information, otherwise
-            // the first line contains content.
-            if ($first->getAttribute(self::ATTRIBUTE_LIST)) {
-                $isEmpty = true;
-            }
+            // the first line contains content. This is evaluated for every list element.
+            $isEmpty = (bool) $first->getAttribute(self::ATTRIBUTE_LIST);
 
             // while from first to the pick line and store content in buffer
             $buffer = null;
