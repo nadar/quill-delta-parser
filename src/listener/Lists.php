@@ -68,9 +68,12 @@ class Lists extends BlockListener
      */
     public function render(Lexer $lexer)
     {
-        $isOpen = false;
         $isEmpty = false;
-        $listTag = null;
+        // the list tags (ol/ul) which are currently open, one entry per indent level
+        /** @var array<int, string> $openLists */
+        $openLists = [];
+        // whether the deepest open list has an open list item
+        $isItemOpen = false;
         foreach ($this->picks() as $pick) {
             $first = $this->getFirstLine($pick);
 
@@ -116,45 +119,50 @@ class Lists extends BlockListener
             }
 
             $output = null;
-
-            // this makes sure that when two list types are after each other (OL and UL)
-            // the previous will be closed so the new one will open
-            if ($isOpen && $listTag && $listTag !== $this->getListAttribute($pick)) {
-                $output .= '</'.$listTag.'>'.PHP_EOL;
-                $isOpen = false;
-            }
+            $listTag = $this->getListAttribute($pick);
+            $indent = max(0, (int) $pick->line->getAttribute('indent', 0));
 
             // defines whether this attribute list element is a checked/unchecked list or not.
             $isCheck = in_array($this->getPickType($pick), [self::LIST_TYPE_CHECKED, self::LIST_TYPE_UNCHECKED], true);
 
-            // create the opening OL/UL tag
+            // close all nested lists which are deeper than the current list element
+            while (count($openLists) > $indent + 1) {
+                $output .= '</li></'.array_pop($openLists).'>'.PHP_EOL;
+            }
+
+            // close the previous list element on the same level, and when two list types
+            // are after each other (OL and UL) close the previous list so the new one will open
+            if (count($openLists) === $indent + 1) {
+                $output .= '</li>'.PHP_EOL;
+                $isItemOpen = false;
+                if (end($openLists) !== $listTag) {
+                    $output .= '</'.array_pop($openLists).'>'.PHP_EOL;
+                    $isItemOpen = $openLists !== [];
+                }
+            }
+
+            // open the OL/UL tags up to the indent level of the current list element,
+            // skipped indent levels are wrapped into an empty list element to keep the html valid.
             // opening tag process has been simplified, see https://github.com/nadar/quill-delta-parser/pull/33
             // and https://github.com/nadar/quill-delta-parser/issues/30
-            if (!$isOpen) {
-                $output .= '<'.$this->getListAttribute($pick);
+            while (count($openLists) < $indent + 1) {
+                if ($openLists !== [] && !$isItemOpen) {
+                    $output .= '<li>';
+                }
+
+                $output .= '<'.$listTag;
                 if ($isCheck) {
                     $output .= ' class="'.$this->checkListClass.'"';
                 }
 
                 $output .= '>'.PHP_EOL;
-                $isOpen = true;
+                $openLists[] = $listTag;
+                $isItemOpen = false;
             }
 
-            // when the next line has a higher intened, add nested list
-            $nextIndent = 0;
-            $pick->line->whileNext(static function (Line $line) use (&$nextIndent) {
-                $indent = $line->getAttribute('indent', 0);
-                if ($line->getAttribute(self::ATTRIBUTE_LIST)) {
-                    $nextIndent = $indent;
-                    return false;
-                }
-            });
-
-            if ($isEmpty) {
-                $output .= '<li'.$this->getAlignmentStyle($pick).'></li>';
-            } else {
-                $output .= '<li'.$this->getAlignmentStyle($pick).'>';
-
+            // the list element itself is closed by the next list element or when the list ends
+            $output .= '<li'.$this->getAlignmentStyle($pick).'>';
+            if (!$isEmpty) {
                 if ($isCheck) {
                     $output .= '<input type="checkbox" disabled';
                     if ($this->getPickType($pick) === self::LIST_TYPE_CHECKED) {
@@ -165,30 +173,20 @@ class Lists extends BlockListener
                 } else {
                     $output .= $buffer;
                 }
-
-                if ($nextIndent > $pick->line->getAttribute('indent', 0)) {
-                    $output .= '<'.$this->getListAttribute($pick).'>'.PHP_EOL;
-                } elseif ($nextIndent < $pick->line->getAttribute('indent', 0)) {
-                    $output .= '</li></'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
-                    $closeGap = $pick->line->getAttribute('indent', 0) - $nextIndent;
-                    if ($closeGap > 1) {
-                        $output .= '</'.$this->getListAttribute($pick).'></li>'.PHP_EOL;
-                    }
-                } else {
-                    $output.= '</li>'.PHP_EOL;
-                }
             }
 
-            // close the opening OL/UL tag if:
-            //   a. its the last element and the tag is opened.
+            $isItemOpen = true;
+
+            // close all open list elements and lists if:
+            //   a. its the last element of a list serie.
             //   b. or its the last element in the picked list.
             if ($isLast || $pick->isLast()) {
-                $output .= '</'.$this->getListAttribute($pick).'>'.PHP_EOL;
-                $isOpen = false;
-            }
+                while ($openLists !== []) {
+                    $output .= '</li></'.array_pop($openLists).'>'.PHP_EOL;
+                }
 
-            // store the last list type into a variable to determine if type switches
-            $listTag = $this->getListAttribute($pick);
+                $isItemOpen = false;
+            }
 
             $pick->line->output = $output;
             $pick->line->setDone();
