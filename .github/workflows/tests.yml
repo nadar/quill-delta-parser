@@ -121,9 +121,16 @@ jobs:
         run: vendor/bin/phpunit --verbose --configuration actions.phpunit.xml
         if: matrix.php != '8.4'
 
+      ## phpunit 8 does not support code coverage on php 8, use phpunit 9 for the coverage run
+      - name: Install PHPUnit 9 for coverage
+        run: composer require --dev "phpunit/phpunit:^9.6" --with-all-dependencies --no-interaction
+        if: matrix.php == '8.4'
+
       ## unit test with coverage, on a supported php version
       - name: PHP Unit tests with coverage
-        run: vendor/bin/phpunit --verbose --coverage-clover=clover.xml --configuration actions.phpunit.xml
+        run: |
+          vendor/bin/phpunit --verbose --coverage-clover=clover.xml --configuration actions.phpunit.xml
+          test -f clover.xml || { echo "::error::clover.xml was not generated"; exit 1; }
         if: matrix.php == '8.4'
 
       ## coverage summary in the GitHub job summary, no 3rd party service needed
