@@ -25,6 +25,11 @@ class Align extends BlockListener
      */
     public function process(Line $line)
     {
+        // Skip lines which are already rendered by another listener, like a video embed
+        if ($line->isDone()) {
+            return;
+        }
+
         $alignment = $line->getAttribute('align');
         // Skip if line has a header attribute - let Heading listener handle it
         if ($alignment && !$line->getAttribute('header')) {
