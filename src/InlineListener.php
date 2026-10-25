@@ -35,6 +35,11 @@ abstract class InlineListener extends Listener
      */
     public function updateInput(Line $line, $value)
     {
+        // the line has already been rendered as a block element (e.g. a video embed), inline formats can not be applied
+        if ($line->output !== null) {
+            return;
+        }
+
         // we override the current element, and mark as done and mark as inline
         $line->setInput($value);
         $line->setDone();

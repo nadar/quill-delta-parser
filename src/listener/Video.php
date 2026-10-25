@@ -36,6 +36,17 @@ class Video extends BlockListener
 
     /**
      * {@inheritDoc}
+     *
+     * The video is processed together with the inline listeners, so the embed is converted before inline
+     * attribute listeners (like bold or link) wrap its json insert.
+     */
+    public function type(): int
+    {
+        return self::TYPE_INLINE;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function process(Line $line)
     {
