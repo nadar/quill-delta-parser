@@ -119,12 +119,12 @@ jobs:
       ## run unit tests
       - name: PHP Unit tests for PHP 
         run: vendor/bin/phpunit --verbose --configuration actions.phpunit.xml
-        if: matrix.php == '8.5' || matrix.php == '8.4' || matrix.php == '8.3' || matrix.php == '8.2' || matrix.php == '8.1' || matrix.php == '8.0' || matrix.php == '7.4' || matrix.php == '7.3' || matrix.php == '7.2'
+        if: matrix.php != '8.4'
 
-      ## unit test with coverage
-      - name: PHP Unit tests for PHP 7.2
+      ## unit test with coverage, on a supported php version
+      - name: PHP Unit tests with coverage
         run: vendor/bin/phpunit --verbose --coverage-clover=clover.xml --configuration actions.phpunit.xml
-        if: matrix.php == '7.2'
+        if: matrix.php == '8.4'
 
       ## coverage summary in the GitHub job summary, no 3rd party service needed
       - name: Coverage summary
@@ -134,7 +134,7 @@ jobs:
           echo "### Code coverage\n\n| Metric | Covered | Total | % |\n|---|---|---|---|\n";
           echo "| Lines | {$m["coveredstatements"]} | {$m["statements"]} | " . $pct((int) $m["coveredstatements"], (int) $m["statements"]) . " |\n";
           echo "| Methods | {$m["coveredmethods"]} | {$m["methods"]} | " . $pct((int) $m["coveredmethods"], (int) $m["methods"]) . " |\n";' >> $GITHUB_STEP_SUMMARY
-        if: matrix.php == '7.2'
+        if: matrix.php == '8.4'
 
       ## coverage upload to qlty.sh (successor of Code Climate)
       - name: Upload coverage to Qlty
@@ -142,5 +142,5 @@ jobs:
         with:
           oidc: true
           files: clover.xml
-        if: matrix.php == '7.2' && github.event_name == 'push'
+        if: matrix.php == '8.4' && github.event_name == 'push'
         continue-on-error: true
