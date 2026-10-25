@@ -3,8 +3,8 @@
 A PHP library to parse [Quill WYSIWYG](https://quilljs.com/) editor [deltas](https://github.com/quilljs/delta) into HTML - flexible and extendable for custom elements. Every element is parsed by the same mechanism, making it easy to extend and understand. It also sanitizes the output value, making it more secure, especially when using user-generated text.
 
 ![Tests](https://github.com/nadar/quill-delta-parser/workflows/Tests/badge.svg)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fdf80e7b61e4505bc421/maintainability)](https://codeclimate.com/github/nadar/quill-delta-parser/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/fdf80e7b61e4505bc421/test_coverage)](https://codeclimate.com/github/nadar/quill-delta-parser/test_coverage)
+[![Maintainability](https://qlty.sh/gh/nadar/projects/quill-delta-parser/maintainability.svg)](https://qlty.sh/gh/nadar/projects/quill-delta-parser)
+[![Code Coverage](https://qlty.sh/gh/nadar/projects/quill-delta-parser/coverage.svg)](https://qlty.sh/gh/nadar/projects/quill-delta-parser)
 [![Latest Stable Version](https://poser.pugx.org/nadar/quill-delta-parser/v/stable)](https://packagist.org/packages/nadar/quill-delta-parser)
 [![Total Downloads](https://poser.pugx.org/nadar/quill-delta-parser/downloads)](https://packagist.org/packages/nadar/quill-delta-parser)
 [![License](https://poser.pugx.org/nadar/quill-delta-parser/license)](https://packagist.org/packages/nadar/quill-delta-parser)
