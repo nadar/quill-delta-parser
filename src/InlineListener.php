@@ -49,6 +49,27 @@ abstract class InlineListener extends Listener
     }
 
     /**
+     * Postpones the processing of this listener when the line contains an embed (json insert) which is not converted yet.
+     *
+     * Attribute listeners like bold or italic wrap the line input. When they run before the listener of an embed (e.g. a
+     * mention), the embed would no longer be detected and its raw json is rendered instead. Therefore the attribute listener
+     * is processed again for this line, once all listeners had the chance to convert the embed.
+     *
+     * @param Line $line
+     * @return boolean Whether the processing has been postponed.
+     */
+    protected function deferUnprocessedEmbed(Line $line)
+    {
+        if (!$line->hasUnprocessedEmbed()) {
+            return false;
+        }
+
+        $line->addDeferredListener($this);
+
+        return true;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render(Lexer $lexer)

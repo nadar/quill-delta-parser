@@ -24,7 +24,7 @@ class Size extends InlineListener
      */
     public function process(Line $line)
     {
-        if (($size = $line->getAttribute('size'))) {
+        if (($size = $line->getAttribute('size')) && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, $this->ignore ? $line->getInput() : '<span style="font-size:'.$line->getLexer()->escape($size).'">'.$line->getInput().'</span>');
         }
     }

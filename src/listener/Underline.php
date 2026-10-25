@@ -18,7 +18,7 @@ class Underline extends InlineListener
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('underline')) {
+        if ($line->getAttribute('underline') && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, '<u>'.$line->getInput().'</u>');
         }
     }

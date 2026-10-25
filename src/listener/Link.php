@@ -47,7 +47,7 @@ class Link extends InlineListener
     public function process(Line $line)
     {
         $link = $line->getAttribute('link');
-        if ($link) {
+        if ($link && !$this->deferUnprocessedEmbed($line)) {
             $wrapper = '';
             $searchArgument = [];
             $replaceArgument = [];

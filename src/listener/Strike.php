@@ -18,7 +18,7 @@ class Strike extends InlineListener
      */
     public function process(Line $line)
     {
-        if ($line->getAttribute('strike')) {
+        if ($line->getAttribute('strike') && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, '<del>'.$line->getInput().'</del>');
         }
     }

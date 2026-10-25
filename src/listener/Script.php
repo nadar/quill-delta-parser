@@ -24,7 +24,7 @@ class Script extends InlineListener
      */
     public function process(Line $line)
     {
-        if (($script = $line->getAttribute('script'))) {
+        if (($script = $line->getAttribute('script')) && !$this->deferUnprocessedEmbed($line)) {
             $this->updateInput($line, $this->applyTemplate($script, $line));
         }
     }
