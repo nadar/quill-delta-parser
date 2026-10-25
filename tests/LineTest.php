@@ -73,6 +73,14 @@ class LineTest extends TestCase
 
         $this->assertSame('line 1', $prevLine->getInput());
 
+        $line2 = $lexer->getLine(2);
+        $this->assertSame('line 1', $line2->previous(function (Line $line) {
+            return $line->getInput() === 'line 1';
+        })->getInput());
+        $this->assertFalse($line2->previous(function (Line $line) {
+            return false;
+        }));
+
         $value = false;
         $lineNoPrevious = $line0->whilePrevious(function ($line) use (&$value) {
             $value = true;

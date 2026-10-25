@@ -80,4 +80,15 @@ class ParserTest extends TestCase
         $debug = new Debug($lexer);
         $this->assertNotNull($debug->debugPrint());
     }
+
+    public function testDebugPrintWithoutListeners()
+    {
+        // without listeners no line is picked or done
+        $lexer = new Lexer('[{"insert":"foo\nbar\n"}]', false);
+        $this->assertSame('', $lexer->render());
+
+        $debug = new Debug($lexer);
+        $this->assertStringContainsString('<td>bar</td>', $debug->debugPrint());
+        $this->assertSame('', $debug->lineStatus($lexer->getLine(0)));
+    }
 }
